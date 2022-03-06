@@ -3,7 +3,7 @@ up:
 build:
 	docker compose build --no-cache --force-rm
 laravel-install:
-	docker compose exec app composer create-project --prefer-dist laravel/laravel .
+	docker compose exec app composer create-project --prefer-dist "laravel/laravel=9.*" ."
 create-project:
 	mkdir -p src
 	@make build
@@ -15,7 +15,6 @@ create-project:
 	@make fresh
 install-recommend-packages:
 	docker compose exec app composer require doctrine/dbal
-	docker compose exec app composer require --dev ucan-lab/laravel-dacapo
 	docker compose exec app composer require --dev barryvdh/laravel-ide-helper
 	docker compose exec app composer require --dev beyondcode/laravel-dump-server
 	docker compose exec app composer require --dev barryvdh/laravel-debugbar
