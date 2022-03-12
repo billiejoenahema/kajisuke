@@ -41,4 +41,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * 紐づく家事を取得する
+     */
+    public function houseworks()
+    {
+        return $this->hasMany(Housework::class);
+    }
 }
