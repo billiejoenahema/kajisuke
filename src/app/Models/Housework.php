@@ -48,7 +48,7 @@ class Housework extends Model
     }
 
     /**
-     * 紐づく履歴を取得する
+     * 所有する履歴を取得する
      */
     public function archives()
     {
