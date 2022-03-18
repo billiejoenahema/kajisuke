@@ -4,7 +4,11 @@ use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\HouseworkController;
 use App\Http\Controllers\Api\ArchiveController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
+
+Route::post('/login', [LoginController::class, 'login']);
+Route::post('/logout', [LoginController::class, 'logout']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     // ログインユーザー
