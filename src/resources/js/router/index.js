@@ -1,10 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HouseworkList from '../pages/HouseworkList';
+import LoginForm from '../pages/LoginForm';
 
 const routes = [
   {
     path: '/',
     component: HouseworkList,
+  },
+  {
+    path: '/login',
+    component: LoginForm,
   },
 ];
 
