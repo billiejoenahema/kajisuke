@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ProfileResource;
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller
@@ -14,7 +15,9 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        //
+        $user = User::findOrFail(Auth::id());
+
+        return new ProfileResource($user);
     }
 
     /**
