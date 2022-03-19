@@ -13,16 +13,23 @@ const getters = {
 };
 
 const actions = {
-  async login({ commit }, param) {
+  async login({ commit }, data) {
     await axios
-      .post('/api/login', param)
-      .then((res) => {
-        console.log(res);
-        commit('resetErrors');
-        commit('setData', res.data);
+      .get('http://localhost:8000/sanctum/csrf-cookie', {
+        withCredentials: true,
       })
-      .catch((err) => {
-        commit('setErrors', err.message);
+      .then(async (res) => {
+        console.log(res.status);
+        await axios
+          .post('/api/login', data)
+          .then((res) => {
+            console.log(res.status);
+            commit('resetErrors');
+          })
+          .catch((err) => {
+            console.log(err.message);
+            commit('setErrors', err.message);
+          });
       });
   },
 };
