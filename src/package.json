@@ -15,5 +15,9 @@
         "lodash": "^4.17.19",
         "postcss": "^8.1.14",
         "vue-loader": "^16.8.3"
+    },
+    "dependencies": {
+        "vue": "^3.2.31",
+        "vue-router": "^4.0.14"
     }
 }
