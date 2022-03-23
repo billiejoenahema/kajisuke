@@ -4,3 +4,4 @@
 /node_modules
 src/public/js/app.js
 src/public/css
+src/public/mix-manifest.json
