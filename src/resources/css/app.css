@@ -1,0 +1,45 @@
+@import url('~simpledotcss/simple.min.css');
+
+.button {
+  display: flex;
+  align-items: center;
+  height: 2.5rem;
+  width: 100%;
+  margin: 0;
+  cursor: pointer;
+  justify-content: center;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+}
+.button:hover {
+  opacity: 0.8;
+}
+li.button.submit {
+  margin-top: 2rem;
+  background: #1565c0;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.column ul {
+  margin-left: 0;
+}
+.column label,
+.column input {
+  width: 100%;
+}
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0;
+}
+
+.error {
+  color: red;
+}
