@@ -1,3 +1,8 @@
-<script setup></script>
+<script setup>
+import NavigationBar from '../components/NavigationBar';
+</script>
 
-<template>Home</template>
+<template>
+  <NavigationBar />
+  <h2>Home</h2>
+</template>
