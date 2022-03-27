@@ -14,15 +14,9 @@
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
         "postcss": "^8.1.14",
-        "resolve-url-loader": "^5.0.0",
-        "sass": "^1.49.9",
-        "sass-loader": "^12.6.0",
-        "vue-loader": "^16.8.3"
+        "vue": "^3.2.31"
     },
     "dependencies": {
-        "prettier": "^2.6.0",
-        "simpledotcss": "^2.0.6",
-        "vue": "^3.2.31",
         "vue-router": "^4.0.14",
         "vuex": "^4.0.2"
     }
