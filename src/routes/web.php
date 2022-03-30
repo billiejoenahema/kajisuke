@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\CookieAuthenticationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,5 +13,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::post('/login', [CookieAuthenticationController::class, 'login']);
+Route::post('/logout', [CookieAuthenticationController::class, 'logout']);
 
 Route::get('/{any?}', fn() => view('index'))->where('any', '.+');
