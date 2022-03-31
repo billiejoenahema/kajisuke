@@ -1,5 +1,7 @@
 <script setup>
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { useStore } from 'vuex';
 
 defineProps({
   userName: {
@@ -7,7 +9,14 @@ defineProps({
     required: true,
   },
 });
+const router = useRouter();
+const store = useStore();
+
 const isShowUserMenu = ref(false);
+const logout = () => {
+  store.dispatch('auth/logout');
+  router.push('/login');
+};
 </script>
 
 <template>
@@ -22,5 +31,6 @@ const isShowUserMenu = ref(false);
     <div>{{ userName }}</div>
     <div>Settings</div>
     <div>Other</div>
+    <div @click="logout()">Logout</div>
   </div>
 </template>

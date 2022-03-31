@@ -22,11 +22,11 @@ const login = async () => {
 
 <template>
   <form class="column login-form">
-    <div class="column">
+    <p class="row">
       <label for="login-email">Email</label>
       <input v-model="user.email" id="login-email" name="email" type="email" />
-    </div>
-    <div class="column">
+    </p>
+    <p class="row">
       <label for="login-password">Password</label>
       <input
         v-model="user.password"
@@ -34,9 +34,7 @@ const login = async () => {
         name="password"
         type="password"
       />
-      <button class="button submit" @click.prevent.stop="login()">
-        Sign in
-      </button>
-    </div>
+      <button @click.prevent.stop="login()">Sign in</button>
+    </p>
   </form>
 </template>

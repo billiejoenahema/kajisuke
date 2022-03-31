@@ -3,6 +3,13 @@
 main {
   padding: 0;
 }
+.login-form {
+  margin: 0 auto;
+}
+.row {
+  display: flex;
+  flex-direction: column;
+}
 .nav {
   display: flex;
   justify-content: space-between;
