@@ -2,6 +2,7 @@
 import { computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
+import NavigationBar from '../components/NavigationBar.vue';
 
 const router = useRouter();
 const store = useStore();
@@ -18,6 +19,7 @@ onMounted(async () => {
 </script>
 
 <template>
+  <NavigationBar :userName="profile.name" />
   <div>Main Page</div>
   <div>UserName: {{ profile.name }}</div>
 </template>

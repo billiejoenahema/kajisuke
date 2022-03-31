@@ -1,1 +1,23 @@
 @import url('~simpledotcss/simple.min.css');
+
+main {
+  padding: 0;
+}
+.nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+}
+.nav > a {
+  text-decoration: none;
+  margin: 0;
+}
+.user-menu {
+  position: fixed;
+  top: 50px;
+  right: 0;
+  z-index: 2;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+}
