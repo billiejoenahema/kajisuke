@@ -14,7 +14,6 @@ const getters = {
     return state.data.id > 0 ? state.data : {};
   },
   isLogin(state) {
-    console.log(state.data);
     return state.data && state.data.id > 0;
   },
   hasErrors(state) {
@@ -30,7 +29,7 @@ const actions = {
     await axios
       .get('/api/profile')
       .then((res) => {
-        console.log(res.data.data);
+        console.log(res.status);
         commit('resetErrors');
         commit('setData', res.data.data);
       })
