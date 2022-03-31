@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const state = {
-  profile: {
+  data: {
     id: null,
     name: '',
   },
@@ -11,10 +11,11 @@ const state = {
 
 const getters = {
   profile(state) {
-    return state.profile.id ? profile : {};
+    return state.data.id > 0 ? state.data : {};
   },
   isLogin(state) {
-    return state.profile?.id !== null;
+    console.log(state.data);
+    return state.data && state.data.id > 0;
   },
   hasErrors(state) {
     return state.errors.length > 0 ?? false;
@@ -29,6 +30,7 @@ const actions = {
     await axios
       .get('/api/profile')
       .then((res) => {
+        console.log(res.data.data);
         commit('resetErrors');
         commit('setData', res.data.data);
       })
