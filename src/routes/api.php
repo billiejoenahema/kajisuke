@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\HouseworkController;
 use App\Http\Controllers\Api\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,5 +16,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
+    // ログインユーザー情報
     Route::get('/profile', ProfileController::class);
+    // 家事
+    Route::get('/housework', [HouseworkController::class, 'index']);
 });
