@@ -2,15 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -41,4 +39,28 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * 所有する家事を取得する。
+     */
+    public function houseworks()
+    {
+        return $this->hasMany(Housework::class);
+    }
+
+    /**
+     * 所有する家事表示順を取得する。
+     */
+    public function houseworkOrder()
+    {
+        return $this->hasOne(HouseworkOrder::class);
+    }
+
+    /**
+     * 所有するカテゴリを取得する。
+     */
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
+    }
 }
