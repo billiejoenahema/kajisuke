@@ -19,5 +19,5 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // ログインユーザー情報
     Route::get('/profile', ProfileController::class);
     // 家事
-    Route::get('/housework', [HouseworkController::class, 'index']);
+    Route::get('/houseworks', [HouseworkController::class, 'index']);
 });

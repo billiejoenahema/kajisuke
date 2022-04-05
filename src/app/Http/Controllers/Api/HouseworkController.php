@@ -21,7 +21,7 @@ class HouseworkController extends Controller
     {
         $user = Auth::user();
         $query = Housework::with(['archives', 'categories']);
-        $houseworks = $query->where('id', $user->id)->get();
+        $houseworks = $query->where('user_id', $user->id)->get();
         return HouseworkResource::collection($houseworks);
     }
 
