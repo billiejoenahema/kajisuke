@@ -1,5 +1,8 @@
 @import url('~simpledotcss/simple.min.css');
 
+body {
+  font-size: 0.9rem;
+}
 main {
   padding: 0;
 }
