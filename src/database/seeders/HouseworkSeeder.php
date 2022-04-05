@@ -14,11 +14,6 @@ class HouseworkSeeder extends Seeder
      */
     public function run()
     {
-        Housework::factory([
-            'user_id' => 1,
-            'title' => '家事サンプル',
-            'comment' => 'コメントサンプル',
-            'cycle' => '+1 week',
-        ])->create();
+        Housework::factory()->count(10)->create();
     }
 }
