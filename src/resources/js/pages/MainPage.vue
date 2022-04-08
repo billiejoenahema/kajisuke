@@ -3,6 +3,7 @@ import { computed, onMounted, ref } from 'vue';
 import VueElementLoading from 'vue-element-loading';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
+import HouseworkCreateModal from '../components/HouseworkCreateModal.vue';
 import NavigationBar from '../components/NavigationBar';
 
 const router = useRouter();
@@ -11,7 +12,12 @@ const store = useStore();
 const profile = computed(() => store.getters['profile/profile']);
 const isLogin = computed(() => store.getters['profile/isLogin']);
 const isLoading = ref(false);
+const isModalOpen = ref(false);
 const houseworks = computed(() => store.getters['housework/data']);
+
+const closeModal = () => {
+  isModalOpen.value = false;
+};
 
 onMounted(async () => {
   await store.dispatch('profile/get');
@@ -35,6 +41,8 @@ onMounted(async () => {
     spinner="spinner"
     is-full-screen
   />
+  <div><button @click="isModalOpen = true">新規作成</button></div>
+  <HouseworkCreateModal v-if="isModalOpen" :closeModal="closeModal" />
   <table>
     <thead>
       <tr>
