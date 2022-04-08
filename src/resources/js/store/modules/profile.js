@@ -17,7 +17,7 @@ const getters = {
     return state.data && state.data.id > 0;
   },
   hasErrors(state) {
-    return state.errors.length > 0 ?? false;
+    return state.errors?.length > 0;
   },
   errors(state) {
     return state.errors ?? [];

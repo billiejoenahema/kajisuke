@@ -6,7 +6,7 @@ const state = {
 
 const getters = {
   hasErrors(state) {
-    return state.errors.length > 0 ?? false;
+    return state.errors?.length > 0;
   },
   errors(state) {
     return state.errors ?? [];
