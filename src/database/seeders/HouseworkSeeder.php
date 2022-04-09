@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use App\Models\Housework;
 use Illuminate\Database\Seeder;
 
@@ -14,6 +15,10 @@ class HouseworkSeeder extends Seeder
      */
     public function run()
     {
-        Housework::factory()->count(10)->create();
+        $categories = Category::factory()->count(10)->create();
+        foreach($categories as $category) {
+            $housework = Housework::factory()->create();
+            $housework->categories()->attach($category->id);
+        }
     }
 }
