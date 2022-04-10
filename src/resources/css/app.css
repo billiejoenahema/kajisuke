@@ -31,3 +31,6 @@ main {
   display: flex;
   flex-direction: column;
 }
+.housework-title {
+  font-size: 0.7rem;
+}

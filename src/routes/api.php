@@ -20,4 +20,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/profile', ProfileController::class);
     // 家事
     Route::get('/houseworks', [HouseworkController::class, 'index']);
+    // カテゴリ
+    Route::get('/categories', [CategoryController::class, 'index']);
 });

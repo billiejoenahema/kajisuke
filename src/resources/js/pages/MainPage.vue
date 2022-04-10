@@ -52,7 +52,14 @@ onMounted(async () => {
     </thead>
     <tbody>
       <tr v-for="item in houseworks" :key="item.id">
-        <td>{{ item.title }}</td>
+        <td>
+          <div class="housework-title">
+            <mark v-for="category in item.categories" :key="category.id">{{
+              category.name
+            }}</mark>
+          </div>
+          <div>{{ item.title }}</div>
+        </td>
         <td>{{ item.comment }}</td>
       </tr>
     </tbody>

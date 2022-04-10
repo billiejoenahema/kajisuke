@@ -21,7 +21,7 @@ class HouseworkResource extends JsonResource
             'comment' => $this->comment,
             'cycle' => $this->cycle,
             // 'archives' => ArchiveResource::collection($this->archives),
-            // 'categories' => CategoryResource::collection($this->categories),
+            'categories' => CategoryResource::collection($this->categories),
         ];
     }
 }
