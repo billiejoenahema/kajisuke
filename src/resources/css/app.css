@@ -31,6 +31,9 @@ main {
   display: flex;
   flex-direction: column;
 }
+.user-menu-item {
+  cursor: default;
+}
 .housework-title {
   font-size: 0.7rem;
 }

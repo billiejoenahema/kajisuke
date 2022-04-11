@@ -27,10 +27,10 @@ const logout = () => {
     }}</a>
   </nav>
   <div class="user-menu" v-if="isShowUserMenu">
-    <div>Menu</div>
-    <div>{{ userName }}</div>
-    <div>Settings</div>
-    <div>Other</div>
-    <div @click="logout()">Logout</div>
+    <div class="user-menu-item">Menu</div>
+    <div class="user-menu-item">{{ userName }}</div>
+    <div class="user-menu-item">Settings</div>
+    <div class="user-menu-item">Other</div>
+    <div class="user-menu-item" @click="logout()">Logout</div>
   </div>
 </template>
