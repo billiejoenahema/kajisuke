@@ -19,8 +19,8 @@ class HouseworkFactory extends Factory
         $cycles = ['day', 'week', 'month', 'year'];
         return [
             'user_id' => 1,
-            'title' => '家事' . rand(1,10),
-            'comment' => 'コメントサンプル' . rand(1,10),
+            'title' => '家事' . rand(1,99),
+            'comment' => 'コメントサンプル' . rand(1,99),
             'cycle' => '+' . rand(1, 4) . ' ' . $cycles[array_rand($cycles)],
         ];
     }
