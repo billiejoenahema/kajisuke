@@ -32,13 +32,9 @@ onMounted(async () => {
   }
 });
 const changeOrder = async () => {
-  await store.dispatch(
-    'houseworkOrder/patch',
-    getNewOrderIds(houseworks.value)
-  );
-  //   await store.dispatch('houseworkOrder/get');
+  await store.dispatch('houseworkOrder/patch', newOrderIds(houseworks.value));
 };
-const getNewOrderIds = (houseworks) => {
+const newOrderIds = (houseworks) => {
   const ids = houseworks.map((item) => {
     return item.id;
   });
