@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id')->comment('ユーザーID')->index();
 
             $table->text('order')->comment('表示順');
+            $table->timestamps();
             $table->softDeletes();
         });
     }
