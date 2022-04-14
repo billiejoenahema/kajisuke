@@ -1,5 +1,6 @@
 <script setup>
 import { computed, onMounted, ref } from 'vue';
+import { VueDraggableNext as draggable } from 'vue-draggable-next';
 import VueElementLoading from 'vue-element-loading';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
@@ -14,6 +15,7 @@ const isLogin = computed(() => store.getters['profile/isLogin']);
 const isLoading = ref(false);
 const isModalOpen = ref(false);
 const houseworks = computed(() => store.getters['housework/data']);
+const sortedHouseworks = ref([]);
 
 const closeModal = () => {
   isModalOpen.value = false;
@@ -29,6 +31,19 @@ onMounted(async () => {
     isLoading.value = false;
   }
 });
+const changeOrder = async () => {
+  await store.dispatch(
+    'houseworkOrder/patch',
+    getNewOrderIds(houseworks.value)
+  );
+  //   await store.dispatch('houseworkOrder/get');
+};
+const getNewOrderIds = (houseworks) => {
+  const ids = houseworks.map((item) => {
+    return item.id;
+  });
+  return ids.join();
+};
 </script>
 
 <template>
@@ -51,17 +66,26 @@ onMounted(async () => {
       </tr>
     </thead>
     <tbody>
-      <tr v-for="item in houseworks" :key="item.id">
-        <td>
-          <div class="housework-title">
-            <mark v-for="category in item.categories" :key="category.id">{{
-              category.name
-            }}</mark>
-          </div>
-          <div>{{ item.title }}</div>
-        </td>
-        <td>{{ item.comment }}</td>
-      </tr>
+      <draggable
+        class="dragArea list-group w-full"
+        group="housework"
+        :list="houseworks"
+        sort="true"
+        @end="changeOrder()"
+        v-model="houseworks"
+      >
+        <tr class="list-group-item" v-for="item in houseworks" :key="item.id">
+          <td>
+            <div class="housework-title">
+              <mark v-for="category in item.categories" :key="category.id">{{
+                category.name
+              }}</mark>
+            </div>
+            <div>{{ item.title }}</div>
+          </td>
+          <td>{{ item.comment }}</td>
+        </tr>
+      </draggable>
     </tbody>
   </table>
 </template>

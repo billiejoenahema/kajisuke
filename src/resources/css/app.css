@@ -37,3 +37,6 @@ main {
 .housework-title {
   font-size: 0.7rem;
 }
+.dragArea {
+  width: 100%;
+}
