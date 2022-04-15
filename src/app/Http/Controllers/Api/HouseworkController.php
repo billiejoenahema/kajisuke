@@ -7,6 +7,7 @@ use App\Http\Requests\StoreHouseworkRequest;
 use App\Http\Requests\UpdateHouseworkRequest;
 use App\Http\Resources\HouseworkResource;
 use App\Models\Housework;
+use App\Models\HouseworkOrder;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,8 +21,11 @@ class HouseworkController extends Controller
     public function index(): AnonymousResourceCollection
     {
         $user = Auth::user();
+        $order = HouseworkOrder::where('user_id', $user->id)->first();
+        $order = $order['order'];
         $query = Housework::with(['archives', 'categories']);
-        $houseworks = $query->where('user_id', $user->id)->get();
+        $houseworks = $query->where('user_id', $user->id)->orderByRaw("FIELD(id, $order)")->get();
+
         return HouseworkResource::collection($houseworks);
     }
 
