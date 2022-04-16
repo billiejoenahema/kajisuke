@@ -54,34 +54,34 @@ const newOrderIds = (houseworks) => {
   />
   <div><button @click="isModalOpen = true">新規作成</button></div>
   <HouseworkCreateModal v-if="isModalOpen" :closeModal="closeModal" />
-  <table>
-    <thead>
-      <tr>
-        <th class="title">家事</th>
-        <th class="schedule">----------- スケジュール -----------</th>
-      </tr>
-    </thead>
-    <tbody>
-      <draggable
-        class="dragArea list-group w-full"
-        group="housework"
-        :list="houseworks"
-        sort="true"
-        @end="changeOrder()"
-        v-model="houseworks"
+  <div class="column list-body">
+    <div class="row list-header">
+      <div class="title">家事</div>
+      <div class="schedule">----------- スケジュール -----------</div>
+    </div>
+    <draggable
+      class="dragArea list-group w-full"
+      group="housework"
+      :list="houseworks"
+      sort="true"
+      @end="changeOrder()"
+      v-model="houseworks"
+    >
+      <div
+        class="list-group-item row"
+        v-for="item in houseworks"
+        :key="item.id"
       >
-        <tr class="list-group-item" v-for="item in houseworks" :key="item.id">
-          <td>
-            <div class="housework-title">
-              <mark v-for="category in item.categories" :key="category.id">{{
-                category.name
-              }}</mark>
-            </div>
-            <div>{{ item.title }}</div>
-          </td>
-          <td>{{ item.comment }}</td>
-        </tr>
-      </draggable>
-    </tbody>
-  </table>
+        <div class="column title">
+          <div class="housework-title">
+            <mark v-for="category in item.categories" :key="category.id">{{
+              category.name
+            }}</mark>
+          </div>
+          <div>{{ item.title }}</div>
+        </div>
+        <div class="schedule">{{ item.comment }}</div>
+      </div>
+    </draggable>
+  </div>
 </template>
