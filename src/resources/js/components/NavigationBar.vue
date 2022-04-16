@@ -1,17 +1,37 @@
 <script setup>
-import { ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 
-defineProps({
+const props = defineProps({
   userName: {
     type: String,
     required: true,
   },
+  isLoading: {
+    type: Boolean,
+    required: true,
+  },
+  setIsLoading: {
+    type: Function,
+    required: true,
+  },
 });
-const router = useRouter();
-const store = useStore();
 
+const store = useStore();
+const router = useRouter();
+
+onMounted(async () => {
+  await store.dispatch('profile/get');
+  if (!isLogin.value) {
+    router.push('/login');
+  } else {
+    props.setIsLoading(true);
+    await store.dispatch('housework/get');
+    props.setIsLoading(false);
+  }
+});
+const isLogin = computed(() => store.getters['profile/isLogin']);
 const isShowUserMenu = ref(false);
 const logout = () => {
   store.dispatch('auth/logout');
