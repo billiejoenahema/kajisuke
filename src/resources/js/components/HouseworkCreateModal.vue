@@ -17,28 +17,53 @@ const categories = computed(() => store.getters['category/data']);
 const housework = reactive({
   title: '',
   comment: '',
-  cycle: '',
+  cycle_num: '',
+  cycle_unit: '',
   category_id: 0,
 });
+const cycleNumbers = [...Array(31).keys()].map((i) => ++i);
 const storeHousework = async () => {
   await store.dispatch('housework/post', housework);
   // 正常に保存されたらリセットする
   resetHousework();
+  closeModal();
 };
 const resetHousework = () => {
   housework.title = '';
   housework.comment = '';
-  housework.cycle = '';
+  housework.cycle = {
+    num: '',
+    unit: '',
+  };
   housework.category_id = 0;
 };
 </script>
 
 <template>
-  <div class="modal" v-if="isModalOpen" @click.self="isModalOpen = false">
+  <div class="modal" @click.self="closeModal()">
     <div class="housework-input-area">
+      <label>家事名</label>
       <input class="housework-title-input" v-model="housework.title" />
+      <label>詳細</label>
       <textarea v-model="housework.comment" rows="8"></textarea>
-      <input class="housework-cycle" v-model="housework.cycle" />
+      <div class="column">
+        <label>実行周期</label>
+        <div class="housework-cycle">
+          <select v-model="housework.cycle_num">
+            <option v-for="num in cycleNumbers" :key="num" :value="'+' + num">
+              {{ num }}
+            </option>
+          </select>
+          <select v-model="housework.cycle_unit">
+            <option value="day">日</option>
+            <option value="week">週</option>
+            <option value="month">月</option>
+            <option value="year">年</option>
+          </select>
+          <span> に一度</span>
+        </div>
+      </div>
+      <label>カテゴリ</label>
       <select
         class="category-select"
         v-model="housework.category_id"
