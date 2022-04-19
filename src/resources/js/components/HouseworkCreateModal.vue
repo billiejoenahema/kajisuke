@@ -4,7 +4,7 @@ import { useStore } from 'vuex';
 
 const store = useStore();
 
-defineProps({
+const props = defineProps({
   closeModal: {
     type: Function,
     required: true,
@@ -26,15 +26,14 @@ const storeHousework = async () => {
   await store.dispatch('housework/post', housework);
   // 正常に保存されたらリセットする
   resetHousework();
-  closeModal();
+  props.closeModal();
+  store.dispatch('housework/get');
 };
 const resetHousework = () => {
   housework.title = '';
   housework.comment = '';
-  housework.cycle = {
-    num: '',
-    unit: '',
-  };
+  housework.cycle_num = '';
+  housework.cycle_unit = '';
   housework.category_id = 0;
 };
 </script>

@@ -7,7 +7,10 @@ const state = {
       user_id: 0,
       title: '',
       comment: '',
-      cycle: '',
+      cycle: {
+        num: '',
+        unit: '',
+      },
     },
   ],
   errors: [],
