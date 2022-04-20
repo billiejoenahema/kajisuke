@@ -28,6 +28,7 @@ onMounted(async () => {
   } else {
     props.setIsLoading(true);
     await store.dispatch('housework/get');
+    await store.dispatch('category/get');
     props.setIsLoading(false);
   }
 });

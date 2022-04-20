@@ -1,5 +1,5 @@
 <script setup>
-import { computed, defineProps, reactive } from 'vue';
+import { computed, reactive } from 'vue';
 import { useStore } from 'vuex';
 
 const store = useStore();
@@ -10,8 +10,6 @@ const props = defineProps({
     required: true,
   },
 });
-
-store.dispatch('category/get');
 
 const categories = computed(() => store.getters['category/data']);
 const housework = reactive({

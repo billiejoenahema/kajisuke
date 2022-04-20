@@ -1,5 +1,5 @@
 <script setup>
-import { computed, defineProps } from 'vue';
+import { computed } from 'vue';
 import { VueDraggableNext as draggable } from 'vue-draggable-next';
 import { useStore } from 'vuex';
 
