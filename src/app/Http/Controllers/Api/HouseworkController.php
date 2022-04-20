@@ -10,6 +10,7 @@ use App\Models\Housework;
 use App\Models\HouseworkOrder;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class HouseworkController extends Controller
 {
@@ -22,10 +23,11 @@ class HouseworkController extends Controller
     {
         $user = Auth::user();
         $order = HouseworkOrder::where('user_id', $user->id)->first();
-        $order = $order['order'];
+        $order = $order['order'] ?? null;
         $query = Housework::with(['archives', 'categories']);
-        $houseworks = $query->where('user_id', $user->id)->orderByRaw("FIELD(id, $order)")->get();
-
+        $houseworks = $query->where('user_id', $user->id)->when($order, function ($q) use ($order) {
+            $q->orderByRaw("FIELD(id, $order)");
+        })->get();
         return HouseworkResource::collection($houseworks);
     }
 
@@ -37,7 +39,19 @@ class HouseworkController extends Controller
      */
     public function store(StoreHouseworkRequest $request)
     {
-        //
+        $housework = DB::transaction(function () use ($request) {
+           $housework = Housework::create([
+                'user_id' => Auth::user()->id,
+                'title' => $request['title'],
+                'comment' => $request['comment'],
+                'cycle' => $request->getCycle(),
+            ]);
+            $housework->categories()->sync($request['category_id']);
+
+            return $housework;
+        });
+
+        return new HouseworkResource($housework);
     }
 
     /**

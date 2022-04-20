@@ -22,6 +22,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/profile', ProfileController::class);
     // 家事
     Route::get('/houseworks', [HouseworkController::class, 'index']);
+    Route::post('/houseworks', [HouseworkController::class, 'store']);
     // 家事表示順
     Route::get('/housework_orders', [HouseworkOrderController::class, 'index']);
     Route::patch('/housework_orders', [HouseworkOrderController::class, 'update']);
