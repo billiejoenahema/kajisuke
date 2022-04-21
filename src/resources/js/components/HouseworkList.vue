@@ -29,6 +29,7 @@ const newOrderIds = (houseworks) => {
     <div class="row list-header">
       <div class="title">家事</div>
       <div class="schedule">----------- スケジュール -----------</div>
+      <div class="next-date">実施予定日</div>
     </div>
     <draggable
       class="dragArea list-group w-full"
@@ -52,6 +53,7 @@ const newOrderIds = (houseworks) => {
           <div>{{ item.title }}</div>
         </div>
         <div class="schedule">{{ item.comment }}</div>
+        <div class="next">{{ item.next_date }}</div>
       </div>
     </draggable>
   </div>
