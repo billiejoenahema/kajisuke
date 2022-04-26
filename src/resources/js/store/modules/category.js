@@ -38,6 +38,18 @@ const actions = {
         commit('setData', {});
       });
   },
+  async post({ commit }, data) {
+    await axios
+      .post('/api/categories', data)
+      .then((res) => {
+        console.log(res.status);
+        commit('resetErrors');
+      })
+      .catch((err) => {
+        console.log(err);
+        commit('setErrors', err.message);
+      });
+  },
 };
 
 const mutations = {
