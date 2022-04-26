@@ -2,6 +2,7 @@
 import { computed, ref } from 'vue';
 import VueElementLoading from 'vue-element-loading';
 import { useStore } from 'vuex';
+import CategoryCreateModal from '../components/CategoryCreateModal';
 import HouseworkCreateModal from '../components/HouseworkCreateModal';
 import HouseworkList from '../components/HouseworkList';
 import NavigationBar from '../components/NavigationBar';
@@ -11,12 +12,16 @@ const store = useStore();
 const profile = computed(() => store.getters['profile/profile']);
 
 const isLoading = ref(false);
-const isModalOpen = ref(false);
+const modalOpen = ref('');
 const setIsLoading = (bool) => {
   isLoading.value = bool;
 };
+const setModalOpen = (prop) => {
+  // prop: string
+  modalOpen.value = prop;
+};
 const closeModal = () => {
-  isModalOpen.value = false;
+  modalOpen.value = '';
 };
 </script>
 
@@ -34,7 +39,17 @@ const closeModal = () => {
     spinner="spinner"
     is-full-screen
   />
-  <div><button @click="isModalOpen = true">新規作成</button></div>
-  <HouseworkCreateModal v-if="isModalOpen" :closeModal="closeModal" />
+  <div class="row">
+    <button @click="setModalOpen('housework')">家事を新規登録する</button>
+    <button @click="setModalOpen('category')">カテゴリを新規作成する</button>
+  </div>
+  <HouseworkCreateModal
+    v-if="modalOpen === 'housework'"
+    :closeModal="closeModal"
+  />
+  <CategoryCreateModal
+    v-if="modalOpen === 'category'"
+    :closeModal="closeModal"
+  />
   <HouseworkList />
 </template>

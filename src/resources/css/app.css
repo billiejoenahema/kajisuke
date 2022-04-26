@@ -90,9 +90,10 @@ button {
   z-index: 2;
   background: rgba(0, 0, 0, 0.8);
 }
-.housework-input-area {
+.housework-input-area,
+.category-input-area {
   margin: auto;
-  max-width: 500px;
+  width: 500px;
   background: rgb(45, 45, 45);
   padding: 16px;
 }
