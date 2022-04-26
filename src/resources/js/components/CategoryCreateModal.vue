@@ -1,5 +1,5 @@
 <script setup>
-import { reactive } from 'vue';
+import { computed, reactive } from 'vue';
 import { useStore } from 'vuex';
 
 const store = useStore();
@@ -14,6 +14,7 @@ const props = defineProps({
 const category = reactive({
   name: '',
 });
+const categories = computed(() => store.getters['category/data']);
 const storeCategory = async () => {
   await store.dispatch('category/post', category);
   // 正常に保存されたらstateをリセットする
@@ -33,7 +34,15 @@ const resetCategory = () => {
 <template>
   <div class="modal" @click.self="closeModal()">
     <div class="category-input-area">
-      <label>カテゴリ名</label>
+      <ul>
+        <li
+          class="category-list"
+          v-for="category in categories"
+          :key="category.id"
+        >
+          {{ category.name }}
+        </li>
+      </ul>
       <input v-model="category.name" />
       <div class="store-button-area">
         <button class="store-button" @click="storeCategory()">作成する</button>
