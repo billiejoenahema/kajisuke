@@ -32,7 +32,16 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        //
+        $category = DB::transaction(function () use ($request) {
+           $category = Category::create([
+                'user_id' => Auth::user()->id,
+                'name' => $request['name'],
+            ]);
+
+            return $category;
+        });
+
+        return new CategoryResource($category);
     }
 
     /**

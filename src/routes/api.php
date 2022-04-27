@@ -28,4 +28,5 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::patch('/housework_orders', [HouseworkOrderController::class, 'update']);
     // カテゴリ
     Route::get('/categories', [CategoryController::class, 'index']);
+    Route::post('/categories', [CategoryController::class, 'store']);
 });
