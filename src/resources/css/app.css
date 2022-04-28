@@ -97,6 +97,10 @@ button {
   background: rgb(45, 45, 45);
   padding: 16px;
 }
+.category-list {
+  max-height: 300px;
+  overflow: auto;
+}
 .housework-cycle > select {
   width: 15%;
   margin-right: 8px;

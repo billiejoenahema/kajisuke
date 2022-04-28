@@ -1,6 +1,7 @@
 <script setup>
-import { computed, reactive } from 'vue';
+import { computed, onMounted, reactive, ref } from 'vue';
 import { useStore } from 'vuex';
+import { scrollToBottom } from '../utilities/scrollToBottom';
 
 const store = useStore();
 
@@ -10,33 +11,29 @@ const props = defineProps({
     required: true,
   },
 });
+const categoryListRef = ref(null);
 
+onMounted(() => {
+  scrollToBottom('category-list'); // prop: string
+});
 const category = reactive({
   name: '',
 });
 const categories = computed(() => store.getters['category/data']);
 const storeCategory = async () => {
   await store.dispatch('category/post', category);
-  // 正常に保存されたらstateをリセットする
-  resetCategory();
-  props.closeModal();
-  store.dispatch('category/get');
-};
-const resetCategory = () => {
-  housework.title = '';
-  housework.comment = '';
-  housework.cycle_num = '';
-  housework.cycle_unit = '';
-  housework.category_id = 0;
+  await store.dispatch('category/get');
+  scrollToBottom('category-list');
+  category.name = '';
 };
 </script>
 
 <template>
   <div class="modal" @click.self="closeModal()">
     <div class="category-input-area">
-      <ul>
+      <ul class="category-list" id="category-list">
         <li
-          class="category-list"
+          class="category-list-item"
           v-for="category in categories"
           :key="category.id"
         >
