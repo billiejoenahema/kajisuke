@@ -76,6 +76,9 @@ button {
   display: grid;
   grid-template-columns: 2fr 6fr 2fr;
 }
+.list-group-item:hover {
+  background: rgb(65, 65, 65);
+}
 
 /* Modal */
 .modal {

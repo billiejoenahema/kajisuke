@@ -11,8 +11,6 @@ const props = defineProps({
     required: true,
   },
 });
-const categoryListRef = ref(null);
-
 onMounted(() => {
   scrollToBottom('category-list'); // prop: string
 });
