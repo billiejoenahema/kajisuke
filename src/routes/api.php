@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\HouseworkController;
 use App\Http\Controllers\Api\HouseworkOrderController;
 use App\Http\Controllers\Api\ProfileController;
+use App\Models\Housework;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,7 +22,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // ログインユーザー情報
     Route::get('/profile', ProfileController::class);
     // 家事
-    Route::get('/houseworks', [HouseworkController::class, 'index']);
+    Route::get('/houseworks', [HouseworkController::class, 'index'])->can('viewAny', Housework::class);
     Route::post('/houseworks', [HouseworkController::class, 'store']);
     // 家事表示順
     Route::get('/housework_orders', [HouseworkOrderController::class, 'index']);
