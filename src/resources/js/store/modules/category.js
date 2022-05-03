@@ -4,7 +4,6 @@ const state = {
   data: [
     {
       id: null,
-      user_id: 0,
       name: '',
     },
   ],

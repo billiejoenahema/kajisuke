@@ -17,8 +17,9 @@ class HouseworkSeeder extends Seeder
     {
         $categories = Category::factory()->count(10)->create();
         foreach($categories as $category) {
-            $housework = Housework::factory()->create();
-            $housework->categories()->attach($category->id);
+            Housework::factory()->create([
+                'category_id' => $category->id,
+            ]);
         }
     }
 }

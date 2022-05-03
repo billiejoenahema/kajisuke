@@ -16,6 +16,7 @@ class Housework extends Model
      */
     protected $fillable = [
         'user_id',
+        'category_id',
         'title',
         'comment',
         'cycle',
@@ -40,8 +41,8 @@ class Housework extends Model
     /**
      * 紐づくカテゴリを取得する。
      */
-    public function categories()
+    public function category()
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsTo(Category::class);
     }
 }

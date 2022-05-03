@@ -28,10 +28,10 @@ class Category extends Model
     }
 
     /**
-     * 紐づく家事を取得する。
+     * 所有する家事を取得する。
      */
-    public function Houseworks()
+    public function houseworks()
     {
-        return $this->belongsToMany(Housework::class);
+        return $this->hasMany(Housework::class);
     }
 }

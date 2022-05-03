@@ -23,12 +23,11 @@ class HouseworkResource extends JsonResource
 
         return [
             'id' => $this->id,
-            'user_id' => $this->user_id,
             'title' => $this->title,
             'comment' => $this->comment,
+            'category' => new CategoryResource($this->category),
             'cycle' => $cycle,
             // 'archives' => ArchiveResource::collection($this->archives),
-            'categories' => CategoryResource::collection($this->categories),
             'next_date' => HouseworkService::getNextDate($this->cycle, $this->updated_at),
         ];
     }

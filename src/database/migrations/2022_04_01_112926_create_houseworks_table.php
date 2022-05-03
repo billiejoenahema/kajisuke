@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('houseworks', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->comment('ユーザーID')->index();
+            $table->unsignedBigInteger('category_id')->comment('カテゴリ')->index();
 
             $table->string('title')->comment('タイトル');
             $table->string('comment')->comment('コメント');

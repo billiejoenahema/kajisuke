@@ -23,8 +23,8 @@ class HouseworkController extends Controller
     {
         $user = Auth::user();
         $order = HouseworkOrder::where('user_id', $user->id)->first();
-        $order = $order['order'] ?? null;
-        $query = Housework::with(['archives', 'categories']);
+        $order = $order['order'] == 0 ? null : $order;
+        $query = Housework::with(['archives', 'category']);
         $houseworks = $query->where('user_id', $user->id)->when($order, function ($q) use ($order) {
             $q->orderByRaw("FIELD(id, $order)");
         })->get();
@@ -45,8 +45,8 @@ class HouseworkController extends Controller
                 'title' => $request['title'],
                 'comment' => $request['comment'],
                 'cycle' => $request->getCycle(),
+                'category_id' => $request->category_id,
             ]);
-            $housework->categories()->sync($request['category_id']);
 
             return $housework;
         });
