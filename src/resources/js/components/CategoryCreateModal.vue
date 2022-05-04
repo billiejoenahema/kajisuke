@@ -6,10 +6,7 @@ import { scrollToBottom } from '../utilities/scrollToBottom';
 const store = useStore();
 
 const props = defineProps({
-  closeModal: {
-    type: Function,
-    required: true,
-  },
+  closeModal: Function,
 });
 onMounted(() => {
   scrollToBottom('category-list'); // prop: string

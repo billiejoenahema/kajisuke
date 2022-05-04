@@ -4,17 +4,22 @@ import { useStore } from 'vuex';
 
 const props = defineProps({
   housework: {
-    type: Object,
-    required: true,
+    id: 0,
+    user_id: 0,
+    title: '',
+    comment: '',
+    cycle: {
+      num: '',
+      unit: '',
+    },
+    next_date: null,
+    category: {
+      id: 0,
+      name: '',
+    },
   },
-  closeModal: {
-    type: Function,
-    required: true,
-  },
-  cycleNumbers: {
-    type: Array,
-    required: true,
-  },
+  closeModal: Function,
+  cycleNumbers: Array,
 });
 
 const store = useStore();

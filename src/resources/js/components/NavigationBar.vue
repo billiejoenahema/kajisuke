@@ -4,18 +4,9 @@ import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 
 const props = defineProps({
-  userName: {
-    type: String,
-    required: true,
-  },
-  isLoading: {
-    type: Boolean,
-    required: true,
-  },
-  setIsLoading: {
-    type: Function,
-    required: true,
-  },
+  userName: String,
+  isLoading: Boolean,
+  setIsLoading: Function,
 });
 
 const store = useStore();

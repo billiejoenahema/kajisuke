@@ -5,10 +5,7 @@ import { useStore } from 'vuex';
 const store = useStore();
 
 const props = defineProps({
-  closeModal: {
-    type: Function,
-    required: true,
-  },
+  closeModal: Function,
 });
 
 const categories = computed(() => store.getters['category/data']);
