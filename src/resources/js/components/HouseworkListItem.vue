@@ -24,13 +24,15 @@ const isShowItemMenu = ref(false);
 const isShowHouseworkModal = ref(false);
 const showHouseworkModal = () => {
   isShowHouseworkModal.value = true;
-  isShowItemMenu.value = false;
 };
-const showItemMenu = () => {
-  isShowItemMenu.value = true;
+const toggleShowItemMenu = () => {
+  isShowItemMenu.value = !isShowItemMenu.value;
 };
 const closeModal = () => {
   isShowHouseworkModal.value = false;
+};
+const deleteHouseworkItem = () => {
+  console.log(props.housework.id);
 };
 </script>
 
@@ -46,12 +48,12 @@ const closeModal = () => {
   </div>
   <div class="schedule">{{ housework.comment }}</div>
   <div class="next">{{ housework.next_date }}</div>
-  <div class="item-menu-icon" @click="showItemMenu()">
+  <div class="item-menu-icon" @click="toggleShowItemMenu()">
     <font-awesome-icon class="ellipsis-vertical" icon="ellipsis-vertical" />
     <div class="item-menu" v-if="isShowItemMenu">
       <ul>
         <li @click="showHouseworkModal()">編集</li>
-        <li>削除</li>
+        <li @click="deleteHouseworkItem()">削除</li>
       </ul>
     </div>
   </div>
