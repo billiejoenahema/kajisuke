@@ -23,8 +23,6 @@ class StoreHouseworkRequest extends FormRequest
      */
     public function rules()
     {
-        $unit_list = ['day', 'week', 'month', 'year'];
-
         return [
             'category_id' => 'required|integer|exists:categories,id',
             'title' => 'required|string|max:30',

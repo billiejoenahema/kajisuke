@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted, reactive, ref } from 'vue';
+import { computed, onMounted, reactive } from 'vue';
 import { useStore } from 'vuex';
 import { scrollToBottom } from '../utilities/scrollToBottom';
 
@@ -21,6 +21,7 @@ const categories = computed(() => store.getters['category/data']);
 const storeCategory = async () => {
   await store.dispatch('category/post', category);
   await store.dispatch('category/get');
+  props.closeModal();
   scrollToBottom('category-list');
   category.name = '';
 };

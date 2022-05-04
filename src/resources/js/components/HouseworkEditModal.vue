@@ -2,43 +2,39 @@
 import { computed, reactive } from 'vue';
 import { useStore } from 'vuex';
 
-const store = useStore();
-
 const props = defineProps({
+  housework: {
+    type: Object,
+    required: true,
+  },
   closeModal: {
     type: Function,
     required: true,
   },
+  cycleNumbers: {
+    type: Array,
+    required: true,
+  },
 });
 
-const categories = computed(() => store.getters['category/data']);
-const housework = reactive({
-  title: '',
-  comment: '',
-  cycle_num: '',
-  cycle_unit: '',
-  category_id: 0,
+const store = useStore();
+const updatedHousework = reactive({
+  id: props.housework.id,
+  title: props.housework.title,
+  comment: props.housework.comment,
+  category: props.housework.category,
+  cycle_num: props.housework.cycle_num,
+  next_date: props.housework.next_date,
 });
-const cycleNumbers = [...Array(31).keys()].map((i) => ++i);
-const storeHousework = async () => {
-  await store.dispatch('housework/post', housework);
-  // 正常に保存されたらリセットする
-  resetHousework();
+const categories = computed(() => store.getters['category/data']);
+const updateHousework = () => {
   props.closeModal();
-  store.dispatch('housework/get');
-};
-const resetHousework = () => {
-  housework.title = '';
-  housework.comment = '';
-  housework.cycle_num = '';
-  housework.cycle_unit = '';
-  housework.category_id = 0;
 };
 </script>
 
 <template>
   <div class="modal" @click.self="closeModal()">
-    <div class="housework-input-area">
+    <div class="housework-edit-area">
       <label>家事名</label>
       <input class="housework-title-input" v-model="housework.title" />
       <label>詳細</label>
@@ -46,12 +42,12 @@ const resetHousework = () => {
       <div class="column">
         <label>実行周期</label>
         <div class="housework-cycle">
-          <select v-model="housework.cycle_num">
+          <select v-model="housework.cycle.num">
             <option v-for="num in cycleNumbers" :key="num" :value="'+' + num">
               {{ num }}
             </option>
           </select>
-          <select v-model="housework.cycle_unit">
+          <select v-model="housework.cycle.unit">
             <option value="day">日</option>
             <option value="week">週</option>
             <option value="month">月</option>
@@ -63,20 +59,22 @@ const resetHousework = () => {
       <label>カテゴリ</label>
       <select
         class="category-select"
-        v-model="housework.category_id"
+        v-model="housework.category.id"
         name="category"
       >
-        <option value="0">カテゴリを選択</option>
         <option
           v-for="category in categories"
           :key="category.id"
           :value="category.id"
+          :selected="category.id === housework.category.id"
         >
           {{ category.name }}
         </option>
       </select>
       <div class="store-button-area">
-        <button class="store-button" @click="storeHousework()">作成する</button>
+        <button class="store-button" @click="updateHousework()">
+          更新する
+        </button>
       </div>
     </div>
   </div>
