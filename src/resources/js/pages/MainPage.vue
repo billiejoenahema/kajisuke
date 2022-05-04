@@ -51,5 +51,5 @@ const closeModal = () => {
     v-if="modalOpen === 'category'"
     :closeModal="closeModal"
   />
-  <HouseworkList />
+  <HouseworkList v-if="!isLoading" />
 </template>

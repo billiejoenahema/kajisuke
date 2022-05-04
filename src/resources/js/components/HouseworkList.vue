@@ -2,7 +2,7 @@
 import { computed } from 'vue';
 import { VueDraggableNext as draggable } from 'vue-draggable-next';
 import { useStore } from 'vuex';
-import HouseworkListItem from './HouseworkListItem.vue';
+import HouseworkListItem from './HouseworkListItem';
 
 const store = useStore();
 const houseworks = computed(() => store.getters['housework/data']);
