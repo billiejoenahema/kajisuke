@@ -105,6 +105,7 @@ button {
 .category-list {
   max-height: 300px;
   overflow: auto;
+  list-style: none;
 }
 .housework-cycle > select {
   width: 15%;
@@ -134,4 +135,27 @@ button {
   min-height: 64px;
   display: flex;
   flex-direction: row;
+}
+.category-list-item {
+  position: relative;
+  padding: 8px;
+}
+.category-list-item > .check-icon-wrapper {
+  position: absolute;
+  top: 0;
+  right: 16px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.category-input {
+  border: none;
+  background: rgb(45, 45, 45);
+  margin: 0;
+}
+.category-input:hover {
+  border-bottom: solid 1px rgb(255, 100, 100);
+  box-sizing: border-box;
+  padding-bottom: 7px;
 }

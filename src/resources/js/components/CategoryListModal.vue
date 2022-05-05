@@ -3,6 +3,7 @@ import { computed, onMounted, reactive, ref, watchEffect } from 'vue';
 import { useStore } from 'vuex';
 import { determineIsOver } from '../utilities/determineIsOver';
 import { scrollToBottom } from '../utilities/scrollToBottom';
+import CategoryListItem from './CategoryListItem';
 
 const store = useStore();
 
@@ -32,16 +33,20 @@ watchEffect(() => {
 <template>
   <div class="modal" @click.self="closeModal()">
     <div class="category-input-area">
+      <div>カテゴリ</div>
       <ul class="category-list" id="category-list">
-        <li
-          class="category-list-item"
+        <CategoryListItem
           v-for="category in categories"
           :key="category.id"
-        >
-          {{ category.name }}
-        </li>
+          :category="category"
+        />
       </ul>
-      <input v-model="newCategory.name" />
+      <input
+        class="category-input"
+        v-model="newCategory.name"
+        maxlength="30"
+        placeholder="＋新しいカテゴリを作成"
+      />
       <div class="store-button-area">
         <button
           class="store-button"
