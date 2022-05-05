@@ -6,7 +6,6 @@ import HouseworkListItem from './HouseworkListItem';
 
 const store = useStore();
 const houseworks = computed(() => store.getters['housework/data']);
-const cycleNumbers = [...Array(31).keys()].map((i) => ++i);
 
 const changeOrder = async () => {
   await store.dispatch('houseworkOrder/patch', newOrderIds(houseworks.value));
@@ -41,7 +40,7 @@ const newOrderIds = (houseworks) => {
         v-for="item in houseworks"
         :key="item.id"
       >
-        <HouseworkListItem :housework="item" :cycleNumber="cycleNumbers" />
+        <HouseworkListItem :housework="item" />
       </div>
     </draggable>
   </div>

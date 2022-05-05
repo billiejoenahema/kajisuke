@@ -19,7 +19,6 @@ const props = defineProps({
     },
   },
   closeModal: Function,
-  cycleNumbers: Array,
 });
 
 const store = useStore();
@@ -28,10 +27,11 @@ const updatedHousework = reactive({
   title: props.housework.title,
   comment: props.housework.comment,
   category: props.housework.category,
-  cycle_num: props.housework.cycle_num,
-  next_date: props.housework.next_date,
+  cycle_num: props.housework.cycle.num,
+  cycle_unit: props.housework.cycle.unit,
 });
 const categories = computed(() => store.getters['category/data']);
+const cycleNumbers = [...Array(31).keys()].map((i) => ++i);
 const updateHousework = () => {
   props.closeModal();
 };
@@ -41,18 +41,18 @@ const updateHousework = () => {
   <div class="modal" @click.self="closeModal()">
     <div class="housework-edit-area">
       <label>家事名</label>
-      <input class="housework-title-input" v-model="housework.title" />
+      <input class="housework-title-input" v-model="updatedHousework.title" />
       <label>詳細</label>
-      <textarea v-model="housework.comment" rows="8"></textarea>
+      <textarea v-model="updatedHousework.comment" rows="8"></textarea>
       <div class="column">
         <label>実行周期</label>
         <div class="housework-cycle">
-          <select v-model="housework.cycle.num">
+          <select v-model="updatedHousework.cycle_num">
             <option v-for="num in cycleNumbers" :key="num" :value="'+' + num">
               {{ num }}
             </option>
           </select>
-          <select v-model="housework.cycle.unit">
+          <select v-model="updatedHousework.cycle_unit">
             <option value="day">日</option>
             <option value="week">週</option>
             <option value="month">月</option>
@@ -64,7 +64,7 @@ const updateHousework = () => {
       <label>カテゴリ</label>
       <select
         class="category-select"
-        v-model="housework.category.id"
+        v-model="updatedHousework.category.id"
         name="category"
       >
         <option

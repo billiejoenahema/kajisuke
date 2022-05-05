@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 import HouseworkEditModal from './HouseworkEditModal';
 
-defineProps({
+const props = defineProps({
   housework: {
     id: 0,
     user_id: 0,
@@ -17,7 +17,6 @@ defineProps({
       id: 0,
       name: '',
     },
-    cycleNumbers: Array,
   },
 });
 const isShowItemMenu = ref(false);
@@ -61,6 +60,5 @@ const deleteHouseworkItem = () => {
     v-if="isShowHouseworkModal"
     :housework="housework"
     :closeModal="closeModal"
-    :cycleNumbers="cycleNumbers"
   />
 </template>
