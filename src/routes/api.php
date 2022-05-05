@@ -24,6 +24,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // 家事
     Route::get('/houseworks', [HouseworkController::class, 'index'])->can('viewAny', Housework::class);
     Route::post('/houseworks', [HouseworkController::class, 'store']);
+    Route::patch('/houseworks', [HouseworkController::class, 'update']);
     // 家事表示順
     Route::get('/housework_orders', [HouseworkOrderController::class, 'index']);
     Route::patch('/housework_orders', [HouseworkOrderController::class, 'update']);

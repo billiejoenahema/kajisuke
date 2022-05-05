@@ -72,9 +72,21 @@ class HouseworkController extends Controller
      * @param  \App\Models\Housework  $housework
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateHouseworkRequest $request, Housework $housework)
+    public function update(UpdateHouseworkRequest $request)
     {
-        //
+        $housework = DB::transaction(function () use ($request) {
+            $housework = Housework::findOrFail($request['id']);
+
+            $housework->category_id = $request['category_id'];
+            $housework->title = $request['title'];
+            $housework->comment = $request['comment'];
+            $housework->cycle = $request->getCycle();
+            $housework->save();
+
+            return $housework;
+        });
+
+        return new HouseworkResource($housework);
     }
 
     /**

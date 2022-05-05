@@ -26,13 +26,16 @@ const updatedHousework = reactive({
   id: props.housework.id,
   title: props.housework.title,
   comment: props.housework.comment,
-  category: props.housework.category,
+  category_id: props.housework.category.id,
   cycle_num: props.housework.cycle.num,
   cycle_unit: props.housework.cycle.unit,
 });
 const categories = computed(() => store.getters['category/data']);
 const cycleNumbers = [...Array(31).keys()].map((i) => ++i);
-const updateHousework = () => {
+const updateHousework = async () => {
+  console.log(updatedHousework);
+  await store.dispatch('housework/update', updatedHousework);
+  store.dispatch('housework/get');
   props.closeModal();
 };
 </script>
@@ -64,14 +67,14 @@ const updateHousework = () => {
       <label>カテゴリ</label>
       <select
         class="category-select"
-        v-model="updatedHousework.category.id"
+        v-model="updatedHousework.category_id"
         name="category"
       >
         <option
           v-for="category in categories"
           :key="category.id"
           :value="category.id"
-          :selected="category.id === housework.category.id"
+          :selected="category.id === updatedHousework.category_id"
         >
           {{ category.name }}
         </option>

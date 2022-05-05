@@ -54,6 +54,18 @@ const actions = {
         commit('setErrors', err.message);
       });
   },
+  async update({ commit }, data) {
+    await axios
+      .patch('/api/houseworks', data)
+      .then((res) => {
+        console.log(res.status);
+        commit('resetErrors');
+      })
+      .catch((err) => {
+        console.log(err);
+        commit('setErrors', err.message);
+      });
+  },
 };
 
 const mutations = {

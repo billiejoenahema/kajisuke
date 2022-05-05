@@ -29,8 +29,6 @@ const newOrderIds = (houseworks) => {
     </div>
     <draggable
       class="dragArea list-group w-full"
-      group="housework"
-      :list="houseworks"
       handle=".handle"
       @sort="changeOrder()"
       v-model="houseworks"
