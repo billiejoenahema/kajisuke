@@ -2,7 +2,7 @@
 import { computed, ref } from 'vue';
 import VueElementLoading from 'vue-element-loading';
 import { useStore } from 'vuex';
-import CategoryCreateModal from '../components/CategoryCreateModal';
+import CategoryListModal from '../components/CategoryListModal';
 import HouseworkCreateModal from '../components/HouseworkCreateModal';
 import HouseworkList from '../components/HouseworkList';
 import NavigationBar from '../components/NavigationBar';
@@ -40,15 +40,15 @@ const closeModal = () => {
     is-full-screen
   />
   <div class="row">
-    <button @click="setModalOpen('housework')">家事を新規登録する</button>
-    <button @click="setModalOpen('category')">カテゴリを新規作成する</button>
+    <button @click="setModalOpen('houseworkCreate')">家事を新規登録</button>
+    <button @click="setModalOpen('categoryList')">カテゴリ一覧</button>
   </div>
   <HouseworkCreateModal
-    v-if="modalOpen === 'housework'"
+    v-if="modalOpen === 'houseworkCreate'"
     :closeModal="closeModal"
   />
-  <CategoryCreateModal
-    v-if="modalOpen === 'category'"
+  <CategoryListModal
+    v-if="modalOpen === 'categoryList'"
     :closeModal="closeModal"
   />
   <HouseworkList v-if="!isLoading" />

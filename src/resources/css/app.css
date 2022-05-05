@@ -95,7 +95,8 @@ button {
 }
 .housework-input-area,
 .housework-edit-area,
-.category-input-area {
+.category-input-area,
+.category-list-area {
   margin: auto;
   width: 500px;
   background: rgb(45, 45, 45);
@@ -125,4 +126,12 @@ button {
 }
 .item-menu > ul > li {
   list-style: none;
+}
+.error-message {
+  color: red;
+}
+.store-button-area {
+  min-height: 64px;
+  display: flex;
+  flex-direction: row;
 }
