@@ -23,7 +23,7 @@ class HouseworkController extends Controller
     {
         $user = Auth::user();
         $order = HouseworkOrder::where('user_id', $user->id)->first();
-        $order = $order['order'] == 0 ? null : $order;
+        $order = $order['order'] == 0 ? null : $order['order'];
         $query = Housework::with(['archives', 'category']);
         $houseworks = $query->where('user_id', $user->id)->when($order, function ($q) use ($order) {
             $q->orderByRaw("FIELD(id, $order)");
