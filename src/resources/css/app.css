@@ -159,3 +159,11 @@ button {
   box-sizing: border-box;
   padding-bottom: 7px;
 }
+.related-housework-list {
+  z-index: 4;
+  position: absolute;
+  top: 0;
+  left: 120px;
+  background: rgb(65, 65, 65);
+  padding: 8px;
+}

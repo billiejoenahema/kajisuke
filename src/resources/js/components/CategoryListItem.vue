@@ -8,13 +8,16 @@ const props = defineProps({
   category: {
     id: 0,
     name: '',
+    houseworks: [],
   },
 });
 const category = reactive({
   id: props.category.id,
   name: props.category.name,
+  houseworks: props.category.houseworks,
 });
 const isFocus = ref(false);
+const isShowRelatedHousework = ref(false);
 const updateCategoryName = () => {
   store.dispatch('category/update');
   console.log(category);
@@ -22,7 +25,11 @@ const updateCategoryName = () => {
 </script>
 
 <template>
-  <li class="category-list-item">
+  <li
+    class="category-list-item"
+    @mouseover="isShowRelatedHousework = true"
+    @mouseleave="isShowRelatedHousework = false"
+  >
     <input
       v-model="category.name"
       class="category-input"
@@ -39,6 +46,11 @@ const updateCategoryName = () => {
         icon="check"
         title="カテゴリを更新"
       />
+    </div>
+    <div class="related-housework-list" v-if="isShowRelatedHousework">
+      <div v-for="(housework, index) in category.houseworks" :key="index">
+        {{ housework }}
+      </div>
     </div>
   </li>
 </template>

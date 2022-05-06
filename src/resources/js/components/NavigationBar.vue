@@ -18,9 +18,9 @@ onMounted(async () => {
     router.push('/login');
   } else {
     props.setIsLoading(true);
-    await store.dispatch('category/get');
     await store.dispatch('housework/get');
     props.setIsLoading(false);
+    store.dispatch('category/get');
   }
 });
 const isLogin = computed(() => store.getters['profile/isLogin']);
