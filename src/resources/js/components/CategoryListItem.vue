@@ -1,3 +1,4 @@
+`
 <script setup>
 import { reactive, ref } from 'vue';
 import { useStore } from 'vuex';
@@ -18,10 +19,15 @@ const category = reactive({
   houseworks: props.category.houseworks,
 });
 const isFocus = ref(false);
+const isShowCheckIcon = ref(false);
 const isShowRelatedHousework = ref(false);
-const updateCategoryName = () => {
-  store.dispatch('category/update');
-  console.log(category);
+const updateCategoryName = async () => {
+  await store.dispatch('category/update', {
+    id: category.id,
+    name: category.name,
+  });
+  isShowCheckIcon = false;
+  store.dispatch('category/get');
 };
 const debounceShowTooltip = useDebounce((bool) => showTooltip(bool));
 const showTooltip = (bool) => {
@@ -38,10 +44,11 @@ const showTooltip = (bool) => {
       @blur.self="isFocus = false"
       @mouseover="debounceShowTooltip(true)"
       @mouseleave="debounceShowTooltip(false)"
+      @change="isShowCheckIcon = true"
     />
     <div
       class="check-icon-wrapper"
-      v-if="category.name.length > 0 && isFocus"
+      v-if="category.name.length > 0 && isShowCheckIcon"
       @click="updateCategoryName()"
     >
       <font-awesome-icon

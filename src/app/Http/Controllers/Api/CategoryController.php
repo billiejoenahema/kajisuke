@@ -21,7 +21,7 @@ class CategoryController extends Controller
     public function index(): AnonymousResourceCollection
     {
         $user = Auth::user();
-        $categories = Category::where('user_id', $user->id)->get();
+        $categories = Category::with('houseworks')->where('user_id', $user->id)->get();
         return CategoryResource::collection($categories);
     }
 
@@ -60,12 +60,20 @@ class CategoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\UpdateCategoryRequest  $request
-     * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateCategoryRequest $request, Category $category)
+    public function update(UpdateCategoryRequest $request)
     {
-        //
+        $category = DB::transaction(function () use ($request) {
+            $category = Category::findOrFail($request['id']);
+
+            $category->name = $request['name'];
+            $category->save();
+
+            return $category;
+        });
+
+        return new CategoryResource($category);
     }
 
     /**
