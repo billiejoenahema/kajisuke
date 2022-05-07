@@ -1,6 +1,7 @@
 <script setup>
 import { reactive, ref } from 'vue';
 import { useStore } from 'vuex';
+import { useDebounce } from '../utilities/useDebounce';
 
 const store = useStore();
 
@@ -22,24 +23,21 @@ const updateCategoryName = () => {
   store.dispatch('category/update');
   console.log(category);
 };
-const setIsShowRelatedHouseworkItem = (bool) => {
-  setTimeout(() => {
-    isShowRelatedHousework.value = bool;
-  }, 100);
+const debounceShowTooltip = useDebounce((bool) => showTooltip(bool));
+const showTooltip = (bool) => {
+  isShowRelatedHousework.value = bool;
 };
 </script>
 
 <template>
-  <li
-    class="category-list-item"
-    @mouseover="setIsShowRelatedHouseworkItem(true)"
-    @mouseleave="setIsShowRelatedHouseworkItem(false)"
-  >
+  <li class="category-list-item">
     <input
       v-model="category.name"
       class="category-input"
       @focus.self="isFocus = true"
       @blur.self="isFocus = false"
+      @mouseover="debounceShowTooltip(true)"
+      @mouseleave="debounceShowTooltip(false)"
     />
     <div
       class="check-icon-wrapper"

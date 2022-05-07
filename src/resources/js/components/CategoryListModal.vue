@@ -12,7 +12,7 @@ const props = defineProps({
   closeModal: Function,
 });
 onMounted(() => {
-  scrollToBottom('category-list'); // prop: string
+  scrollToBottom('category-list');
 });
 const newCategory = reactive({
   name: '',
