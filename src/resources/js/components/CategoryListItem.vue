@@ -22,13 +22,18 @@ const updateCategoryName = () => {
   store.dispatch('category/update');
   console.log(category);
 };
+const setIsShowRelatedHouseworkItem = (bool) => {
+  setTimeout(() => {
+    isShowRelatedHousework.value = bool;
+  }, 100);
+};
 </script>
 
 <template>
   <li
     class="category-list-item"
-    @mouseover="isShowRelatedHousework = true"
-    @mouseleave="isShowRelatedHousework = false"
+    @mouseover="setIsShowRelatedHouseworkItem(true)"
+    @mouseleave="setIsShowRelatedHouseworkItem(false)"
   >
     <input
       v-model="category.name"

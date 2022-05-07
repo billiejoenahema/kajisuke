@@ -1,6 +1,7 @@
 <script setup>
 import { computed, onMounted, reactive, ref, watchEffect } from 'vue';
 import { useStore } from 'vuex';
+import { MAX_LENGTH } from '../consts/maxLength';
 import { determineIsOver } from '../utilities/determineIsOver';
 import { scrollToBottom } from '../utilities/scrollToBottom';
 import CategoryListItem from './CategoryListItem';
@@ -17,6 +18,7 @@ const newCategory = reactive({
   name: '',
 });
 const isOver = ref('');
+const placeholder = ref('＋新しいカテゴリを作成');
 const categories = computed(() => store.getters['category/data']);
 const storeCategory = async () => {
   await store.dispatch('category/post', newCategory);
@@ -44,8 +46,10 @@ watchEffect(() => {
       <input
         class="category-input"
         v-model="newCategory.name"
-        maxlength="30"
-        placeholder="＋新しいカテゴリを作成"
+        :maxlength="MAX_LENGTH.categoryName"
+        :placeholder="placeholder"
+        @focus="placeholder = ''"
+        @blur="placeholder = '＋新しいカテゴリを作成'"
       />
       <div class="store-button-area">
         <button
