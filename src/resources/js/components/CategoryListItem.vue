@@ -1,6 +1,6 @@
 `
 <script setup>
-import { reactive, ref } from 'vue';
+import { reactive, ref, watchEffect } from 'vue';
 import { useStore } from 'vuex';
 import { useDebounce } from '../utilities/useDebounce';
 
@@ -18,20 +18,23 @@ const category = reactive({
   name: props.category.name,
   houseworks: props.category.houseworks,
 });
-const isFocus = ref(false);
-const isShowCheckIcon = ref(false);
-const isShowRelatedHousework = ref(false);
+const canUpdate = ref(false);
+const isShowTooltip = ref(false);
+watchEffect(() => {
+  canUpdate.value =
+    category.name !== props.category.name && category.name.length > 0;
+});
 const updateCategoryName = async () => {
+  canUpdate.value = false;
   await store.dispatch('category/update', {
     id: category.id,
     name: category.name,
   });
-  isShowCheckIcon = false;
   store.dispatch('category/get');
 };
 const debounceShowTooltip = useDebounce((bool) => showTooltip(bool));
 const showTooltip = (bool) => {
-  isShowRelatedHousework.value = bool;
+  isShowTooltip.value = bool;
 };
 </script>
 
@@ -40,15 +43,12 @@ const showTooltip = (bool) => {
     <input
       v-model="category.name"
       class="category-input"
-      @focus.self="isFocus = true"
-      @blur.self="isFocus = false"
       @mouseover="debounceShowTooltip(true)"
       @mouseleave="debounceShowTooltip(false)"
-      @change="isShowCheckIcon = true"
     />
     <div
       class="check-icon-wrapper"
-      v-if="category.name.length > 0 && isShowCheckIcon"
+      v-if="canUpdate"
       @click="updateCategoryName()"
     >
       <font-awesome-icon
@@ -57,7 +57,7 @@ const showTooltip = (bool) => {
         title="カテゴリを更新"
       />
     </div>
-    <div class="related-housework-list" v-if="isShowRelatedHousework">
+    <div class="related-housework-list" v-if="isShowTooltip">
       <div v-for="(housework, index) in category.houseworks" :key="index">
         {{ housework }}
       </div>
