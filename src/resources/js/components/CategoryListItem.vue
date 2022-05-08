@@ -57,7 +57,7 @@ const showTooltip = (bool) => {
         title="カテゴリを更新"
       />
     </div>
-    <div class="related-housework-list" v-if="isShowTooltip">
+    <div class="category-item-tooltip" v-if="isShowTooltip">
       <div v-for="(housework, index) in category.houseworks" :key="index">
         {{ housework }}
       </div>

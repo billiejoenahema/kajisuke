@@ -36,17 +36,19 @@ const deleteHouseworkItem = () => {
 </script>
 
 <template>
-  <font-awesome-icon class="bars handle" icon="bars" />
+  <div class="bars-wrapper">
+    <font-awesome-icon class="bars handle" icon="bars" />
+  </div>
   <div class="column title">
-    <div class="housework-title">
+    <div class="category-name">
       <mark>
         {{ housework.category?.name }}
       </mark>
     </div>
-    <div>{{ housework.title }}</div>
+    <div class="housework-title">{{ housework.title }}</div>
   </div>
   <div class="schedule">{{ housework.comment }}</div>
-  <div class="next">{{ housework.next_date }}</div>
+  <div class="next-date">{{ housework.next_date }}</div>
   <div class="item-menu-icon" @click="toggleShowItemMenu()">
     <font-awesome-icon class="ellipsis-vertical" icon="ellipsis-vertical" />
     <div class="item-menu" v-if="isShowItemMenu">
