@@ -22,9 +22,9 @@ const newOrderIds = (houseworks) => {
   <div class="column list-body">
     <div class="row list-header">
       <div></div>
-      <div class="title">家事</div>
-      <div class="schedule">----------- スケジュール -----------</div>
-      <div class="next-date">実施予定日</div>
+      <div class="title-header">家事</div>
+      <div class="schedule-header">----------- スケジュール -----------</div>
+      <div class="next-date-header">実施予定日</div>
       <div></div>
     </div>
     <draggable

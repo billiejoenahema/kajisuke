@@ -2,6 +2,8 @@
 import { computed, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
+import CategoryListModal from './CategoryListModal';
+import HouseworkCreateModal from './HouseworkCreateModal';
 
 const props = defineProps({
   userName: String,
@@ -23,17 +25,27 @@ onMounted(async () => {
     store.dispatch('category/get');
   }
 });
+const modalOpen = ref('');
 const isLogin = computed(() => store.getters['profile/isLogin']);
 const isShowUserMenu = ref(false);
 const logout = () => {
   store.dispatch('auth/logout');
   router.push('/login');
 };
+const setModalOpen = (prop) => {
+  // prop: string
+  modalOpen.value = prop;
+};
+const closeModal = () => {
+  modalOpen.value = '';
+};
 </script>
 
 <template>
   <nav class="nav">
     <a href="/">Home</a>
+    <a href="#" @click="setModalOpen('houseworkCreate')">Create HW</a>
+    <a href="#" @click="setModalOpen('categoryList')">Category List</a>
     <a href="#" @click.prevent.stop="isShowUserMenu = !isShowUserMenu">{{
       userName
     }}</a>
@@ -45,4 +57,12 @@ const logout = () => {
     <div class="user-menu-item">Other</div>
     <div class="user-menu-item" @click="logout()">Logout</div>
   </div>
+  <HouseworkCreateModal
+    v-if="modalOpen === 'houseworkCreate'"
+    :closeModal="closeModal"
+  />
+  <CategoryListModal
+    v-if="modalOpen === 'categoryList'"
+    :closeModal="closeModal"
+  />
 </template>
