@@ -50,9 +50,6 @@ button {
 .user-menu-item {
   cursor: default;
 }
-.housework-title {
-  font-size: 0.7rem;
-}
 .dragArea {
   width: 100%;
 }
@@ -174,9 +171,6 @@ button {
 .schedule,
 .category-name > mark {
   font-size: 0.7rem;
-}
-.housework-title {
-  font-size: 0.8rem;
 }
 .bars-wrapper {
   padding: 8px;

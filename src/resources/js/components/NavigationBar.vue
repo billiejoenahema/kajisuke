@@ -44,9 +44,9 @@ const closeModal = () => {
 <template>
   <nav class="nav">
     <a href="/">Home</a>
-    <a href="#" @click="setModalOpen('houseworkCreate')">Create HW</a>
-    <a href="#" @click="setModalOpen('categoryList')">Category List</a>
-    <a href="#" @click.prevent.stop="isShowUserMenu = !isShowUserMenu">{{
+    <a href="#" @click.prevent="setModalOpen('houseworkCreate')">Create HW</a>
+    <a href="#" @click.prevent="setModalOpen('categoryList')">Category List</a>
+    <a href="#" @click.prevent="isShowUserMenu = !isShowUserMenu">{{
       userName
     }}</a>
   </nav>
