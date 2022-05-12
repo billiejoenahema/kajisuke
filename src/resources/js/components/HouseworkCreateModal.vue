@@ -1,6 +1,7 @@
 <script setup>
 import { computed, reactive } from 'vue';
 import { useStore } from 'vuex';
+import { CYCLE_UNIT } from '../consts/cycle_unit';
 
 const store = useStore();
 
@@ -12,11 +13,11 @@ const categories = computed(() => store.getters['category/data']);
 const housework = reactive({
   title: '',
   comment: '',
-  cycle_num: '',
-  cycle_unit: '',
+  cycle_num: '+1',
+  cycle_unit: 'day',
   category_id: 0,
 });
-const cycleNumbers = [...Array(31).keys()].map((i) => ++i);
+const cycleDateList = [...Array(31).keys()].map((i) => ++i);
 const storeHousework = async () => {
   await store.dispatch('housework/post', housework);
   // 正常に保存されたらリセットする
@@ -44,15 +45,18 @@ const resetHousework = () => {
         <label>実行周期</label>
         <div class="housework-cycle">
           <select v-model="housework.cycle_num">
-            <option v-for="num in cycleNumbers" :key="num" :value="'+' + num">
-              {{ num }}
+            <option
+              v-for="date in cycleDateList"
+              :key="date"
+              :value="'+' + date"
+            >
+              {{ date }}
             </option>
           </select>
           <select v-model="housework.cycle_unit">
-            <option value="day">日</option>
-            <option value="week">週</option>
-            <option value="month">月</option>
-            <option value="year">年</option>
+            <option v-for="item in CYCLE_UNIT" :value="item.value">
+              {{ item.content }}
+            </option>
           </select>
           <span> に一度</span>
         </div>
