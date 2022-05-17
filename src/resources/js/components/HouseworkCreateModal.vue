@@ -2,6 +2,7 @@
 import { computed, reactive } from 'vue';
 import { useStore } from 'vuex';
 import { CYCLE_UNIT } from '../consts/cycle_unit';
+import { ONE_MONTH_DATE_LIST } from '../consts/oneMonthDateList';
 
 const store = useStore();
 
@@ -17,7 +18,6 @@ const housework = reactive({
   cycle_unit: 'day',
   category_id: 0,
 });
-const cycleDateList = [...Array(31).keys()].map((i) => ++i);
 const storeHousework = async () => {
   await store.dispatch('housework/post', housework);
   // 正常に保存されたらリセットする
@@ -46,7 +46,7 @@ const resetHousework = () => {
         <div class="housework-cycle">
           <select v-model="housework.cycle_num">
             <option
-              v-for="date in cycleDateList"
+              v-for="date in ONE_MONTH_DATE_LIST"
               :key="date"
               :value="'+' + date"
             >

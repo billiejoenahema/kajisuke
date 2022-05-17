@@ -1,6 +1,8 @@
 <script setup>
 import { computed, reactive } from 'vue';
 import { useStore } from 'vuex';
+import { CYCLE_UNIT } from '../consts/cycle_unit';
+import { ONE_MONTH_DATE_LIST } from '../consts/oneMonthDateList';
 
 const props = defineProps({
   housework: {
@@ -31,7 +33,6 @@ const updatedHousework = reactive({
   cycle_unit: props.housework.cycle.unit,
 });
 const categories = computed(() => store.getters['category/data']);
-const cycleNumbers = [...Array(31).keys()].map((i) => ++i);
 const updateHousework = async () => {
   console.log(updatedHousework);
   await store.dispatch('housework/update', updatedHousework);
@@ -51,15 +52,18 @@ const updateHousework = async () => {
         <label>実行周期</label>
         <div class="housework-cycle">
           <select v-model="updatedHousework.cycle_num">
-            <option v-for="num in cycleNumbers" :key="num" :value="'+' + num">
-              {{ num }}
+            <option
+              v-for="date in ONE_MONTH_DATE_LIST"
+              :key="date"
+              :value="'+' + date"
+            >
+              {{ date }}
             </option>
           </select>
           <select v-model="updatedHousework.cycle_unit">
-            <option value="day">日</option>
-            <option value="week">週</option>
-            <option value="month">月</option>
-            <option value="year">年</option>
+            <option v-for="item in CYCLE_UNIT" :value="item.value">
+              {{ item.content }}
+            </option>
           </select>
           <span> に一度</span>
         </div>
