@@ -1,11 +1,19 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import LoginForm from '../pages/LoginForm';
 import MainPage from '../pages/MainPage';
+import UserProfile from '../pages/UserProfile';
 
 const routes = [
   {
     path: '/',
     component: MainPage,
+    meta: {
+      isAuthenticated: true,
+    },
+  },
+  {
+    path: '/profile',
+    component: UserProfile,
     meta: {
       isAuthenticated: true,
     },

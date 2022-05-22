@@ -52,7 +52,9 @@ const closeModal = () => {
   </nav>
   <div class="user-menu" v-if="isShowUserMenu">
     <div class="user-menu-item">Menu</div>
-    <div class="user-menu-item">{{ userName }}</div>
+    <div class="user-menu-item">
+      <router-link to="/profile">{{ userName }}</router-link>
+    </div>
     <div class="user-menu-item">Settings</div>
     <div class="user-menu-item">Other</div>
     <div class="user-menu-item" @click="logout()">Logout</div>
