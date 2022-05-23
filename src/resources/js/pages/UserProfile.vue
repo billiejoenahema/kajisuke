@@ -1,17 +1,19 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { useStore } from 'vuex';
 import NavigationBar from '../components/NavigationBar';
+
 const store = useStore();
+
 const profile = computed(() => store.getters['profile/profile']);
+const isLoading = ref(false);
+const setIsLoading = (bool) => {
+  isLoading.value = bool;
+};
 </script>
 
 <template>
-  <NavigationBar
-    :userName="profile.name"
-    :isLoading="isLoading"
-    :setIsLoading="setIsLoading"
-  />
+  <NavigationBar :isLoading="isLording" :setIsLoading="setIsLoading" />
   <div>
     <h4>User Profile</h4>
     <ul>

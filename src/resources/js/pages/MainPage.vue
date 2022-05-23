@@ -1,13 +1,9 @@
 <script setup>
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 import VueElementLoading from 'vue-element-loading';
-import { useStore } from 'vuex';
 import HouseworkList from '../components/HouseworkList';
 import NavigationBar from '../components/NavigationBar';
 
-const store = useStore();
-
-const profile = computed(() => store.getters['profile/profile']);
 const isLoading = ref(false);
 const setIsLoading = (bool) => {
   isLoading.value = bool;
@@ -15,11 +11,7 @@ const setIsLoading = (bool) => {
 </script>
 
 <template>
-  <NavigationBar
-    :userName="profile.name"
-    :isLoading="isLoading"
-    :setIsLoading="setIsLoading"
-  />
+  <NavigationBar :isLoading="isLording" :setIsLoading="setIsLoading" />
   <vue-element-loading
     v-if="isLoading"
     :active="isLoading"

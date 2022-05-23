@@ -6,14 +6,13 @@ import CategoryListModal from './CategoryListModal';
 import HouseworkCreateModal from './HouseworkCreateModal';
 
 const props = defineProps({
-  userName: String,
   isLoading: Boolean,
   setIsLoading: Function,
 });
 
 const store = useStore();
 const router = useRouter();
-
+const profile = computed(() => store.getters['profile/profile']);
 onMounted(async () => {
   await store.dispatch('profile/get');
   if (!isLogin.value) {
@@ -47,13 +46,13 @@ const closeModal = () => {
     <a href="#" @click.prevent="setModalOpen('houseworkCreate')">Create HW</a>
     <a href="#" @click.prevent="setModalOpen('categoryList')">Category List</a>
     <a href="#" @click.prevent="isShowUserMenu = !isShowUserMenu">{{
-      userName
+      profile.name
     }}</a>
   </nav>
   <div class="user-menu" v-if="isShowUserMenu">
     <div class="user-menu-item">Menu</div>
     <div class="user-menu-item">
-      <router-link to="/profile">{{ userName }}</router-link>
+      <router-link to="/profile">{{ profile.name }}</router-link>
     </div>
     <div class="user-menu-item">Settings</div>
     <div class="user-menu-item">Other</div>

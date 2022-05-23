@@ -53,7 +53,7 @@ const showTooltip = (bool) => {
     >
       <font-awesome-icon
         class="check-icon"
-        icon="check"
+        icon="circle-check"
         title="カテゴリを更新"
       />
     </div>

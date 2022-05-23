@@ -1,9 +1,11 @@
 <script setup>
 import { computed, reactive } from 'vue';
+import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 import { CYCLE_UNIT } from '../consts/cycle_unit';
 import { ONE_MONTH_DATE_LIST } from '../consts/oneMonthDateList';
 
+const router = useRouter();
 const store = useStore();
 
 const props = defineProps({
@@ -24,6 +26,7 @@ const storeHousework = async () => {
   resetHousework();
   props.closeModal();
   store.dispatch('housework/get');
+  router.push('/');
 };
 const resetHousework = () => {
   housework.title = '';
