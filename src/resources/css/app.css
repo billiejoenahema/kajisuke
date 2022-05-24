@@ -155,9 +155,19 @@ button {
   margin: 0;
 }
 .category-input:hover {
-  border-bottom: solid 1px rgb(255, 100, 100);
+  border-bottom: solid 1px rgb(161, 161, 161);
   box-sizing: border-box;
   padding-bottom: 7px;
+}
+.category-input:focus {
+  outline: none;
+  /* border-bottom: solid 1px rgb(94, 142, 255); */
+}
+.category-list-item > .invalid {
+  outline: solid 1px rgb(255, 108, 108);
+}
+.category-list-item > .valid {
+  outline: solid 1px rgb(108, 255, 155);
 }
 .category-item-tooltip {
   z-index: 4;
@@ -176,4 +186,8 @@ button {
   padding: 8px;
   display: flex;
   align-items: center;
+}
+.check-icon {
+  color: rgb(128, 244, 170);
+  font-size: 1.1rem;
 }

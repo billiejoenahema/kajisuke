@@ -18,23 +18,34 @@ const category = reactive({
   name: props.category.name,
   houseworks: props.category.houseworks,
 });
-const canUpdate = ref(false);
 const isShowTooltip = ref(false);
+const invalidStatus = ref('');
+const canUpdate = ref(false);
 watchEffect(() => {
   canUpdate.value =
     category.name !== props.category.name && category.name.length > 0;
 });
 const updateCategoryName = async () => {
-  canUpdate.value = false;
-  await store.dispatch('category/update', {
-    id: category.id,
-    name: category.name,
-  });
-  store.dispatch('category/get');
+  if (canUpdate.value) {
+    await store.dispatch('category/update', {
+      id: category.id,
+      name: category.name,
+    });
+    store.dispatch('category/get');
+  } else {
+    category.name = props.category.name;
+  }
+};
+const onBlur = () => {
+  updateCategoryName();
+  invalidStatus.value = '';
 };
 const debounceShowTooltip = useDebounce((bool) => showTooltip(bool));
 const showTooltip = (bool) => {
   isShowTooltip.value = bool;
+};
+const onChange = () => {
+  invalidStatus.value = canUpdate.value ? 'valid' : 'invalid';
 };
 </script>
 
@@ -43,20 +54,12 @@ const showTooltip = (bool) => {
     <input
       v-model="category.name"
       class="category-input"
+      :class="invalidStatus"
       @mouseover="debounceShowTooltip(true)"
       @mouseleave="debounceShowTooltip(false)"
+      @blur="onBlur()"
+      @keyup="onChange()"
     />
-    <div
-      class="check-icon-wrapper"
-      v-if="canUpdate"
-      @click="updateCategoryName()"
-    >
-      <font-awesome-icon
-        class="check-icon"
-        icon="circle-check"
-        title="カテゴリを更新"
-      />
-    </div>
     <div class="category-item-tooltip" v-if="isShowTooltip">
       <div v-for="(housework, index) in category.houseworks" :key="index">
         {{ housework }}
