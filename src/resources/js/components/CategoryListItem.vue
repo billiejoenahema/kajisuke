@@ -20,6 +20,7 @@ const category = reactive({
 });
 const isShowTooltip = ref(false);
 const invalidStatus = ref('');
+const inputRef = ref(null);
 const canUpdate = ref(false);
 watchEffect(() => {
   canUpdate.value =
@@ -45,7 +46,15 @@ const showTooltip = (bool) => {
   isShowTooltip.value = bool;
 };
 const onChange = () => {
-  invalidStatus.value = canUpdate.value ? 'valid' : 'invalid';
+  if (category.name === props.category.name) {
+    invalidStatus.value = '';
+  } else {
+    invalidStatus.value = canUpdate.value ? 'valid' : 'invalid';
+  }
+};
+const onEnter = () => {
+  inputRef.value.blur();
+  debounceShowTooltip(false);
 };
 </script>
 
@@ -55,10 +64,12 @@ const onChange = () => {
       v-model="category.name"
       class="category-input"
       :class="invalidStatus"
+      ref="inputRef"
       @mouseover="debounceShowTooltip(true)"
       @mouseleave="debounceShowTooltip(false)"
       @blur="onBlur()"
       @keyup="onChange()"
+      @keyup.enter.prevent="onEnter()"
     />
     <div class="category-item-tooltip" v-if="isShowTooltip">
       <div v-for="(housework, index) in category.houseworks" :key="index">
