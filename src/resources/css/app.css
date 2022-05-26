@@ -100,10 +100,12 @@ button {
   background: rgb(45, 45, 45);
   padding: 16px;
 }
-.category-list {
+#category-list {
   max-height: 80vh;
   overflow: auto;
   list-style: none;
+  padding-left: 8px;
+  padding-bottom: 24px;
 }
 .housework-cycle > select {
   width: 15%;
@@ -138,16 +140,23 @@ button {
 }
 .category-list-item {
   position: relative;
-  padding: 8px;
+  padding: 8px 8px 8px 16px;
 }
-.category-list-item > .check-icon-wrapper {
+.category-list-item > .trash-icon-wrapper {
   position: absolute;
   top: 0;
-  right: 16px;
+  left: -8px;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: default;
+}
+.category-list-item > .invalid {
+  outline: solid 1px rgb(255, 108, 108);
+}
+.category-list-item > .valid {
+  outline: solid 1px rgb(108, 255, 155);
 }
 .category-input {
   border: none;
@@ -162,12 +171,6 @@ button {
 .category-input:focus {
   outline: none;
   /* border-bottom: solid 1px rgb(94, 142, 255); */
-}
-.category-list-item > .invalid {
-  outline: solid 1px rgb(255, 108, 108);
-}
-.category-list-item > .valid {
-  outline: solid 1px rgb(108, 255, 155);
 }
 .category-item-tooltip {
   z-index: 4;
@@ -187,7 +190,7 @@ button {
   display: flex;
   align-items: center;
 }
-.check-icon {
-  color: rgb(128, 244, 170);
+.trash-icon {
+  color: rgb(244, 128, 128);
   font-size: 1.1rem;
 }

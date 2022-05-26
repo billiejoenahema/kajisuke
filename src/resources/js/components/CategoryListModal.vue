@@ -25,10 +25,9 @@ const categories = computed(() => store.getters['category/data']);
 const storeCategory = async () => {
   await store.dispatch('category/post', newCategory);
   await store.dispatch('category/get');
-  props.closeModal();
   scrollToBottom('category-list');
   newCategory.name = '';
-  router.push('/');
+  placeholder.value = '＋新しいカテゴリを作成';
 };
 watchEffect(() => {
   isOver.value = determineIsOver('categoryName', newCategory.name.length);
@@ -53,6 +52,7 @@ watchEffect(() => {
         :placeholder="placeholder"
         @focus="placeholder = ''"
         @blur="placeholder = '＋新しいカテゴリを作成'"
+        @keyup.enter.prevent="storeCategory()"
       />
       <div class="store-button-area">
         <button

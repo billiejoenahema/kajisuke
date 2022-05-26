@@ -61,6 +61,18 @@ const actions = {
         commit('setErrors', err.message);
       });
   },
+  async delete({ commit }, id) {
+    await axios
+      .delete(`/api/categories/${id}`)
+      .then((res) => {
+        console.log(res.status);
+        commit('resetErrors');
+      })
+      .catch((err) => {
+        console.log(err);
+        commit('setErrors', err.message);
+      });
+  },
 };
 
 const mutations = {
