@@ -33,13 +33,11 @@ const newOrderIds = (houseworks) => {
       @sort="changeOrder()"
       v-model="houseworks"
     >
-      <div
-        class="list-group-item row"
+      <HouseworkListItem
         v-for="item in houseworks"
         :key="item.id"
-      >
-        <HouseworkListItem :housework="item" />
-      </div>
+        :housework="item"
+      />
     </draggable>
   </div>
 </template>
