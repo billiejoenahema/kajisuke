@@ -185,6 +185,11 @@ button {
 .category-name > mark {
   font-size: 0.7rem;
 }
+.schedule {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
 .bars-wrapper {
   padding: 8px;
   display: flex;
