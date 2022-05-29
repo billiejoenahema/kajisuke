@@ -38,12 +38,15 @@ button {
   text-decoration: none;
   margin: 0;
 }
+.nav-item-user {
+  position: relative;
+}
 .user-menu {
-  position: fixed;
-  top: 50px;
+  position: absolute;
+  top: 48px;
   right: 0;
   z-index: 2;
-  padding: 8px;
+  padding: 16px 16px 16px 32px;
   display: flex;
   flex-direction: column;
 }
