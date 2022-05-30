@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\DB;
 class HouseworkController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * 家事一覧を取得する。
      *
      * @return Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
@@ -97,6 +97,7 @@ class HouseworkController extends Controller
      */
     public function destroy(Housework $housework)
     {
-        //
+        // 削除する
+        // オーダーからこのIDを取り除く
     }
 }

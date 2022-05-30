@@ -12,6 +12,7 @@ const props = defineProps({
       num: '',
       unit: '',
     },
+    cycle_value: null,
     next_date: null,
     category: {
       id: 0,
@@ -52,6 +53,7 @@ const deleteHouseworkItem = () => {
       <div class="housework-title">{{ housework.title }}</div>
     </div>
     <div class="schedule">{{ housework.comment }}</div>
+    <div class="cycle">{{ housework.cycle_value }}</div>
     <div class="next-date">{{ housework.next_date }}</div>
     <div class="item-menu-icon" @click="toggleShowItemMenu()">
       <font-awesome-icon class="ellipsis-vertical" icon="ellipsis-vertical" />

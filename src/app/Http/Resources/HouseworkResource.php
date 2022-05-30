@@ -28,6 +28,7 @@ class HouseworkResource extends JsonResource
             'category' => new CategoryResource($this->category),
             'cycle' => $cycle,
             // 'archives' => ArchiveResource::collection($this->archives),
+            'cycle_value' => HouseworkService::getCycleValue($this->cycle),
             'next_date' => HouseworkService::getNextDate($this->cycle, $this->updated_at),
         ];
     }
