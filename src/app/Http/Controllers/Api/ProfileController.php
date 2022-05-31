@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 class ProfileController extends Controller
 {
     /**
+     * ユーザー情報を取得する。
      * @return ProfileResource
      */
     public function __invoke(): ProfileResource

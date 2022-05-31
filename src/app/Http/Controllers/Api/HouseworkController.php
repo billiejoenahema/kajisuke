@@ -32,7 +32,7 @@ class HouseworkController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * 家事を新規登録する。
      *
      * @param  \App\Http\Requests\StoreHouseworkRequest  $request
      * @return \Illuminate\Http\Response
@@ -55,18 +55,7 @@ class HouseworkController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Housework  $housework
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Housework $housework)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
+     * 家事を更新する。
      *
      * @param  \App\Http\Requests\UpdateHouseworkRequest  $request
      * @param  \App\Models\Housework  $housework
@@ -90,7 +79,7 @@ class HouseworkController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * 家事を削除する。
      *
      * @param  \App\Models\Housework  $housework
      * @return \Illuminate\Http\Response

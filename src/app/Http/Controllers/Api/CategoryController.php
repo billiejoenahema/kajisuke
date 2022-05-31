@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\DB;
 class CategoryController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * カテゴリ一覧を取得する。
      *
      * @return CategoryResource
      */
@@ -26,7 +26,7 @@ class CategoryController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * カテゴリを登録する。
      *
      * @param  \App\Http\Requests\StoreCategoryRequest  $request
      * @return \Illuminate\Http\Response
@@ -46,18 +46,7 @@ class CategoryController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Category $category)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
+     * カテゴリを更新する。
      *
      * @param  \App\Http\Requests\UpdateCategoryRequest  $request
      * @return \Illuminate\Http\Response
@@ -77,13 +66,19 @@ class CategoryController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * カテゴリを削除する。
      *
-     * @param  \App\Models\Category  $category
+     * @param  Int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Int $id)
     {
-        //
+        $category = Category::findOrFail($id);
+        $hasHousework = $category->houseworks->isNotEmpty();
+        if($hasHousework) {
+            return response()->json(['message' => 'This category is in use and cannot be deleted'], 500);
+        }
+        $category->delete();
+        return response()->json(['message' => 'Category deleted successfully'], 200);
     }
 }
