@@ -1,13 +1,13 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Housework;
 
 use App\Models\Housework;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class HouseworkIndexTest extends TestCase
+class IndexTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -23,7 +23,7 @@ class HouseworkIndexTest extends TestCase
         $housework = Housework::factory()->create();
 
         // 実行
-        $response = $this->actingAs($user)->getJson('/api/housework');
+        $response = $this->actingAs($user)->getJson('/api/houseworks');
         $response
         ->assertOK()
         ->assertJsonCount(1)
