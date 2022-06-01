@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ArchiveController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\HouseworkController;
 use App\Http\Controllers\Api\HouseworkOrderController;
@@ -33,4 +34,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/categories', [CategoryController::class, 'store']);
     Route::patch('/categories', [CategoryController::class, 'update']);
     Route::delete('/categories/{category}', [CategoryController::class, 'destroy']);
+    // 履歴
+    Route::post('/archives', [ArchiveController::class, 'store']);
 });
