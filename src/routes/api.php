@@ -36,4 +36,5 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::delete('/categories/{category}', [CategoryController::class, 'destroy']);
     // 履歴
     Route::post('/archives', [ArchiveController::class, 'store']);
+    Route::patch('/archives/{archive}', [ArchiveController::class, 'update']);
 });

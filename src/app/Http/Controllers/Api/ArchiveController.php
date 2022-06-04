@@ -54,15 +54,25 @@ class ArchiveController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * 家事履歴を更新する。
      *
-     * @param  \App\Http\Requests\UpdateArchiveRequest  $request
-     * @param  \App\Models\Archive  $archive
-     * @return \Illuminate\Http\Response
+     * @param  UpdateArchiveRequest  $request
+     * @param  Archive  $archive
+     * @return ArchiveResource
      */
-    public function update(UpdateArchiveRequest $request, Archive $archive)
+    public function update(UpdateArchiveRequest $request)
     {
-        //
+        $archive = DB::transaction(function () use ($request) {
+            $archive = Archive::findOrFail($request['id']);
+
+            $archive->housework_id = $request['housework_id'];
+            $archive->date = $request['date'];
+            $archive->content = $request['content'];
+            $archive->save();
+
+            return $archive;
+        });
+        return new ArchiveResource($archive);
     }
 
     /**
