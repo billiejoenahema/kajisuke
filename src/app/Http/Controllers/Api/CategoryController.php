@@ -28,8 +28,8 @@ class CategoryController extends Controller
     /**
      * カテゴリを登録する。
      *
-     * @param  \App\Http\Requests\StoreCategoryRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param  StoreCategoryRequest  $request
+     * @return CategoryResource
      */
     public function store(StoreCategoryRequest $request)
     {
@@ -48,8 +48,8 @@ class CategoryController extends Controller
     /**
      * カテゴリを更新する。
      *
-     * @param  \App\Http\Requests\UpdateCategoryRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param  UpdateCategoryRequest  $request
+     * @return CategoryResource
      */
     public function update(UpdateCategoryRequest $request)
     {
