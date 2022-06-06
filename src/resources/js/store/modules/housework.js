@@ -56,7 +56,7 @@ const actions = {
   },
   async update({ commit }, data) {
     await axios
-      .patch('/api/houseworks', data)
+      .patch(`/api/houseworks/${data.id}`, data)
       .then((res) => {
         console.log(res.status);
         commit('resetErrors');
