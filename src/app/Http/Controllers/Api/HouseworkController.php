@@ -115,12 +115,17 @@ class HouseworkController extends Controller
     /**
      * 家事を削除する。
      *
-     * @param  \App\Models\Housework  $housework
+     * @param  Int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Housework $housework)
+    public function destroy(Int $id)
     {
-        // 削除する
-        // オーダーからこのIDを取り除く
+        DB::transaction(function () use ($id) {
+            $housework = Housework::findOrFail($id);
+            $this->houseworkService->detachAndUpdateHouseOrder($id);
+            $housework->delete();
+        });
+
+        return response()->json(null, 204);
     }
 }
