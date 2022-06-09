@@ -8,12 +8,29 @@ use App\Http\Requests\UpdateHouseworkRequest;
 use App\Http\Resources\HouseworkResource;
 use App\Models\Housework;
 use App\Models\HouseworkOrder;
+use App\Services\HouseworkService;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class HouseworkController extends Controller
 {
+    /**
+     * 家事サービスインスタンス
+     */
+    protected $houseworkService;
+
+    /**
+     * インスタンスの生成
+     *
+     * @param  HouseworkService $houseworkService
+     * @return void
+     */
+    public function __construct(HouseworkService $houseworkService)
+    {
+        $this->houseworkService = $houseworkService;
+    }
+
     /**
      * 家事一覧を取得する。
      *
@@ -48,6 +65,22 @@ class HouseworkController extends Controller
                 'cycle' => $request->getCycle(),
                 'category_id' => $request->category_id,
             ]);
+            $user = Auth::user();
+
+            // すでに家事の表示順が設定されているかどうかを確認する
+            $houseworkOrder = HouseworkOrder::where('user_id', $user->id)->firstOr(function () {
+                return null;
+            });
+            // 設定されていなければ新規登録し、設定されていれば更新する
+            if (empty($houseworkOrder)) {
+                $houseworkOrder = HouseworkOrder::create([
+                    'user_id' => $user->id,
+                    'order' => $housework->id,
+                ]);
+            } else {
+                $houseworkOrder->order = $houseworkOrder->order . ',' . (string) $housework->id;
+                $houseworkOrder->save();
+            }
 
             return $housework;
         });
