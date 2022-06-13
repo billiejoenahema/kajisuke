@@ -46,12 +46,12 @@ class HouseworkService
     }
 
     /**
-     * 指定した家事IDを取り除いて家事の表示順を更新する。
+     * 家事の表示順から指定した家事IDを取り除く。
      *
      * @param Int $id
      * @return void
      */
-    public static function detachAndUpdateHouseOrder($id): void
+    public static function detachHouseOrder($id): void
     {
         // ユーザーが所有する家事の表示順を取得する
         $houseworkOrder = HouseworkOrder::where('user_id', Auth::user()->id)->first();
@@ -67,5 +67,30 @@ class HouseworkService
         // 家事の表示順を更新する
         $houseworkOrder->order = $orderString;
         $houseworkOrder->save();
+    }
+
+    /**
+     * 家事の表示順に指定した家事IDを追加する。
+     *
+     * @param mixed $housework
+     * @return void
+     */
+    public static function attachHouseworkOrder($housework): void
+    {
+        $user = Auth::user();
+        // すでに家事の表示順が設定されているかどうかを確認する
+        $houseworkOrder = HouseworkOrder::where('user_id', $user->id)->firstOr(function () {
+            return null;
+        });
+        // 設定されていなければ新規登録し、設定されていれば更新する
+        if (empty($houseworkOrder)) {
+            $houseworkOrder = HouseworkOrder::create([
+                'user_id' => $user->id,
+                'order' => $housework->id,
+            ]);
+        } else {
+            $houseworkOrder->order = $houseworkOrder->order . ',' . (string) $housework->id;
+            $houseworkOrder->save();
+        }
     }
 }
