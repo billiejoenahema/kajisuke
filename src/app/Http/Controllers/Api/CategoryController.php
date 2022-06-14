@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreCategoryRequest;
-use App\Http\Requests\UpdateCategoryRequest;
+use App\Http\Requests\StoreRequest;
+use App\Http\Requests\UpdateRequest;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -28,10 +28,10 @@ class CategoryController extends Controller
     /**
      * カテゴリを登録する。
      *
-     * @param  StoreCategoryRequest  $request
+     * @param  StoreRequest  $request
      * @return CategoryResource
      */
-    public function store(StoreCategoryRequest $request)
+    public function store(StoreRequest $request)
     {
         $category = DB::transaction(function () use ($request) {
            $category = Category::create([
@@ -48,10 +48,10 @@ class CategoryController extends Controller
     /**
      * カテゴリを更新する。
      *
-     * @param  UpdateCategoryRequest  $request
+     * @param  UpdateRequest  $request
      * @return CategoryResource
      */
-    public function update(UpdateCategoryRequest $request)
+    public function update(UpdateRequest $request)
     {
         $category = DB::transaction(function () use ($request) {
             $category = Category::findOrFail($request['id']);

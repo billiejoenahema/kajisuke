@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreArchiveRequest;
-use App\Http\Requests\UpdateArchiveRequest;
+use App\Http\Requests\StoreRequest;
+use App\Http\Requests\UpdateRequest;
 use App\Http\Resources\ArchiveResource;
 use App\Models\Archive;
 use Illuminate\Support\Facades\DB;
@@ -24,10 +24,10 @@ class ArchiveController extends Controller
     /**
      * 家事の履歴を登録する。
      *
-     * @param  \App\Http\Requests\StoreArchiveRequest  $request
+     * @param  StoreRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreArchiveRequest $request)
+    public function store(StoreRequest $request)
     {
         $archive = DB::transaction(function () use ($request) {
            $archive = Archive::create([
@@ -56,11 +56,11 @@ class ArchiveController extends Controller
     /**
      * 家事履歴を更新する。
      *
-     * @param  UpdateArchiveRequest  $request
+     * @param  UpdateRequest  $request
      * @param  Archive  $archive
      * @return ArchiveResource
      */
-    public function update(UpdateArchiveRequest $request)
+    public function update(UpdateRequest $request)
     {
         $archive = DB::transaction(function () use ($request) {
             $archive = Archive::findOrFail($request['id']);

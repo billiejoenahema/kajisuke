@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreHouseworkRequest;
-use App\Http\Requests\UpdateHouseworkRequest;
+use App\Http\Requests\Housework\StoreRequest;
+use App\Http\Requests\Housework\UpdateRequest;
 use App\Http\Resources\HouseworkResource;
 use App\Models\Housework;
 use App\Models\HouseworkOrder;
@@ -58,7 +58,7 @@ class HouseworkController extends Controller
      * @param  StoreHouseworkRequest $request
      * @return HouseworkResource
      */
-    public function store(StoreHouseworkRequest $request): HouseworkResource
+    public function store(StoreRequest $request): HouseworkResource
     {
         $housework = $this->houseworkService->store($request);
 
@@ -71,7 +71,7 @@ class HouseworkController extends Controller
      * @param  UpdateHouseworkRequest  $request
      * @return HouseworkResource
      */
-    public function update(UpdateHouseworkRequest $request): HouseworkResource
+    public function update(UpdateRequest $request): HouseworkResource
     {
         // 家事を更新する
         $housework = $this->houseworkService->update($request);

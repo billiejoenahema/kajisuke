@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Archive;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateHouseworkOrderRequest extends FormRequest
+class StoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,9 @@ class UpdateHouseworkOrderRequest extends FormRequest
     public function rules()
     {
         return [
-            'order' => 'required|string',
+            'housework_id' => 'required|integer',
+            'date' => 'required|date',
+            'content' => 'required|string|max:200',
         ];
     }
 }
