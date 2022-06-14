@@ -2,8 +2,10 @@
 
 namespace App\Services;
 
+use App\Models\Housework;
 use App\Models\HouseworkOrder;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class HouseworkService
 {
@@ -43,6 +45,71 @@ class HouseworkService
             $cycle_value = $cycleNum == '1' ? '毎年' : $cycleNum . '年に一度';
         }
         return $cycle_value;
+    }
+
+    /**
+     * 家事を新規登録する。
+     *
+     * @param StoreHouseworkRequest $request
+     * @return Housework
+     */
+    public static function store($request): Housework
+    {
+        $housework = DB::transaction(function () use ($request) {
+            // 家事を新規登録する
+            $housework = Housework::create([
+                'user_id' => Auth::user()->id,
+                'title' => $request['title'],
+                'comment' => $request['comment'],
+                'cycle' => $request->getCycle(),
+                'category_id' => $request->category_id,
+            ]);
+
+            // 家事の表示順に家事IDを追加する
+            self::attachHouseworkOrder($housework);
+
+            return $housework;
+        });
+
+        return $housework;
+    }
+
+    /**
+     * 家事を更新する。
+     *
+     * @param StoreHouseworkRequest $request
+     * @return Housework
+     */
+    public static function update($request): Housework
+    {
+        $housework = DB::transaction(function () use ($request) {
+            $housework = Housework::findOrFail($request['id']);
+
+            $housework->category_id = $request['category_id'];
+            $housework->title = $request['title'];
+            $housework->comment = $request['comment'];
+            $housework->cycle = $request->getCycle();
+            $housework->save();
+
+            return $housework;
+        });
+
+        return $housework;
+    }
+
+    /**
+     * 家事を削除する。
+     *
+     * @param StoreHouseworkRequest $request
+     * @return void
+     */
+    public static function destroy($id): void
+    {
+        DB::transaction(function () use ($id) {
+            $housework = Housework::findOrFail($id);
+            self::detachHouseOrder($id);
+            $housework->delete();
+        });
     }
 
     /**
