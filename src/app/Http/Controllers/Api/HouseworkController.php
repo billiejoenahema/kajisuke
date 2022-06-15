@@ -41,14 +41,14 @@ class HouseworkController extends Controller
     public function index(): AnonymousResourceCollection
     {
         $user = Auth::user();
-        $order = HouseworkOrder::where('user_id', $user->id)->firstOr(function () {
-            return null;
-        });
         $query = Housework::with(['archives', 'category']);
+        $houseworkOrder = HouseworkOrder::where('user_id', 1111111)->first();
+        $order = $houseworkOrder ? $houseworkOrder->order : null;
         $houseworks = $query->where('user_id', $user->id)
             ->when($order, function ($q) use ($order) {
                 $q->orderByRaw("FIELD(id, $order)");
             })->get();
+
         return HouseworkResource::collection($houseworks);
     }
 
