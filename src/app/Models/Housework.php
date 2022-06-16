@@ -45,4 +45,19 @@ class Housework extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    /**
+     * 家事の表示順に従って家事一覧をソートする。
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  string|null $order
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function sortByHouseworkOrder($query, $order)
+    {
+        if (empty($order)) {
+            return $query;
+        }
+        return $query->orderByRaw("FIELD(id, $order)");
+    }
 }

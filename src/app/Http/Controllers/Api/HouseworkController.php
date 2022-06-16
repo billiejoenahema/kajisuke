@@ -38,16 +38,13 @@ class HouseworkController extends Controller
      *
      * @return Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index(): AnonymousResourceCollection
+    public function index(Housework $housework): AnonymousResourceCollection
     {
         $user = Auth::user();
-        $query = Housework::with(['archives', 'category']);
-        $houseworkOrder = HouseworkOrder::where('user_id', 1111111)->first();
-        $order = $houseworkOrder ? $houseworkOrder->order : null;
-        $houseworks = $query->where('user_id', $user->id)
-            ->when($order, function ($q) use ($order) {
-                $q->orderByRaw("FIELD(id, $order)");
-            })->get();
+        $query = Housework::with(['archives', 'category'])->where('user_id', $user->id);
+        $houseworkOrder = HouseworkOrder::where('user_id',$user->id)->first();
+        $order = $houseworkOrder->order ?? null;
+        $houseworks = $housework->sortByHouseworkOrder($query, $order)->get();
 
         return HouseworkResource::collection($houseworks);
     }
