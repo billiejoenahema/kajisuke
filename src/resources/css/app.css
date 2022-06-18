@@ -105,7 +105,7 @@ button {
   padding: 16px;
 }
 #category-list {
-  max-height: 80vh;
+  max-height: 40vh;
   overflow: auto;
   list-style: none;
   padding-left: 8px;
