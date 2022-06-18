@@ -2,6 +2,9 @@
 import Datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 import { reactive } from 'vue';
+import { useStore } from 'vuex';
+
+const store = useStore();
 
 const props = defineProps({
   housework: {
@@ -35,7 +38,7 @@ const editHousework = () => {
 
 const commitHousework = () => {
   if (confirm('この家事を実施済みにしますか？')) {
-    // commit housework
+    store.dispatch('archive/post', houseworkCommit);
     props.closeModal();
   }
 };
@@ -45,7 +48,7 @@ const commitHousework = () => {
   <div class="modal" @click.self="closeModal()">
     <div class="housework-detail-area">
       <div class="modal-header">
-        <div class="xmark-wrapper">
+        <div class="xmark-wrapper" @click="closeModal()">
           <font-awesome-icon class="xmark" icon="xmark" />
         </div>
       </div>
