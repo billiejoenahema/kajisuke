@@ -1,4 +1,3 @@
-`
 <script setup>
 import { reactive, ref, watchEffect } from 'vue';
 import { useStore } from 'vuex';

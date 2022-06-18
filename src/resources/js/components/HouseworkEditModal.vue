@@ -84,9 +84,8 @@ const updateHousework = async () => {
         </option>
       </select>
       <div class="store-button-area">
-        <button class="store-button" @click="updateHousework()">
-          更新する
-        </button>
+        <button class="store-button" @click="updateHousework()">更新</button>
+        <button class="cancel-button" @click="closeModal()">キャンセル</button>
       </div>
     </div>
   </div>

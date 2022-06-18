@@ -96,6 +96,7 @@ button {
 }
 .housework-input-area,
 .housework-edit-area,
+.housework-detail-area,
 .category-input-area,
 .category-list-area {
   margin: auto;
@@ -140,6 +141,7 @@ button {
   min-height: 64px;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
 }
 .category-list-item {
   position: relative;
@@ -202,4 +204,32 @@ button {
 .trash-icon {
   color: rgb(244, 128, 128);
   font-size: 1.1rem;
+}
+.show-housework-title,
+.show-housework-comment {
+  background: rgb(65, 65, 65);
+  padding: 4px;
+  margin-bottom: 16px;
+}
+.modal-header {
+  display: flex;
+  justify-content: end;
+}
+.xmark-wrapper {
+  height: 32px;
+  width: 32px;
+  padding: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+.xmark-wrapper:hover {
+  background: rgb(65, 65, 65);
+}
+.xmark {
+  font-size: 1.2rem;
+}
+.date-picker > div > .input {
+  margin: 0;
 }

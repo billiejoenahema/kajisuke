@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue';
+import HouseworkDetailModal from './HouseworkDetailModal';
 import HouseworkEditModal from './HouseworkEditModal';
 
 const props = defineProps({
@@ -21,9 +22,13 @@ const props = defineProps({
   },
 });
 const isShowItemMenu = ref(false);
-const isShowHouseworkModal = ref(false);
-const showHouseworkModal = () => {
-  isShowHouseworkModal.value = true;
+const isShowEditModal = ref(false);
+const isShowDetailModal = ref(false);
+const showEditModal = () => {
+  isShowEditModal.value = true;
+};
+const showDetailModal = () => {
+  isShowDetailModal.value = true;
 };
 const toggleShowItemMenu = () => {
   isShowItemMenu.value = !isShowItemMenu.value;
@@ -32,7 +37,8 @@ const hideItemMenu = () => {
   isShowItemMenu.value = false;
 };
 const closeModal = () => {
-  isShowHouseworkModal.value = false;
+  isShowEditModal.value = false;
+  isShowDetailModal.value = false;
 };
 const deleteHouseworkItem = () => {
   console.log(props.housework.id);
@@ -44,7 +50,7 @@ const deleteHouseworkItem = () => {
     <div class="bars-wrapper">
       <font-awesome-icon class="bars handle" icon="bars" />
     </div>
-    <div class="column title">
+    <div class="column title" @click="showDetailModal()">
       <div class="category-name">
         <mark>
           {{ housework.category?.name }}
@@ -59,14 +65,20 @@ const deleteHouseworkItem = () => {
       <font-awesome-icon class="ellipsis-vertical" icon="ellipsis-vertical" />
       <div class="item-menu" v-if="isShowItemMenu">
         <ul>
-          <li @click="showHouseworkModal()">編集</li>
+          <li @click="showEditModal()">編集</li>
           <li @click="deleteHouseworkItem()">削除</li>
         </ul>
       </div>
     </div>
     <HouseworkEditModal
-      v-if="isShowHouseworkModal"
+      v-if="isShowEditModal"
       :housework="housework"
+      :closeModal="closeModal"
+    />
+    <HouseworkDetailModal
+      v-if="isShowDetailModal"
+      :housework="housework"
+      :showEditModal="showEditModal"
       :closeModal="closeModal"
     />
   </div>
