@@ -37,6 +37,11 @@ watchEffect(() => {
 <template>
   <div class="modal" @click.self="closeModal()">
     <div class="category-input-area">
+      <div class="modal-header">
+        <div class="xmark-wrapper" @click="closeModal()">
+          <font-awesome-icon class="xmark" icon="xmark" />
+        </div>
+      </div>
       <div>カテゴリ</div>
       <ul class="category-list" id="category-list">
         <CategoryListItem

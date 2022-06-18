@@ -40,6 +40,11 @@ const resetHousework = () => {
 <template>
   <div class="modal" @click.self="closeModal()">
     <div class="housework-input-area">
+      <div class="modal-header">
+        <div class="xmark-wrapper" @click="closeModal()">
+          <font-awesome-icon class="xmark" icon="xmark" />
+        </div>
+      </div>
       <label>家事名</label>
       <input class="housework-title-input" v-model="housework.title" />
       <label>詳細</label>
