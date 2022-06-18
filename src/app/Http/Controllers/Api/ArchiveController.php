@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreRequest;
-use App\Http\Requests\UpdateRequest;
+use App\Http\Requests\Archive\StoreRequest;
+use App\Http\Requests\Archive\UpdateRequest;
 use App\Http\Resources\ArchiveResource;
 use App\Models\Archive;
 use Illuminate\Support\Facades\DB;
