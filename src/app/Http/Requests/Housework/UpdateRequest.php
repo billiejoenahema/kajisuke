@@ -29,13 +29,7 @@ class UpdateRequest extends FormRequest
             'comment' => 'required|string|max:200',
             'cycle_num' => 'required|string',
             'cycle_unit' => 'required|string',
+            'next_date' => 'required|date',
         ];
-    }
-
-    public function getCycle()
-    {
-        $num = $this->input('cycle_num');
-        $unit = $this->input('cycle_unit');
-        return $num . ' ' . $unit;
     }
 }

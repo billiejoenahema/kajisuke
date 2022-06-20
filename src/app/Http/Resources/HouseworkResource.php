@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources;
 
-use App\Services\HouseworkService;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class HouseworkResource extends JsonResource
@@ -15,21 +14,15 @@ class HouseworkResource extends JsonResource
      */
     public function toArray($request)
     {
-        $array = explode(' ', $this->cycle);
-        $cycle = [
-            'num' => $array[0],
-            'unit' => $array[1],
-        ];
-
         return [
             'id' => $this->id,
             'title' => $this->title,
             'comment' => $this->comment,
             'category' => new CategoryResource($this->category),
-            'cycle' => $cycle,
-            // 'archives' => ArchiveResource::collection($this->archives),
-            'cycle_value' => HouseworkService::getCycleValue($this->cycle),
-            'next_date' => HouseworkService::getNextDate($this->cycle, $this->updated_at),
+            'cycle_num' => $this->cycle_num,
+            'cycle_unit' => $this->cycle_unit,
+            'next_date' => $this->next_date,
+            'archives' => ArchiveResource::collection($this->archives),
         ];
     }
 }
