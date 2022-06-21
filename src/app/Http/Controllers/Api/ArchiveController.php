@@ -7,6 +7,8 @@ use App\Http\Requests\Archive\StoreRequest;
 use App\Http\Requests\Archive\UpdateRequest;
 use App\Http\Resources\ArchiveResource;
 use App\Models\Archive;
+use App\Models\Housework;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class ArchiveController extends Controller
@@ -30,14 +32,18 @@ class ArchiveController extends Controller
     public function store(StoreRequest $request)
     {
         $archive = DB::transaction(function () use ($request) {
-           $archive = Archive::create([
+            $archive = Archive::create([
                 'housework_id' => $request['housework_id'],
-                'date' => $request['date'],
+                'date' => $request->convertDate(),
                 'content' => $request['content'],
             ]);
-
             return $archive;
         });
+
+        $housework = Housework::findOrFail($request['housework_id']);
+        $next_date = $housework->getNextDate(new Carbon($archive->date), $housework->cycle_unit);
+        $housework->next_date = $next_date;
+        $housework->save();
 
         return new ArchiveResource($archive);
     }
