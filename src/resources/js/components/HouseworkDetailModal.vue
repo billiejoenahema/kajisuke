@@ -36,9 +36,10 @@ const editHousework = () => {
   props.showEditModal();
 };
 
-const commitHousework = () => {
+const commitHousework = async () => {
   if (confirm('この家事を実施済みにしますか？')) {
-    store.dispatch('archive/post', houseworkCommit);
+    await store.dispatch('archive/post', houseworkCommit);
+    await store.dispatch('housework/get');
     props.closeModal();
   }
 };
