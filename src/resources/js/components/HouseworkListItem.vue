@@ -9,11 +9,8 @@ const props = defineProps({
     user_id: 0,
     title: '',
     comment: '',
-    cycle: {
-      num: '',
-      unit: '',
-    },
-    cycle_value: null,
+    cycle_num: 0,
+    cycle_unit: 0,
     next_date: null,
     category: {
       id: 0,

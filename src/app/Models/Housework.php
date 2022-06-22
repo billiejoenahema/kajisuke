@@ -9,6 +9,27 @@ class Housework extends Model
 {
     use HasFactory;
 
+    /** 実行周期の単位が日 */
+    public const DAY = [
+        'ID' => 1,
+        'EVERY_DAY' => '毎日',
+    ];
+    /** 実行周期の単位が週 */
+    public const WEEK = [
+        'ID' => 2,
+        'EVERY_WEEK' => '毎週',
+    ];
+    /** 実行周期の単位が月 */
+    public const MONTH = [
+        'ID' => 3,
+        'EVERY_MONTH' => '毎月',
+    ];
+    /** 実行周期の単位が年 */
+    public const YEAR = [
+        'ID' => 4,
+        'EVERY_YEAR' => '毎年',
+    ];
+
     /**
      * 複数代入可能な属性
      *
@@ -24,11 +45,6 @@ class Housework extends Model
         'next_date',
     ];
 
-    const DAY = 1;
-    const WEEK = 2;
-    const MONTH = 3;
-    const YEAR = 4;
-
     /**
      * 家事の次回実施日を返します。
      *
@@ -38,14 +54,14 @@ class Housework extends Model
     public function getNextDate($archiveDate, $cycleUnit)
     {
         switch ($cycleUnit) {
-            case Housework::DAY:
-                return $archiveDate->addDay(Housework::DAY);
-            case Housework::WEEK:
-                return $archiveDate->addWeek(Housework::WEEK);
-            case Housework::MONTH:
-                return $archiveDate->addMonth(Housework::MONTH);
-            case Housework::YEAR:
-                return $archiveDate->addYear(Housework::YEAR);
+            case Housework::DAY['ID']:
+                return $archiveDate->addDay(Housework::DAY['ID']);
+            case Housework::WEEK['ID']:
+                return $archiveDate->addWeek(Housework::WEEK['ID']);
+            case Housework::MONTH['ID']:
+                return $archiveDate->addMonth(Housework::MONTH['ID']);
+            case Housework::YEAR['ID']:
+                return $archiveDate->addYear(Housework::YEAR['ID']);
         }
     }
 
