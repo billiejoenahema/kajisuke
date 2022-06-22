@@ -233,3 +233,6 @@ button {
 .date-picker > div > .input {
   margin: 0;
 }
+.is-over-date {
+  color: red;
+}

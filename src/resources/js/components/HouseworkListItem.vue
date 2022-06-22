@@ -12,12 +12,16 @@ const props = defineProps({
     cycle_num: 0,
     cycle_unit: 0,
     next_date: null,
+    is_over_date: false,
     category: {
       id: 0,
       name: '',
     },
   },
 });
+const isOverDate = () => {
+  return props.housework.is_over_date ? 'is-over-date' : '';
+};
 const isShowItemMenu = ref(false);
 const isShowEditModal = ref(false);
 const isShowDetailModal = ref(false);
@@ -57,7 +61,9 @@ const deleteHouseworkItem = () => {
     </div>
     <div class="schedule">{{ housework.comment }}</div>
     <div class="cycle">{{ housework.cycle_value }}</div>
-    <div class="next-date">{{ housework.next_date }}</div>
+    <div class="next-date" :class="isOverDate()">
+      {{ housework.next_date }}
+    </div>
     <div class="item-menu-icon" @click="toggleShowItemMenu()">
       <font-awesome-icon class="ellipsis-vertical" icon="ellipsis-vertical" />
       <div class="item-menu" v-if="isShowItemMenu">
