@@ -25,6 +25,7 @@ class HouseworkResource extends JsonResource
             'cycle_value' => self::getCycleValue($this->cycle_num, $this->cycle_unit),
             'next_date' => $this->next_date,
             'archives' => ArchiveResource::collection($this->archives),
+            'is_over_date' => self::isOverDate($this->next_date),
         ];
     }
 
@@ -50,4 +51,18 @@ class HouseworkResource extends JsonResource
                 return '不明';
         }
     }
+
+    /**
+     * 次回実施日が過ぎているかどうかを返す。
+     *
+     * @param string $next_date
+     * @return bool
+     */
+    public static function isOverDate($next_date): bool
+    {
+        $now = new \DateTime();
+        $next_date = new \DateTime($next_date);
+        return $now > $next_date;
+    }
+
 }
