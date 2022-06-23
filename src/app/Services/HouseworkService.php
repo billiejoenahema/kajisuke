@@ -4,47 +4,54 @@ namespace App\Services;
 
 use App\Models\Housework;
 use App\Models\HouseworkOrder;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class HouseworkService
 {
     /**
-     * 次回実施日を返す。
+     * 家事の次回実施日を更新する。
      *
-     * @param String $cycle
-     * @param DateTime $last_date
-     * @return String
+     * @param mixed $archive
+     * @return void
      */
-    public static function getNextDate($cycle, $last_date): String
+    public function updateNextDate($archive): void
     {
-        $next_date = date('Y年m月d日', strtotime($last_date . $cycle));
-        return $next_date;
+        $housework = Housework::findOrFail($archive->housework_id);
+        $cycle = [
+            'num' => $housework->cycle_num,
+            'unit' => $housework->cycle_unit,
+        ];
+        $housework->next_date = self::getNextDate($archive->date, $cycle);
+
+        $housework->save();
     }
 
     /**
-     * 実行周期を判読可能な文字列に変換して返す。
+     * 家事の次回実施日を返します。
      *
-     * @param String $cycle
-     * @return String
+     * @param string $archiveDate
+     * @param array $cycle
+     *
+     * @return object
      */
-    public static function getCycleValue($cycle): String
+    public function getNextDate($archiveDate, $cycle): object
     {
-        $explodedCycles = [];
-        // $cycleをスペースを区切り文字で分割する。
-        $explodedCycles = explode(' ', $cycle);
-        $cycleNum = str_replace('+', '', $explodedCycles[0]);
-        $cycleUnit = $explodedCycles[1];
-        if ($cycleUnit == 'day') {
-            $cycle_value = $cycleNum == '1' ? '毎日' : $cycleNum . '日に一度';
-        } elseif ($cycleUnit == 'week') {
-            $cycle_value = $cycleNum == '1' ? '毎週' : $cycleNum . '週に一度';
-        } elseif ($cycleUnit == 'month') {
-            $cycle_value = $cycleNum == '1' ? '毎月' : $cycleNum . 'ヶ月に一度';
-        } elseif ($cycleUnit == 'year') {
-            $cycle_value = $cycleNum == '1' ? '毎年' : $cycleNum . '年に一度';
+        switch ($cycle['unit']) {
+            case Housework::DAY['ID']:
+                return Carbon::parse($archiveDate)->addDays($cycle['num']);
+                break;
+            case Housework::WEEK['ID']:
+                return Carbon::parse($archiveDate)->addWeeks($cycle['num']);
+                break;
+            case Housework::MONTH['ID']:
+                return Carbon::parse($archiveDate)->addMonths($cycle['num']);
+                break;
+            case Housework::YEAR['ID']:
+                return Carbon::parse($archiveDate)->addYears($cycle['num']);
+                break;
         }
-        return $cycle_value;
     }
 
     /**

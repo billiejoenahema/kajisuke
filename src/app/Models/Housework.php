@@ -46,26 +46,6 @@ class Housework extends Model
     ];
 
     /**
-     * 家事の次回実施日を返します。
-     *
-     * @param date $archiveDate
-     * @param int $cycleUnit
-     */
-    public function getNextDate($archiveDate, $cycleUnit)
-    {
-        switch ($cycleUnit) {
-            case Housework::DAY['ID']:
-                return $archiveDate->addDay(Housework::DAY['ID']);
-            case Housework::WEEK['ID']:
-                return $archiveDate->addWeek(Housework::WEEK['ID']);
-            case Housework::MONTH['ID']:
-                return $archiveDate->addMonth(Housework::MONTH['ID']);
-            case Housework::YEAR['ID']:
-                return $archiveDate->addYear(Housework::YEAR['ID']);
-        }
-    }
-
-    /**
      * 紐づくユーザーを取得する。
      */
     public function user()
