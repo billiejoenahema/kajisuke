@@ -207,6 +207,7 @@ button {
 }
 .show-housework-title,
 .show-housework-comment,
+.show-housework-next-date,
 .show-housework-archives {
   background: rgb(65, 65, 65);
   padding: 4px;

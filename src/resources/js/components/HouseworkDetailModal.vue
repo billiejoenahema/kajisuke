@@ -65,6 +65,8 @@ const commitHousework = async () => {
       <div class="show-housework-title">{{ housework.title }}</div>
       <label>詳細</label>
       <div class="show-housework-comment">{{ housework.comment }}</div>
+      <label>次回予定日</label>
+      <div class="show-housework-next-date">{{ housework.next_date }}</div>
       <label>履歴</label>
       <div class="show-housework-archives">
         <div v-for="archive in housework.archives" :key="archive.id">
