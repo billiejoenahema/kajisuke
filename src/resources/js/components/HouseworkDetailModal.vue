@@ -21,6 +21,14 @@ const props = defineProps({
       id: 0,
       name: '',
     },
+    archives: [
+      {
+        id: 0,
+        housework_id: 0,
+        date: '',
+        content: '',
+      },
+    ],
   },
   showEditModal: Function,
   closeModal: Function,
@@ -57,6 +65,12 @@ const commitHousework = async () => {
       <div class="show-housework-title">{{ housework.title }}</div>
       <label>詳細</label>
       <div class="show-housework-comment">{{ housework.comment }}</div>
+      <label>履歴</label>
+      <div class="show-housework-archives">
+        <div v-for="archive in housework.archives" :key="archive.id">
+          {{ archive.date }}
+        </div>
+      </div>
       <div class="store-button-area">
         <button class="edit-button" @click="editHousework()">編集</button>
         <Datepicker

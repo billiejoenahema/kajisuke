@@ -206,7 +206,8 @@ button {
   font-size: 1.1rem;
 }
 .show-housework-title,
-.show-housework-comment {
+.show-housework-comment,
+.show-housework-archives {
   background: rgb(65, 65, 65);
   padding: 4px;
   margin-bottom: 16px;
