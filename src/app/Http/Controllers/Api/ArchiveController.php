@@ -9,6 +9,8 @@ use App\Http\Resources\ArchiveResource;
 use App\Models\Archive;
 use App\Services\HouseworkService;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class ArchiveController extends Controller
 {
@@ -26,9 +28,9 @@ class ArchiveController extends Controller
      * 家事の履歴を登録する。
      *
      * @param  StoreRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function store(StoreRequest $request, HouseworkService $houseworkService)
+    public function store(StoreRequest $request, HouseworkService $houseworkService): JsonResponse
     {
         DB::transaction(function () use ($request, $houseworkService) {
             $archive = Archive::create([
@@ -39,7 +41,7 @@ class ArchiveController extends Controller
             $houseworkService->updateNextDate($archive);
         });
 
-        return response()->json(['message' => '新しい履歴を登録しました'], 201);
+        return response()->json(config('const.ARCHIVE')['CREATED'], Response::HTTP_CREATED);
     }
 
     /**
