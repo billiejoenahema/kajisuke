@@ -232,8 +232,8 @@ button {
 .xmark {
   font-size: 1.2rem;
 }
-.date-picker > div > .input {
-  margin: 0;
+.date-picker {
+  margin: 8px 0;
 }
 .is-over-date {
   color: red;
