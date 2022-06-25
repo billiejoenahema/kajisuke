@@ -3,6 +3,7 @@ import { ref } from 'vue';
 import VueElementLoading from 'vue-element-loading';
 import HouseworkList from '../components/HouseworkList';
 import NavigationBar from '../components/NavigationBar';
+import ToastMessage from '../components/ToastMessage';
 
 const isLoading = ref(false);
 const setIsLoading = (bool) => {
@@ -11,6 +12,7 @@ const setIsLoading = (bool) => {
 </script>
 
 <template>
+  <ToastMessage />
   <NavigationBar :isLoading="isLording" :setIsLoading="setIsLoading" />
   <vue-element-loading
     v-if="isLoading"

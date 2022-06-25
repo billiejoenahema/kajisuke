@@ -30,17 +30,16 @@ class ArchiveController extends Controller
      */
     public function store(StoreRequest $request, HouseworkService $houseworkService)
     {
-        $archive = DB::transaction(function () use ($request, $houseworkService) {
+        DB::transaction(function () use ($request, $houseworkService) {
             $archive = Archive::create([
                 'housework_id' => $request['housework_id'],
                 'date' => $request->convertDate(),
                 'content' => $request['content'],
             ]);
             $houseworkService->updateNextDate($archive);
-            return $archive;
         });
 
-        return new ArchiveResource($archive);
+        return response()->json(['message' => '新しい履歴を登録しました'], 201);
     }
 
     /**

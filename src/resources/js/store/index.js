@@ -6,6 +6,7 @@ import category from './modules/category';
 import housework from './modules/housework';
 import houseworkOrder from './modules/houseworkOrder';
 import profile from './modules/profile';
+import toast from './modules/toast';
 
 export const store = createStore({
   modules: {
@@ -15,5 +16,6 @@ export const store = createStore({
     houseworkOrder,
     housework,
     profile,
+    toast,
   },
 });

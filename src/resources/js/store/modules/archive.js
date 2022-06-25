@@ -27,12 +27,22 @@ const actions = {
     await axios
       .post('/api/archives', data)
       .then((res) => {
-        console.log(res.status);
         commit('resetErrors');
+        commit(
+          'toast/setData',
+          { type: 'success', content: res.data.message },
+          { root: true }
+        );
       })
       .catch((err) => {
+        console.log('err');
         console.log(err);
         commit('setErrors', err.message);
+        commit(
+          'toast/setData',
+          { type: 'error', content: err.message },
+          { root: true }
+        );
       });
   },
   async update({ commit }, data) {

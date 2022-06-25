@@ -1,7 +1,7 @@
 <script setup>
 import Datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
-import { reactive } from 'vue';
+import { computed, reactive } from 'vue';
 import { useStore } from 'vuex';
 
 const store = useStore();
@@ -43,10 +43,11 @@ const editHousework = () => {
   props.closeModal();
   props.showEditModal();
 };
+const hasErrors = computed(() => store.getters['archive/hasErrors']);
 
 const commitHousework = async () => {
-  if (confirm('この家事を実施済みにしますか？')) {
-    await store.dispatch('archive/post', houseworkCommit);
+  await store.dispatch('archive/post', houseworkCommit);
+  if (!hasErrors.value) {
     await store.dispatch('housework/get');
     props.closeModal();
   }
@@ -70,7 +71,7 @@ const commitHousework = async () => {
       <label>履歴</label>
       <div class="show-housework-archives">
         <div v-for="archive in housework.archives" :key="archive.id">
-          {{ archive.date }}
+          {{ archive.date ?? '履歴はまだありません' }}
         </div>
       </div>
       <div class="store-button-area">
