@@ -39,8 +39,7 @@ const toggleShowItemMenu = () => {
 const hideItemMenu = () => {
   isShowItemMenu.value = false;
 };
-const closeModal = async () => {
-  await store.dispatch('housework/get');
+const closeModal = () => {
   isShowEditModal.value = false;
   isShowDetailModal.value = false;
 };

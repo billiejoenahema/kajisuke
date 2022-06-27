@@ -3,7 +3,7 @@ import { computed, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 import { CYCLE_UNIT } from '../consts/cycle_unit';
-import { ONE_MONTH_DATE_LIST } from '../consts/oneMonthDateList';
+import { ONE_MONTH } from '../consts/oneMonthDateList';
 
 const router = useRouter();
 const store = useStore();
@@ -54,7 +54,7 @@ const resetHousework = () => {
         <div class="housework-cycle">
           <select v-model="housework.cycle_num">
             <option
-              v-for="date in ONE_MONTH_DATE_LIST"
+              v-for="date in ONE_MONTH.date_list"
               :key="date"
               :value="'+' + date"
             >

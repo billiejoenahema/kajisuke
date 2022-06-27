@@ -2,7 +2,7 @@
 import { computed, reactive } from 'vue';
 import { useStore } from 'vuex';
 import { CYCLE_UNIT } from '../consts/cycle_unit';
-import { ONE_MONTH_DATE_LIST } from '../consts/oneMonthDateList';
+import { ONE_MONTH } from '../consts/oneMonthDateList';
 
 const props = defineProps({
   housework: {
@@ -10,11 +10,11 @@ const props = defineProps({
     user_id: 0,
     title: '',
     comment: '',
-    cycle: {
-      num: '',
-      unit: '',
-    },
+    cycle_num: 0,
+    cycle_unit: 0,
     next_date: null,
+    is_over_date: false,
+    next_date: '',
     category: {
       id: 0,
       name: '',
@@ -29,12 +29,11 @@ const updatedHousework = reactive({
   title: props.housework.title,
   comment: props.housework.comment,
   category_id: props.housework.category.id,
-  cycle_num: props.housework.cycle.num,
-  cycle_unit: props.housework.cycle.unit,
+  cycle_num: props.housework.cycle_num,
+  cycle_unit: props.housework.cycle_unit,
 });
 const categories = computed(() => store.getters['category/data']);
 const updateHousework = async () => {
-  console.log(updatedHousework);
   await store.dispatch('housework/update', updatedHousework);
   store.dispatch('housework/get');
   props.closeModal();
@@ -57,16 +56,16 @@ const updateHousework = async () => {
         <label>実行周期</label>
         <div class="housework-cycle">
           <select v-model="updatedHousework.cycle_num">
-            <option
-              v-for="date in ONE_MONTH_DATE_LIST"
-              :key="date"
-              :value="'+' + date"
-            >
-              {{ date }}
+            <option v-for="day in ONE_MONTH.date_list" :key="day" :value="day">
+              {{ day }}
             </option>
           </select>
           <select v-model="updatedHousework.cycle_unit">
-            <option v-for="item in CYCLE_UNIT" :value="item.value">
+            <option
+              v-for="item in CYCLE_UNIT"
+              :value="item.cycle_unit_id"
+              :selected="item.cycle_unit_id == updatedHousework.cycle_unit"
+            >
               {{ item.content }}
             </option>
           </select>
