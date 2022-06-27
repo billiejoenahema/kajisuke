@@ -39,16 +39,14 @@ const houseworkCommit = reactive({
   date: null,
   content: props.housework.comment,
 });
+const hasErrors = computed(() => store.getters['archive/hasErrors']);
 const editHousework = () => {
   props.closeModal();
   props.showEditModal();
 };
-const hasErrors = computed(() => store.getters['archive/hasErrors']);
-
 const commitHousework = async () => {
   await store.dispatch('archive/post', houseworkCommit);
   if (!hasErrors.value) {
-    await store.dispatch('housework/get');
     props.closeModal();
   }
 };

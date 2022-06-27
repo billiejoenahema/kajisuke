@@ -1,8 +1,10 @@
 <script setup>
 import { ref } from 'vue';
+import { useStore } from 'vuex';
 import HouseworkDetailModal from './HouseworkDetailModal';
 import HouseworkEditModal from './HouseworkEditModal';
 
+const store = useStore();
 const props = defineProps({
   housework: {
     id: 0,
@@ -37,7 +39,8 @@ const toggleShowItemMenu = () => {
 const hideItemMenu = () => {
   isShowItemMenu.value = false;
 };
-const closeModal = () => {
+const closeModal = async () => {
+  await store.dispatch('housework/get');
   isShowEditModal.value = false;
   isShowDetailModal.value = false;
 };
