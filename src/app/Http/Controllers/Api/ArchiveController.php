@@ -45,17 +45,6 @@ class ArchiveController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Archive  $archive
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Archive $archive)
-    {
-        //
-    }
-
-    /**
      * 家事履歴を更新する。
      *
      * @param  UpdateRequest  $request
