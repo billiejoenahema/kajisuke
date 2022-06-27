@@ -1,1 +1,3 @@
-export const ONE_MONTH_DATE_LIST = [...Array(31).keys()].map((i) => ++i);
+export const ONE_MONTH = {
+  date_list: [...Array(31).keys()].map((i) => ++i),
+};
