@@ -52,7 +52,7 @@ class HouseworkController extends Controller
     /**
      * 家事を新規登録する。
      *
-     * @param  StoreHouseworkRequest $request
+     * @param  StoreRequest $request
      * @return HouseworkResource
      */
     public function store(StoreRequest $request): HouseworkResource

@@ -1,4 +1,6 @@
 <script setup>
+import Datepicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css';
 import { computed, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
@@ -16,11 +18,13 @@ const categories = computed(() => store.getters['category/data']);
 const housework = reactive({
   title: '',
   comment: '',
-  cycle_num: '+1',
-  cycle_unit: 'day',
+  cycle_num: 1,
+  cycle_unit: 1,
+  next_date: '',
   category_id: 0,
 });
 const storeHousework = async () => {
+  console.log(housework.next_date);
   await store.dispatch('housework/post', housework);
   // 正常に保存されたらリセットする
   resetHousework();
@@ -31,8 +35,9 @@ const storeHousework = async () => {
 const resetHousework = () => {
   housework.title = '';
   housework.comment = '';
-  housework.cycle_num = '';
-  housework.cycle_unit = '';
+  housework.cycle_num = 0;
+  housework.cycle_unit = 0;
+  housework.next_date = '';
   housework.category_id = 0;
 };
 </script>
@@ -50,19 +55,22 @@ const resetHousework = () => {
       <label>詳細</label>
       <textarea v-model="housework.comment" rows="8"></textarea>
       <div class="column">
+        <label>初回実施日</label>
+        <Datepicker
+          class="date-picker"
+          v-model="housework.next_date"
+          format="yyyy/MM/dd"
+          autoApply
+        ></Datepicker>
         <label>実行周期</label>
         <div class="housework-cycle">
           <select v-model="housework.cycle_num">
-            <option
-              v-for="date in ONE_MONTH.date_list"
-              :key="date"
-              :value="'+' + date"
-            >
-              {{ date }}
+            <option v-for="day in ONE_MONTH.date_list" :key="day" :value="day">
+              {{ day }}
             </option>
           </select>
           <select v-model="housework.cycle_unit">
-            <option v-for="item in CYCLE_UNIT" :value="item.value">
+            <option v-for="item in CYCLE_UNIT" :value="item.cycle_unit_id">
               {{ item.content }}
             </option>
           </select>

@@ -27,9 +27,19 @@ class UpdateRequest extends FormRequest
             'category_id' => 'required|integer|exists:categories,id',
             'title' => 'required|string|max:30',
             'comment' => 'required|string|max:200',
-            'cycle_num' => 'required|string',
-            'cycle_unit' => 'required|string',
-            'next_date' => 'required|date',
+            'cycle_num' => 'required|integer',
+            'cycle_unit' => 'required|integer',
+            'next_date' => 'required|string',
         ];
+    }
+
+    /**
+     * 次回実施日を先頭から10文字切り出す。
+     *
+     * @return string
+     */
+    public function nextDate(): string
+    {
+        return substr($this->input('next_date'), 0, 10);
     }
 }

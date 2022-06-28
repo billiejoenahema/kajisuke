@@ -31,6 +31,7 @@ const updatedHousework = reactive({
   category_id: props.housework.category.id,
   cycle_num: props.housework.cycle_num,
   cycle_unit: props.housework.cycle_unit,
+  next_date: props.housework.next_date,
 });
 const categories = computed(() => store.getters['category/data']);
 const updateHousework = async () => {
