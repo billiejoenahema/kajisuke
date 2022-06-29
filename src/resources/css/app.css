@@ -17,6 +17,7 @@ select {
 }
 button {
   border-radius: 0;
+  font-size: 0.9rem;
 }
 .login-form {
   margin: 0 auto;
