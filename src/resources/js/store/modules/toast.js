@@ -8,6 +8,16 @@ const getters = {
   data(state) {
     return state.data;
   },
+  status(state) {
+    if (state.data.status === undefined) return;
+    if (state.data.status < 300) {
+      return 'success';
+    } else if (state.data.status >= 400) {
+      return 'error';
+    } else {
+      return '';
+    }
+  },
 };
 
 const mutations = {
