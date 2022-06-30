@@ -4,19 +4,21 @@ import { useStore } from 'vuex';
 
 const store = useStore();
 const toast = computed(() => store.getters['toast/data']);
+const status = computed(() => store.getters['toast/status']);
 </script>
 
 <template>
-  <div class="toast" :class="toast.type">{{ toast.content }}</div>
+  <div class="toast" :class="status">{{ toast.content ?? '' }}</div>
 </template>
 
 <style scoped>
 main > .toast {
   position: fixed;
   top: 0px;
+  left: 0px;
   z-index: 10000;
   font-size: 1.2rem;
-  width: 100%;
+  width: 100vw;
   max-width: 2000px;
   border-radius: 0;
   text-align: center;
