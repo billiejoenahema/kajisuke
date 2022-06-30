@@ -9,9 +9,9 @@ use App\Http\Resources\HouseworkResource;
 use App\Models\Housework;
 use App\Models\HouseworkOrder;
 use App\Services\HouseworkService;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\Response;
 
 class HouseworkController extends Controller
 {
@@ -53,27 +53,26 @@ class HouseworkController extends Controller
      * 家事を新規登録する。
      *
      * @param  StoreRequest $request
-     * @return HouseworkResource
+     * @return Response
      */
-    public function store(StoreRequest $request): HouseworkResource
+    public function store(StoreRequest $request): Response
     {
-        $housework = $this->houseworkService->store($request);
+        $this->houseworkService->store($request);
 
-        return new HouseworkResource($housework);
+        return response()->json(config('const.HOUSEWORK.CREATED'), Response::HTTP_CREATED);
     }
 
     /**
      * 家事を更新する。
      *
      * @param  UpdateHouseworkRequest  $request
-     * @return HouseworkResource
+     * @return Response
      */
-    public function update(UpdateRequest $request): HouseworkResource
+    public function update(UpdateRequest $request): Response
     {
-        // 家事を更新する
-        $housework = $this->houseworkService->update($request);
+        $this->houseworkService->update($request);
 
-        return new HouseworkResource($housework);
+        return response()->json(config('const.HOUSEWORK.UPDATED'), Response::HTTP_OK);
     }
 
     /**
@@ -81,12 +80,12 @@ class HouseworkController extends Controller
      *
      * @param  Int  $id
      * @param  HouseworkService  $houseworkService
-     * @return JsonResponse
+     * @return Response
      */
-    public function destroy(Int $id): JsonResponse
+    public function destroy(Int $id): Response
     {
         $this->houseworkService->destroy($id);
 
-        return response()->json(null, 204);
+        return response()->json(config('const.HOUSEWORK.DELETED'), Response::HTTP_OK);
     }
 }

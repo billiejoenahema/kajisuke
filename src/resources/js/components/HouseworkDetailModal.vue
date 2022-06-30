@@ -55,6 +55,17 @@ const commitHousework = async () => {
     fetchData();
   }
 };
+const deleteHousework = async () => {
+  if (confirm('家事を削除しますか？')) {
+    await store.dispatch('housework/delete', props.housework.id);
+  } else {
+    return;
+  }
+  if (hasErrors.value) {
+    return;
+  }
+  fetchData();
+};
 </script>
 
 <template>
@@ -79,9 +90,11 @@ const commitHousework = async () => {
       </div>
       <div class="store-button-area">
         <button class="edit-button" @click="editHousework()">編集</button>
+        <button class="edit-button" @click="deleteHousework()">削除</button>
         <Datepicker
           class="date-picker"
           v-model="houseworkCommit.date"
+          autoApply
         ></Datepicker>
         <button class="store-button" @click="commitHousework()">完了</button>
       </div>
