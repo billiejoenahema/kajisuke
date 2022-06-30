@@ -23,9 +23,16 @@ const housework = reactive({
   next_date: '',
   category_id: 0,
 });
+const errors = computed(() => store.getters['housework/errors']);
+const hasErrors = computed(() => store.getters['housework/hasErrors']);
+const invalidFeedback = (attr) => {
+  return attr ? attr[0] : '';
+};
 const storeHousework = async () => {
-  console.log(housework.next_date);
   await store.dispatch('housework/post', housework);
+  if (hasErrors.value) {
+    return;
+  }
   // 正常に保存されたらリセットする
   resetHousework();
   props.closeModal();
@@ -38,7 +45,7 @@ const resetHousework = () => {
   housework.cycle_num = 0;
   housework.cycle_unit = 0;
   housework.next_date = '';
-  housework.category_id = 0;
+  housework.category_id = null;
 };
 </script>
 
@@ -52,8 +59,10 @@ const resetHousework = () => {
       </div>
       <label>家事名</label>
       <input class="housework-title-input" v-model="housework.title" />
+      <div class="error-message">{{ invalidFeedback(errors.title) }}</div>
       <label>詳細</label>
       <textarea v-model="housework.comment" rows="8"></textarea>
+      <div class="error-message">{{ invalidFeedback(errors.comment) }}</div>
       <div class="column">
         <label>初回実施日</label>
         <Datepicker
@@ -62,6 +71,7 @@ const resetHousework = () => {
           format="yyyy/MM/dd"
           autoApply
         ></Datepicker>
+        <div class="error-message">{{ invalidFeedback(errors.next_date) }}</div>
         <label>実行周期</label>
         <div class="housework-cycle">
           <select v-model="housework.cycle_num">
@@ -92,6 +102,7 @@ const resetHousework = () => {
           {{ category.name }}
         </option>
       </select>
+      <div class="error-message">{{ invalidFeedback(errors.category_id) }}</div>
       <div class="store-button-area">
         <button class="store-button" @click="storeHousework()">作成する</button>
       </div>

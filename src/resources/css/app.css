@@ -14,6 +14,7 @@ textarea,
 select {
   width: 100%;
   border-radius: 0;
+  margin: 0;
 }
 button {
   border-radius: 0;
@@ -104,6 +105,9 @@ button {
   width: 500px;
   background: rgb(45, 45, 45);
   padding: 16px;
+}
+.modal > .housework-input-area > label {
+  padding: 16px 0 0;
 }
 #category-list {
   max-height: 40vh;
@@ -238,4 +242,8 @@ button {
 }
 .is-over-date {
   color: red;
+}
+.error-message {
+  color: red;
+  font-size: 0.8rem;
 }
