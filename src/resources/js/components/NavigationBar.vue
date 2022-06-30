@@ -14,7 +14,7 @@ const store = useStore();
 const router = useRouter();
 const profile = computed(() => store.getters['profile/profile']);
 onMounted(async () => {
-  await store.dispatch('profile/get');
+  await store.dispatch('profile/getIfNeeded');
   if (!isLogin.value) {
     router.push('/login');
   } else {

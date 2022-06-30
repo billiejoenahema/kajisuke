@@ -6,7 +6,7 @@ const state = {
     name: '',
   },
   isLogin: false,
-  errors: [],
+  errors: {},
 };
 
 const getters = {
@@ -17,10 +17,10 @@ const getters = {
     return state.data && state.data.id > 0;
   },
   hasErrors(state) {
-    return state.errors?.length > 0;
+    return Object.keys(state.errors).length > 0;
   },
   errors(state) {
-    return state.errors ?? [];
+    return state.errors ?? {};
   },
 };
 
@@ -29,15 +29,17 @@ const actions = {
     await axios
       .get('/api/profile')
       .then((res) => {
-        console.log(res.status);
         commit('resetErrors');
         commit('setData', res.data.data);
       })
       .catch((err) => {
-        console.log(err);
         commit('setErrors', err.message);
         commit('setData', {});
       });
+  },
+  async getIfNeeded({ dispatch, getters }) {
+    if (getters.isLogin) return;
+    await dispatch('get');
   },
 };
 
@@ -46,11 +48,11 @@ const mutations = {
     state.data = data;
   },
   setErrors(state, data) {
-    state.errors = [];
-    state.errors.push(data);
+    state.errors = {};
+    state.errors = data;
   },
   resetErrors(state) {
-    state.errors = [];
+    state.errors = {};
     state.hasErrors = false;
   },
 };
