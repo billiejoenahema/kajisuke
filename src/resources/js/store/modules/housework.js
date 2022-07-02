@@ -12,6 +12,7 @@ const state = {
       },
     },
   ],
+  item: {},
   errors: {},
 };
 
@@ -19,8 +20,8 @@ const getters = {
   data(state) {
     return state.data ?? [];
   },
-  item: (state) => (id) => {
-    return state.data.find((item) => item.id === id);
+  item(state) {
+    return state.item ?? {};
   },
   hasErrors(state) {
     return Object.keys(state.errors).length > 0;
@@ -41,6 +42,18 @@ const actions = {
       .catch((err) => {
         commit('setErrors', err.response.data.errors);
         commit('setData', {});
+      });
+  },
+  async getItem({ commit }, id) {
+    await axios
+      .get(`/api/houseworks/${id}`)
+      .then((res) => {
+        commit('resetErrors');
+        commit('setItem', res.data.data);
+      })
+      .catch((err) => {
+        commit('setErrors', err.response.data.errors);
+        commit('setItem', {});
       });
   },
   async post({ commit }, data) {
@@ -93,6 +106,13 @@ const actions = {
 const mutations = {
   setData(state, data) {
     state.data = data;
+  },
+  setItem(state, item) {
+    state.item = {};
+    state.item = item;
+  },
+  resetItem(state) {
+    state.item = {};
   },
   setErrors(state, data) {
     state.errors = {};

@@ -28,9 +28,9 @@ class HouseworkPolicy
      * @param  \App\Models\Housework  $housework
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Housework $housework)
+    public function view(User $user)
     {
-        //
+        return $user->id === auth()->user()->id;
     }
 
     /**

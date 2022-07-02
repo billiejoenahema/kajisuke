@@ -50,6 +50,16 @@ class HouseworkController extends Controller
     }
 
     /**
+     * 指定した家事を取得する。
+     *
+     * @return HouseworkResource
+     */
+    public function show(Housework $housework): HouseworkResource
+    {
+        return new HouseworkResource($housework);
+    }
+
+    /**
      * 家事を新規登録する。
      *
      * @param  StoreRequest $request

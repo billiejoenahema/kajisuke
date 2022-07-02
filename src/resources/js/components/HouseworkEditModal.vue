@@ -1,7 +1,7 @@
 <script setup>
 import Datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
-import { computed } from 'vue';
+import { computed, onMounted, onUnmounted } from 'vue';
 import { useStore } from 'vuex';
 import { CYCLE_UNIT } from '../consts/cycle_unit';
 import { ONE_MONTH } from '../consts/oneMonthDateList';
@@ -12,7 +12,13 @@ const props = defineProps({
 });
 
 const store = useStore();
-const housework = computed(() => store.getters['housework/item'](props.id));
+onMounted(async () => {
+  store.dispatch('housework/getItem', props.id);
+});
+onUnmounted(() => {
+  store.commit('housework/resetItem');
+});
+const housework = computed(() => store.getters['housework/item']);
 const categories = computed(() => store.getters['category/data']);
 const errors = computed(() => store.getters['housework/errors']);
 const hasErrors = computed(() => store.getters['housework/hasErrors']);
