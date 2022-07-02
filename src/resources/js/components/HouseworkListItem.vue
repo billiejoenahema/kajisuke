@@ -77,7 +77,7 @@ const deleteHouseworkItem = () => {
     </div>
     <HouseworkEditModal
       v-if="isShowEditModal"
-      :housework="housework"
+      :id="housework.id"
       :closeModal="closeModal"
     />
     <HouseworkDetailModal

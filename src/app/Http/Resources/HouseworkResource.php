@@ -20,6 +20,7 @@ class HouseworkResource extends JsonResource
             'title' => $this->title,
             'comment' => $this->comment,
             'category' => new CategoryResource($this->category),
+            'category_id' => $this->category->id,
             'cycle_num' => $this->cycle_num,
             'cycle_unit' => $this->cycle_unit,
             'cycle_value' => self::getCycleValue($this->cycle_num, $this->cycle_unit),

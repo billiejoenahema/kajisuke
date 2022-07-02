@@ -19,6 +19,9 @@ const getters = {
   data(state) {
     return state.data ?? [];
   },
+  item: (state) => (id) => {
+    return state.data.find((item) => item.id === id);
+  },
   hasErrors(state) {
     return Object.keys(state.errors).length > 0;
   },

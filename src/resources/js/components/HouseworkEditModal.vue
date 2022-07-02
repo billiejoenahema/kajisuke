@@ -1,41 +1,26 @@
 <script setup>
-import { computed, reactive } from 'vue';
+import Datepicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css';
+import { computed } from 'vue';
 import { useStore } from 'vuex';
 import { CYCLE_UNIT } from '../consts/cycle_unit';
 import { ONE_MONTH } from '../consts/oneMonthDateList';
 
 const props = defineProps({
-  housework: {
-    id: 0,
-    user_id: 0,
-    title: '',
-    comment: '',
-    cycle_num: 0,
-    cycle_unit: 0,
-    next_date: null,
-    is_over_date: false,
-    next_date: '',
-    category: {
-      id: 0,
-      name: '',
-    },
-  },
+  id: Number,
   closeModal: Function,
 });
 
 const store = useStore();
-const updatedHousework = reactive({
-  id: props.housework.id,
-  title: props.housework.title,
-  comment: props.housework.comment,
-  category_id: props.housework.category.id,
-  cycle_num: props.housework.cycle_num,
-  cycle_unit: props.housework.cycle_unit,
-  next_date: props.housework.next_date,
-});
+const housework = computed(() => store.getters['housework/item'](props.id));
 const categories = computed(() => store.getters['category/data']);
+const errors = computed(() => store.getters['housework/errors']);
+const hasErrors = computed(() => store.getters['housework/hasErrors']);
 const updateHousework = async () => {
-  await store.dispatch('housework/update', updatedHousework);
+  await store.dispatch('housework/update', housework.value);
+  if (hasErrors.value) {
+    return;
+  }
   store.dispatch('housework/get');
   props.closeModal();
 };
@@ -50,22 +35,22 @@ const updateHousework = async () => {
         </div>
       </div>
       <label>家事名</label>
-      <input class="housework-title-input" v-model="updatedHousework.title" />
+      <input class="housework-title-input" v-model="housework.title" />
       <label>詳細</label>
-      <textarea v-model="updatedHousework.comment" rows="8"></textarea>
+      <textarea v-model="housework.comment" rows="8"></textarea>
       <div class="column">
         <label>実行周期</label>
         <div class="housework-cycle">
-          <select v-model="updatedHousework.cycle_num">
+          <select v-model="housework.cycle_num">
             <option v-for="day in ONE_MONTH.date_list" :key="day" :value="day">
               {{ day }}
             </option>
           </select>
-          <select v-model="updatedHousework.cycle_unit">
+          <select v-model="housework.cycle_unit">
             <option
               v-for="item in CYCLE_UNIT"
               :value="item.cycle_unit_id"
-              :selected="item.cycle_unit_id == updatedHousework.cycle_unit"
+              :selected="item.cycle_unit_id == housework.cycle_unit"
             >
               {{ item.content }}
             </option>
@@ -73,17 +58,24 @@ const updateHousework = async () => {
           <span> に一度</span>
         </div>
       </div>
+      <label>初回実施日</label>
+      <Datepicker
+        class="date-picker"
+        v-model="housework.next_date"
+        format="yyyy/MM/dd"
+        autoApply
+      ></Datepicker>
       <label>カテゴリ</label>
       <select
         class="category-select"
-        v-model="updatedHousework.category_id"
+        v-model="housework.category_id"
         name="category"
       >
         <option
           v-for="category in categories"
           :key="category.id"
           :value="category.id"
-          :selected="category.id === updatedHousework.category_id"
+          :selected="category.id === housework.category_id"
         >
           {{ category.name }}
         </option>
