@@ -7,7 +7,7 @@ const state = {
       name: '',
     },
   ],
-  errors: [],
+  errors: {},
 };
 
 const getters = {
@@ -15,10 +15,10 @@ const getters = {
     return state.data ?? [];
   },
   hasErrors(state) {
-    return state.errors?.length > 0;
+    return Object.keys(state.errors).length > 0;
   },
   errors(state) {
-    return state.errors ?? [];
+    return state.errors ?? {};
   },
 };
 
@@ -30,43 +30,42 @@ const actions = {
         commit('resetErrors');
         commit(
           'toast/setData',
-          { type: 'success', content: res.data.message },
+          { status: res.status, content: res.data.message },
           { root: true }
         );
       })
       .catch((err) => {
-        console.log('err');
-        console.log(err);
-        commit('setErrors', err.message);
-        commit(
-          'toast/setData',
-          { type: 'error', content: err.message },
-          { root: true }
-        );
+        commit('setErrors', err.response.data.errors);
       });
   },
   async update({ commit }, data) {
     await axios
       .patch('/api/archives', data)
       .then((res) => {
-        console.log(res.status);
         commit('resetErrors');
+        commit(
+          'toast/setData',
+          { status: res.status, content: res.data.message },
+          { root: true }
+        );
       })
       .catch((err) => {
-        console.log(err);
-        commit('setErrors', err.message);
+        commit('setErrors', err.response.data.errors);
       });
   },
   async delete({ commit }, id) {
     await axios
       .delete(`/api/archives/${id}`)
       .then((res) => {
-        console.log(res.status);
         commit('resetErrors');
+        commit(
+          'toast/setData',
+          { status: res.status, content: res.data.message },
+          { root: true }
+        );
       })
       .catch((err) => {
-        console.log(err);
-        commit('setErrors', err.message);
+        commit('setErrors', err.response.data.errors);
       });
   },
 };
@@ -76,11 +75,11 @@ const mutations = {
     state.data = data;
   },
   setErrors(state, data) {
-    state.errors = [];
-    state.errors.push(data);
+    state.errors = {};
+    state.errors = data;
   },
   resetErrors(state) {
-    state.errors = [];
+    state.errors = {};
     state.hasErrors = false;
   },
 };

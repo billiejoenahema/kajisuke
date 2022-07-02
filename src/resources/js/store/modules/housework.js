@@ -23,7 +23,7 @@ const getters = {
     return Object.keys(state.errors).length > 0;
   },
   errors(state) {
-    return state.errors ?? [];
+    return state.errors ?? {};
   },
 };
 
@@ -96,7 +96,7 @@ const mutations = {
     state.errors = data;
   },
   resetErrors(state) {
-    state.errors = [];
+    state.errors = {};
     state.hasErrors = false;
   },
 };

@@ -1,15 +1,15 @@
 import axios from 'axios';
 
 const state = {
-  errors: [],
+  errors: {},
 };
 
 const getters = {
   hasErrors(state) {
-    return state.errors?.length > 0;
+    return Object.keys(state.errors).length > 0;
   },
   errors(state) {
-    return state.errors ?? [];
+    return state.errors ?? {};
   },
 };
 
@@ -18,15 +18,12 @@ const actions = {
     await axios
       .get('http://localhost:8080/sanctum/csrf-cookie')
       .then(async (res) => {
-        console.log(res.status);
         await axios
           .post('/login', data)
           .then((res) => {
-            console.log(res.status);
             commit('resetErrors');
           })
           .catch((err) => {
-            console.log(err.message);
             commit('setErrors', err.message);
           });
       });
@@ -38,11 +35,11 @@ const actions = {
 
 const mutations = {
   setErrors(state, data) {
-    state.errors = [];
-    state.errors.push(data);
+    state.errors = {};
+    state.errors = data;
   },
   resetErrors(state) {
-    state.errors = [];
+    state.errors = {};
   },
 };
 
