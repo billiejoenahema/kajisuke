@@ -28,9 +28,9 @@ class ArchiveController extends Controller
      * 家事の履歴を登録する。
      *
      * @param  StoreRequest  $request
-     * @return JsonResponse
+     * @return Response
      */
-    public function store(StoreRequest $request, HouseworkService $houseworkService): JsonResponse
+    public function store(StoreRequest $request, HouseworkService $houseworkService): Response
     {
         DB::transaction(function () use ($request, $houseworkService) {
             $archive = Archive::create([
@@ -40,8 +40,7 @@ class ArchiveController extends Controller
             ]);
             $houseworkService->updateNextDate($archive);
         });
-
-        return response()->json(config('const.ARCHIVE')['CREATED'], Response::HTTP_CREATED);
+        return response()->json(config('const.ARCHIVE.CREATED'), Response::HTTP_CREATED);
     }
 
     /**
@@ -49,21 +48,19 @@ class ArchiveController extends Controller
      *
      * @param  UpdateRequest  $request
      * @param  Archive  $archive
-     * @return ArchiveResource
+     * @return Response
      */
-    public function update(UpdateRequest $request)
+    public function update(UpdateRequest $request): Response
     {
-        $archive = DB::transaction(function () use ($request) {
+        DB::transaction(function () use ($request) {
             $archive = Archive::findOrFail($request['id']);
 
             $archive->housework_id = $request['housework_id'];
             $archive->date = $request['date'];
             $archive->content = $request['content'];
             $archive->save();
-
-            return $archive;
         });
-        return new ArchiveResource($archive);
+        return response()->json(config('const.ARCHIVE.UPDATED'), Response::HTTP_OK);
     }
 
     /**
