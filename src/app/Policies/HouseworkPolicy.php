@@ -2,7 +2,6 @@
 
 namespace App\Policies;
 
-use App\Models\Housework;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -25,7 +24,6 @@ class HouseworkPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Housework  $housework
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function view(User $user)
@@ -41,54 +39,28 @@ class HouseworkPolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->id === auth()->user()->id;
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Housework  $housework
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Housework $housework)
+    public function update(User $user)
     {
-        //
+        return $user->id === auth()->user()->id;
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Housework  $housework
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Housework $housework)
+    public function delete(User $user)
     {
-        //
-    }
-
-    /**
-     * Determine whether the user can restore the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Housework  $housework
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function restore(User $user, Housework $housework)
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Housework  $housework
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function forceDelete(User $user, Housework $housework)
-    {
-        //
+        return $user->id === auth()->user()->id;
     }
 }
