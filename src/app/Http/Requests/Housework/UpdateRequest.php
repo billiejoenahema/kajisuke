@@ -34,6 +34,23 @@ class UpdateRequest extends FormRequest
     }
 
     /**
+     * バリデーションエラーのカスタム属性の取得
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        return [
+            'title' => '家事名',
+            'comment' => '詳細',
+            'cycle_num' => '実行周期数値',
+            'cycle_unit' => '実行周期単位',
+            'next_date' => '次回実行日',
+            'category_id' => 'カテゴリID',
+        ];
+    }
+
+    /**
      * 次回実施日を先頭から10文字切り出す。
      *
      * @return string

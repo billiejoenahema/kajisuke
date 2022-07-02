@@ -107,12 +107,13 @@ const mutations = {
   setData(state, data) {
     state.data = data;
   },
-  setItem(state, item) {
+  setItem(state, data) {
     state.item = {};
-    state.item = item;
+    state.item = data;
   },
   resetItem(state) {
     state.item = {};
+    state.errors = {};
   },
   setErrors(state, data) {
     state.errors = {};

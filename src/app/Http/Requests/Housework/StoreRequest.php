@@ -44,9 +44,9 @@ class StoreRequest extends FormRequest
             'title' => '家事名',
             'comment' => '家事内容',
             'cycle_num' => '実行周期',
-            'cycle_unit' => '実行周期',
+            'cycle_unit' => '実行周期単位',
             'next_date' => '次回実行日',
-            'category_id' => 'カテゴリ',
+            'category_id' => 'カテゴリID',
         ];
     }
 

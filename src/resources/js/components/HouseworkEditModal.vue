@@ -22,6 +22,9 @@ const housework = computed(() => store.getters['housework/item']);
 const categories = computed(() => store.getters['category/data']);
 const errors = computed(() => store.getters['housework/errors']);
 const hasErrors = computed(() => store.getters['housework/hasErrors']);
+const invalidFeedback = (attr) => {
+  return attr ? attr[0] : '';
+};
 const updateHousework = async () => {
   await store.dispatch('housework/update', housework.value);
   if (hasErrors.value) {
@@ -42,8 +45,10 @@ const updateHousework = async () => {
       </div>
       <label>家事名</label>
       <input class="housework-title-input" v-model="housework.title" />
+      <div class="error-message">{{ invalidFeedback(errors.title) }}</div>
       <label>詳細</label>
       <textarea v-model="housework.comment" rows="8"></textarea>
+      <div class="error-message">{{ invalidFeedback(errors.comment) }}</div>
       <div class="column">
         <label>実行周期</label>
         <div class="housework-cycle">
