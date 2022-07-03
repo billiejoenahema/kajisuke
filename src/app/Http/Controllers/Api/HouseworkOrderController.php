@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UpdateRequest;
+use App\Http\Requests\HouseworkOrder\UpdateRequest;
 use App\Http\Resources\HouseworkOrderResource;
 use App\Models\HouseworkOrder;
 use Illuminate\Support\Facades\Auth;
