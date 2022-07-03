@@ -51,6 +51,7 @@ button {
   padding: 16px 16px 16px 32px;
   display: flex;
   flex-direction: column;
+  background: rgb(65, 65, 65);
 }
 .user-menu-item {
   cursor: default;
@@ -246,4 +247,10 @@ button {
 .error-message {
   color: red;
   font-size: 0.8rem;
+}
+.cancel-button {
+  background: rgb(128, 128, 128);
+}
+.delete-button {
+  background: rgb(244, 128, 128);
 }

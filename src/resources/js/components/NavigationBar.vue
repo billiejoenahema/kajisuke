@@ -31,6 +31,9 @@ const logout = () => {
   store.dispatch('auth/logout');
   router.push('/login');
 };
+const toHome = () => {
+  router.push('/');
+};
 const setModalOpen = (prop) => {
   // prop: string
   modalOpen.value = prop;
@@ -49,7 +52,7 @@ const hideShowUserMenu = () => {
 <template>
   <div @mouseleave="hideShowUserMenu()">
     <nav class="nav">
-      <a href="/">Home</a>
+      <a href="#" @click.prevent="toHome()">Home</a>
       <a href="#" @click.prevent="setModalOpen('houseworkCreate')">Create HW</a>
       <a href="#" @click.prevent="setModalOpen('categoryList')"
         >Category List</a
@@ -61,7 +64,7 @@ const hideShowUserMenu = () => {
     <div class="user-menu" v-if="isShowUserMenu">
       <div class="user-menu-item">Menu</div>
       <div class="user-menu-item">
-        <router-link to="/profile">{{ profile.name }}</router-link>
+        <router-link to="/profile">Profile</router-link>
       </div>
       <div class="user-menu-item">Settings</div>
       <div class="user-menu-item">Other</div>
