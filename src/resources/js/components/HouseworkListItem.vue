@@ -33,18 +33,12 @@ const showEditModal = () => {
 const showDetailModal = () => {
   isShowDetailModal.value = true;
 };
-const toggleShowItemMenu = () => {
-  isShowItemMenu.value = !isShowItemMenu.value;
-};
 const hideItemMenu = () => {
   isShowItemMenu.value = false;
 };
 const closeModal = () => {
   isShowEditModal.value = false;
   isShowDetailModal.value = false;
-};
-const deleteHouseworkItem = () => {
-  console.log(props.housework.id);
 };
 </script>
 
@@ -65,15 +59,6 @@ const deleteHouseworkItem = () => {
     <div class="cycle">{{ housework.cycle_value }}</div>
     <div class="next-date" :class="isOverDate()">
       {{ housework.next_date }}
-    </div>
-    <div class="item-menu-icon" @click="toggleShowItemMenu()">
-      <font-awesome-icon class="ellipsis-vertical" icon="ellipsis-vertical" />
-      <div class="item-menu" v-if="isShowItemMenu">
-        <ul>
-          <li @click="showEditModal()">編集</li>
-          <li @click="deleteHouseworkItem()">削除</li>
-        </ul>
-      </div>
     </div>
     <HouseworkEditModal
       v-if="isShowEditModal"

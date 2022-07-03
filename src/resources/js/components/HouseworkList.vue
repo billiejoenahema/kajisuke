@@ -26,7 +26,6 @@ const newOrderIds = (houseworks) => {
       <div class="schedule-header">----------- スケジュール -----------</div>
       <div class="cycle-value-header">実行周期</div>
       <div class="next-date-header" :class="isOverDate">次回予定日</div>
-      <div></div>
     </div>
     <draggable
       class="dragArea list-group w-full"
