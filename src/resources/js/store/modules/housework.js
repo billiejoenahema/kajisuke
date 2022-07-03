@@ -1,17 +1,7 @@
 import axios from 'axios';
 
 const state = {
-  data: [
-    {
-      id: null,
-      title: '',
-      comment: '',
-      cycle: {
-        num: '',
-        unit: '',
-      },
-    },
-  ],
+  data: [],
   item: {},
   errors: {},
 };
@@ -43,6 +33,9 @@ const actions = {
         commit('setErrors', err.response.data.errors);
         commit('setData', {});
       });
+  },
+  async getIfNeeded({ commit, dispatch }) {
+    state.data.length === 0 && (await dispatch('get'));
   },
   async getItem({ commit }, id) {
     await axios

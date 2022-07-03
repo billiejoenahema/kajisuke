@@ -19,9 +19,9 @@ onMounted(async () => {
     router.push('/login');
   } else {
     props.setIsLoading(true);
-    await store.dispatch('housework/get');
+    await store.dispatch('housework/getIfNeeded');
     props.setIsLoading(false);
-    store.dispatch('category/get');
+    store.dispatch('category/getIfNeeded');
   }
 });
 const modalOpen = ref('');
@@ -63,9 +63,7 @@ const hideShowUserMenu = () => {
     </nav>
     <div class="user-menu" v-if="isShowUserMenu">
       <div class="user-menu-item">Menu</div>
-      <div class="user-menu-item">
-        <router-link to="/profile">Profile</router-link>
-      </div>
+      <router-link class="user-menu-item" to="/profile">Profile</router-link>
       <div class="user-menu-item">Settings</div>
       <div class="user-menu-item">Other</div>
       <div class="user-menu-item" @click="logout()">Logout</div>
