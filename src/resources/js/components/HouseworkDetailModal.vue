@@ -90,7 +90,9 @@ const deleteHousework = async () => {
       </div>
       <div class="store-button-area">
         <button class="edit-button" @click="editHousework()">編集</button>
-        <button class="edit-button" @click="deleteHousework()">削除</button>
+        <button class="edit-button delete-button" @click="deleteHousework()">
+          削除
+        </button>
         <Datepicker
           class="date-picker"
           v-model="houseworkCommit.date"
