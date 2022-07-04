@@ -44,9 +44,6 @@ const closeModal = () => {
 
 <template>
   <div class="list-group-item row" @mouseleave="hideItemMenu()">
-    <div class="bars-wrapper">
-      <font-awesome-icon class="bars handle" icon="bars" />
-    </div>
     <div class="column title" @click="showDetailModal()">
       <div class="category-name">
         <mark>
