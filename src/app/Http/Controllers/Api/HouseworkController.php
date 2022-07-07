@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Housework\IndexRequest;
 use App\Http\Requests\Housework\StoreRequest;
 use App\Http\Requests\Housework\UpdateRequest;
 use App\Http\Resources\HouseworkResource;
 use App\Models\Housework;
-use App\Models\HouseworkOrder;
 use App\Services\HouseworkService;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Auth;
@@ -36,15 +36,14 @@ class HouseworkController extends Controller
     /**
      * 家事一覧を取得する。
      *
-     * @return Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     * @param  IndexRequest  $request
+     * @return AnonymousResourceCollection
      */
-    public function index(Housework $housework): AnonymousResourceCollection
+    public function index(IndexRequest $request, Housework $housework): AnonymousResourceCollection
     {
         $user = Auth::user();
         $query = Housework::with(['archives', 'category'])->where('user_id', $user->id);
-        $houseworkOrder = HouseworkOrder::where('user_id',$user->id)->first();
-        $order = $houseworkOrder->order ?? null;
-        $houseworks = $housework->sortByHouseworkOrder($query, $order)->get();
+        $houseworks = $housework->sortByOrder($query, $request)->get();
 
         return HouseworkResource::collection($houseworks);
     }

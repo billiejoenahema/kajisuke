@@ -22,9 +22,9 @@ const getters = {
 };
 
 const actions = {
-  async get({ commit }) {
+  async get({ commit }, params) {
     await axios
-      .get('/api/houseworks')
+      .get('/api/houseworks', { params })
       .then((res) => {
         commit('resetErrors');
         commit('setData', res.data.data);

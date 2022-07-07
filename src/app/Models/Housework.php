@@ -73,14 +73,31 @@ class Housework extends Model
      * 家事の表示順に従って家事一覧をソートする。
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  mixed $request
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function sortByOrder($query, $request)
+    {
+        if (empty($request['column'])) {
+            return self::sortByHouseworkOrder($query);
+        }
+        $sortValue = $request['column'];
+        $sortDirection = $request->toDirection();
+        return $query->orderBy($sortValue, $sortDirection);
+    }
+
+    /**
+     * 家事の表示順に従って家事一覧をソートする。
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @param  string|null $order
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function sortByHouseworkOrder($query, $order)
+    public function sortByHouseworkOrder($query)
     {
-        if (empty($order)) {
-            return $query;
-        }
+        $user = auth()->user();
+        $houseworkOrder = HouseworkOrder::where('user_id',$user->id)->first();
+        $order = $houseworkOrder->order ?? null;
         return $query->orderByRaw("FIELD(id, $order)");
     }
 }
