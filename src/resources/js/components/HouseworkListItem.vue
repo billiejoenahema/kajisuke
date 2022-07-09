@@ -24,7 +24,6 @@ const props = defineProps({
 const isOverDate = () => {
   return props.housework.is_over_date ? 'is-over-date' : '';
 };
-const isShowItemMenu = ref(false);
 const isShowEditModal = ref(false);
 const isShowDetailModal = ref(false);
 const showEditModal = () => {
@@ -33,9 +32,6 @@ const showEditModal = () => {
 const showDetailModal = () => {
   isShowDetailModal.value = true;
 };
-const hideItemMenu = () => {
-  isShowItemMenu.value = false;
-};
 const closeModal = () => {
   isShowEditModal.value = false;
   isShowDetailModal.value = false;
@@ -43,7 +39,7 @@ const closeModal = () => {
 </script>
 
 <template>
-  <div class="list-group-item row" @mouseleave="hideItemMenu()">
+  <div class="list-group-item row">
     <div class="column title" @click="showDetailModal()">
       <div class="category-name">
         <mark>
@@ -52,9 +48,13 @@ const closeModal = () => {
       </div>
       <div class="housework-title">{{ housework.title }}</div>
     </div>
-    <div class="schedule">{{ housework.comment }}</div>
-    <div class="cycle">{{ housework.cycle_value }}</div>
-    <div class="next-date" :class="isOverDate()">
+    <div class="schedule" @click="showDetailModal()">
+      {{ housework.comment }}
+    </div>
+    <div class="cycle" @click="showDetailModal()">
+      {{ housework.cycle_value }}
+    </div>
+    <div class="next-date" :class="isOverDate()" @click="showDetailModal()">
       {{ housework.next_date }}
     </div>
     <HouseworkEditModal
