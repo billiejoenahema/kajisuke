@@ -6,9 +6,6 @@ body {
 main {
   padding: 0;
 }
-nav > a {
-  border-radius: 0;
-}
 input,
 textarea,
 select {
@@ -38,7 +35,8 @@ button {
 }
 .nav > a {
   text-decoration: none;
-  margin: 0;
+  margin: 0 0 40px;
+  border-radius: 0;
 }
 .nav-item-user {
   position: relative;
@@ -61,7 +59,6 @@ button {
 }
 .list-body {
   background: rgb(45, 45, 45);
-  margin-top: 40px;
   padding: 8px;
 }
 .list-header {
@@ -264,4 +261,8 @@ button {
   justify-content: center;
   align-items: center;
   padding: 0 8px;
+}
+.reset-order {
+  cursor: default;
+  user-select: none;
 }

@@ -23,6 +23,12 @@ const initIsAscending = () => {
   isAscending.cycle_unit = false;
   isAscending.next_date = false;
 };
+const resetSort = () => {
+  sort.column = '';
+  sort.is_ascending = false;
+  initIsAscending();
+  store.dispatch('housework/get');
+};
 const sortOrder = (value) => {
   if (value === sort.column) {
     sort.is_ascending = !sort.is_ascending;
@@ -37,6 +43,7 @@ const sortOrder = (value) => {
 </script>
 
 <template>
+  <div class="reset-order" @click="resetSort()">並び順リセット</div>
   <div class="column list-body">
     <div class="row list-header">
       <div class="list-title" @click="sortOrder(SORT_COLUMNS.title)">
