@@ -49,14 +49,6 @@ class User extends Authenticatable
     }
 
     /**
-     * 所有する家事表示順を取得する。
-     */
-    public function houseworkOrder()
-    {
-        return $this->hasOne(HouseworkOrder::class);
-    }
-
-    /**
      * 所有するカテゴリを取得する。
      */
     public function categories()
