@@ -79,7 +79,7 @@ class Housework extends Model
     public function sortByOrder($query, $request)
     {
         if (empty($request['column'])) {
-            return self::sortByHouseworkOrder($query);
+            return $this->sortByUpdatedAt($query);
         }
         $sortValue = $request['column'];
         $sortDirection = $request->toDirection();
@@ -87,17 +87,14 @@ class Housework extends Model
     }
 
     /**
-     * 家事の表示順に従って家事一覧をソートする。
+     * 家事の更新日時が新しい順にソートする。
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @param  string|null $order
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function sortByHouseworkOrder($query)
+    public function sortByUpdatedAt($query)
     {
-        $user = auth()->user();
-        $houseworkOrder = HouseworkOrder::where('user_id',$user->id)->first();
-        $order = $houseworkOrder->order ?? null;
-        return $query->orderByRaw("FIELD(id, $order)");
+        return $query->orderBy('updated_at', 'desc');
     }
 }
