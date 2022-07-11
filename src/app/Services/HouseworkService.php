@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Http\Requests\Housework\StoreRequest;
 use App\Models\Housework;
-use App\Models\HouseworkOrder;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -75,9 +74,6 @@ class HouseworkService
                 'category_id' => $request->category_id,
             ]);
 
-            // 家事の表示順に家事IDを追加する
-            self::attachHouseworkOrder($housework);
-
             return $housework;
         });
 
@@ -119,57 +115,7 @@ class HouseworkService
     {
         DB::transaction(function () use ($id) {
             $housework = Housework::findOrFail($id);
-            self::detachHouseOrder($id);
             $housework->delete();
         });
-    }
-
-    /**
-     * 家事の表示順から指定した家事IDを取り除く。
-     *
-     * @param Int $id
-     * @return void
-     */
-    public static function detachHouseOrder($id): void
-    {
-        // ユーザーが所有する家事の表示順を取得する
-        $houseworkOrder = HouseworkOrder::where('user_id', Auth::user()->id)->first();
-        // 家事の表示順を配列に変換する
-        $orderArray = explode(',', $houseworkOrder->order);
-        // 配列から家事IDを取り除く
-        $filteredOrder = array_filter($orderArray, function ($value) use ($id) {
-            return $value != $id;
-        });
-        // 配列をカンマで連結して文字列に変換する
-        $orderString = implode(',', $filteredOrder);
-
-        // 家事の表示順を更新する
-        $houseworkOrder->order = $orderString;
-        $houseworkOrder->save();
-    }
-
-    /**
-     * 家事の表示順に指定した家事IDを追加する。
-     *
-     * @param mixed $housework
-     * @return void
-     */
-    public static function attachHouseworkOrder($housework): void
-    {
-        $user = Auth::user();
-        // すでに家事の表示順が設定されているかどうかを確認する
-        $houseworkOrder = HouseworkOrder::where('user_id', $user->id)->firstOr(function () {
-            return null;
-        });
-        // 設定されていなければ新規登録し、設定されていれば更新する
-        if (empty($houseworkOrder)) {
-            $houseworkOrder = HouseworkOrder::create([
-                'user_id' => $user->id,
-                'order' => $housework->id,
-            ]);
-        } else {
-            $houseworkOrder->order = $houseworkOrder->order . ',' . (string) $housework->id;
-            $houseworkOrder->save();
-        }
     }
 }

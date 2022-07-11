@@ -3,7 +3,6 @@
 use App\Http\Controllers\Api\ArchiveController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\HouseworkController;
-use App\Http\Controllers\Api\HouseworkOrderController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Models\Housework;
 use Illuminate\Support\Facades\Route;
@@ -28,9 +27,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/houseworks', [HouseworkController::class, 'store']);
     Route::patch('/houseworks/{housework}', [HouseworkController::class, 'update']);
     Route::delete('/houseworks/{housework}', [HouseworkController::class, 'destroy']);
-    // 家事表示順
-    Route::get('/housework_orders', [HouseworkOrderController::class, 'index']);
-    Route::patch('/housework_orders', [HouseworkOrderController::class, 'update']);
+
     // カテゴリ
     Route::get('/categories', [CategoryController::class, 'index']);
     Route::post('/categories', [CategoryController::class, 'store']);
