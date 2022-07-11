@@ -23,6 +23,9 @@ const initIsAscending = () => {
   isAscending.cycle_unit = false;
   isAscending.next_date = false;
 };
+const resetWord = () => {
+  return sort.column === '' ? '' : '並び順をリセット';
+};
 const resetSort = () => {
   sort.column = '';
   sort.is_ascending = false;
@@ -43,7 +46,9 @@ const sortOrder = (value) => {
 </script>
 
 <template>
-  <div class="reset-order" @click="resetSort()">並び順リセット</div>
+  <div class="reset-order" @click="resetSort()">
+    {{ resetWord() }}
+  </div>
   <div class="column list-body">
     <div class="row list-header">
       <div class="list-title" @click="sortOrder(SORT_COLUMNS.title)">
