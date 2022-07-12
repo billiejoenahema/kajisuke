@@ -32,7 +32,7 @@ class DeleteTest extends TestCase
         $response = $this->actingAs($user)->deleteJson($uri, [
             'id' => $housework[0]->id,
         ]);
-        $response->assertStatus(204);
+        $response->assertStatus(200);
         $this->assertDatabaseMissing('houseworks', [
             'id' => $housework[0]->id,
         ]);

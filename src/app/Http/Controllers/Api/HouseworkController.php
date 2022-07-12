@@ -44,7 +44,6 @@ class HouseworkController extends Controller
         $user = Auth::user();
         $query = Housework::with(['archives', 'category'])->where('user_id', $user->id);
         $houseworks = $housework->sortByOrder($query, $request)->get();
-
         return HouseworkResource::collection($houseworks);
     }
 
@@ -77,9 +76,9 @@ class HouseworkController extends Controller
      * @param  UpdateHouseworkRequest  $request
      * @return Response
      */
-    public function update(UpdateRequest $request): Response
+    public function update(UpdateRequest $request, Int $id): Response
     {
-        $this->houseworkService->update($request);
+        $this->houseworkService->update($request, $id);
 
         return response()->json(config('const.HOUSEWORK.UPDATED'), Response::HTTP_OK);
     }
