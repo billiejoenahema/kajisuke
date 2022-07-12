@@ -53,10 +53,11 @@ class UpdateRequest extends FormRequest
     /**
      * 次回実施日を先頭から10文字切り出す。
      *
+     * @params string $nextDate
      * @return string
      */
-    public function nextDate(): string
+    public function nextDate($nextDate): string
     {
-        return substr($this->input('next_date'), 0, 10);
+        return substr($nextDate, 0, 10);
     }
 }

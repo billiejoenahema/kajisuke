@@ -27,8 +27,9 @@ class StoreTest extends TestCase
             'category_id' => $category->id,
             'title' => 'テストタイトル',
             'comment' => 'テストコメント',
-            'cycle_num' => '+1',
-            'cycle_unit' => 'week',
+            'cycle_num' => rand(1, 31),
+            'cycle_unit' => rand(1, 4),
+            'next_date' => now()->addWeek(),
         ]);
         $response
         ->assertCreated();

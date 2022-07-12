@@ -84,24 +84,24 @@ class HouseworkService
      * 家事を更新する。
      *
      * @param StoreHouseworkRequest $request
+     * @param Int $id
      * @return Housework
      */
-    public static function update($request): Housework
+    public static function update($request, Int $id): Housework
     {
-        $housework = DB::transaction(function () use ($request) {
-            $housework = Housework::findOrFail($request['id']);
+        $housework = DB::transaction(function () use ($request, $id) {
+            $housework = Housework::findOrFail($id);
 
             $housework->category_id = $request['category_id'];
             $housework->title = $request['title'];
             $housework->comment = $request['comment'];
             $housework->cycle_num = $request['cycle_num'];
             $housework->cycle_unit = $request['cycle_unit'];
-            $housework->next_date = $request->nextDate();
+            $housework->next_date = $request->nextDate($request['next_date']);
             $housework->save();
 
             return $housework;
         });
-
         return $housework;
     }
 

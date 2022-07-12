@@ -26,7 +26,7 @@ class HouseworkFactory extends Factory
             'title' => '家事' . rand(1,99),
             'comment' => 'コメントサンプル' . rand(1,99),
             'cycle_num' => $cycleNum,
-            'cycle_unit' => Housework::DAY,
+            'cycle_unit' => rand(1, 4),
             'next_date' => now()->addDays($cycleNum),
         ];
     }
