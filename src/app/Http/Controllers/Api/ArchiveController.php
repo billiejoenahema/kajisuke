@@ -71,6 +71,7 @@ class ArchiveController extends Controller
      */
     public function destroy(Archive $archive)
     {
-        //
+        $archive->delete();
+        return response()->json(config('const.ARCHIVE.DELETED'), Response::HTTP_NO_CONTENT);
     }
 }

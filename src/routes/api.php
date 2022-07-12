@@ -36,4 +36,5 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // 履歴
     Route::post('/archives', [ArchiveController::class, 'store']);
     Route::patch('/archives/{archive}', [ArchiveController::class, 'update']);
+    Route::delete('/archives/{archive}', [ArchiveController::class, 'destroy']);
 });

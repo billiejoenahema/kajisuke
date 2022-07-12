@@ -267,3 +267,6 @@ button {
   user-select: none;
   height: 24px;
 }
+.archive-list-item:hover {
+  background: rgb(128, 128, 128);
+}
