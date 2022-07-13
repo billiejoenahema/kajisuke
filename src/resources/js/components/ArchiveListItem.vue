@@ -32,7 +32,7 @@ const deleteArchive = async (id) => {
     @mouseover="onMouseover()"
     @mouseleave="onMouseleave()"
   >
-    <div>
+    <div class="archive-date">
       {{ archive.date ?? '履歴はまだありません' }}
     </div>
     <div
