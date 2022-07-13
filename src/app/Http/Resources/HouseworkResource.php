@@ -26,7 +26,7 @@ class HouseworkResource extends JsonResource
             'cycle_value' => $this->getCycleValue($this->cycle_num, $this->cycle_unit),
             'next_date' => $this->next_date,
             'archives' => ArchiveResource::collection($this->archives),
-            'is_over_date' => $this->isOverDate($this->next_date),
+            'date_diff' => $this->getDateDiff($this->next_date),
         ];
     }
 
@@ -54,16 +54,19 @@ class HouseworkResource extends JsonResource
     }
 
     /**
-     * 次回実施日が過ぎているかどうかを返す。
+     * 次回実施日までの日数を返す。
      *
      * @param string $next_date
-     * @return bool
+     * @return int
      */
-    public static function isOverDate($next_date): bool
+    public static function getDateDiff($next_date): int
     {
         $now = new \DateTime();
-        $next_date = new \DateTime($next_date);
-        return $now > $next_date;
+        $nextDate = new \DateTime($next_date);
+        // 今日の日付と次回実施日の差分を数値に変換する
+        $diff = (int)$now->diff($nextDate)->format('%R%a');
+
+        return $diff;
     }
 
 }
