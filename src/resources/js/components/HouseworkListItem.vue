@@ -14,7 +14,7 @@ const props = defineProps({
     cycle_num: 0,
     cycle_unit: 0,
     next_date: null,
-    is_over_date: false,
+    is_over_date: 0,
     category: {
       id: 0,
       name: '',
@@ -22,7 +22,14 @@ const props = defineProps({
   },
 });
 const isOverDate = () => {
-  return props.housework.is_over_date ? 'is-over-date' : '';
+  const isOverDate = props.housework.is_over_date;
+  if (isOverDate < 0) {
+    return 'is-over-date';
+  } else if (isOverDate < 7) {
+    return 'is-over-date-soon';
+  } else {
+    return '';
+  }
 };
 const isShowEditModal = ref(false);
 const isShowDetailModal = ref(false);
