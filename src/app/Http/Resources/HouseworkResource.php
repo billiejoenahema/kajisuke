@@ -26,7 +26,7 @@ class HouseworkResource extends JsonResource
             'cycle_value' => $this->getCycleValue($this->cycle_num, $this->cycle_unit),
             'next_date' => $this->next_date,
             'archives' => ArchiveResource::collection($this->archives),
-            'is_over_date' => $this->isOverDate($this->next_date),
+            'date_diff' => $this->getDateDiff($this->next_date),
         ];
     }
 
@@ -59,7 +59,7 @@ class HouseworkResource extends JsonResource
      * @param string $next_date
      * @return int
      */
-    public static function isOverDate($next_date): int
+    public static function getDateDiff($next_date): int
     {
         $now = new \DateTime();
         $nextDate = new \DateTime($next_date);

@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import { useStore } from 'vuex';
+import { isOverDate } from '../utilities/isOverDate';
 import HouseworkDetailModal from './HouseworkDetailModal';
 import HouseworkEditModal from './HouseworkEditModal';
 
@@ -14,23 +15,13 @@ const props = defineProps({
     cycle_num: 0,
     cycle_unit: 0,
     next_date: null,
-    is_over_date: 0,
+    date_diff: 0,
     category: {
       id: 0,
       name: '',
     },
   },
 });
-const isOverDate = () => {
-  const isOverDate = props.housework.is_over_date;
-  if (isOverDate < 0) {
-    return 'is-over-date';
-  } else if (isOverDate < 7) {
-    return 'is-over-date-soon';
-  } else {
-    return '';
-  }
-};
 const isShowEditModal = ref(false);
 const isShowDetailModal = ref(false);
 const showEditModal = () => {
@@ -61,7 +52,11 @@ const closeModal = () => {
     <div class="cycle" @click="showDetailModal()">
       {{ housework.cycle_value }}
     </div>
-    <div class="next-date" :class="isOverDate()" @click="showDetailModal()">
+    <div
+      class="next-date"
+      :class="isOverDate(housework.date_diff)"
+      @click="showDetailModal()"
+    >
       {{ housework.next_date }}
     </div>
     <HouseworkEditModal
