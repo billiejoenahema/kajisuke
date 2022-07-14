@@ -10,6 +10,7 @@ use App\Models\Category;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpFoundation\Response;
 
 class CategoryController extends Controller
 {
@@ -21,7 +22,9 @@ class CategoryController extends Controller
     public function index(): AnonymousResourceCollection
     {
         $user = Auth::user();
-        $categories = Category::with('houseworks')->where('user_id', $user->id)->get();
+        $categories = Category::with('houseworks')
+            ->where('user_id', $user->id)->get();
+
         return CategoryResource::collection($categories);
     }
 
@@ -33,16 +36,13 @@ class CategoryController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $category = DB::transaction(function () use ($request) {
-           $category = Category::create([
+        DB::transaction(function () use ($request) {
+           Category::create([
                 'user_id' => Auth::user()->id,
                 'name' => $request['name'],
             ]);
-
-            return $category;
         });
-
-        return new CategoryResource($category);
+        return response()->json(config('const.CATEGORY.CREATED'), Response::HTTP_CREATED);
     }
 
     /**
@@ -53,16 +53,13 @@ class CategoryController extends Controller
      */
     public function update(UpdateRequest $request)
     {
-        $category = DB::transaction(function () use ($request) {
+        DB::transaction(function () use ($request) {
             $category = Category::findOrFail($request['id']);
 
             $category->name = $request['name'];
             $category->save();
-
-            return $category;
         });
-
-        return new CategoryResource($category);
+        return response()->json(config('const.CATEGORY.UPDATED'), Response::HTTP_OK);
     }
 
     /**
@@ -76,9 +73,10 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
         $hasHousework = $category->houseworks->isNotEmpty();
         if($hasHousework) {
-            return response()->json(['message' => 'This category is in use and cannot be deleted'], 500);
+            return response()->json(config('const.CATEGORY.HAS_HOUSEWORK'), Response::HTTP_BAD_REQUEST);
         }
         $category->delete();
-        return response()->json(['message' => 'Category deleted successfully'], 200);
+
+        return response()->json(config('const.CATEGORY.DELETED'), Response::HTTP_OK);
     }
 }

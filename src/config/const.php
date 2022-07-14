@@ -15,5 +15,6 @@ return [
         'CREATED' => ['message' => '新しいカテゴリを登録しました'],
         'UPDATED' => ['message' => 'カテゴリを更新しました'],
         'DELETED' => ['message' => 'カテゴリを削除しました'],
+        'HAS_HOUSEWORK' => ['message' => 'このカテゴリは使用されているため削除できません'],
     ],
 ];
