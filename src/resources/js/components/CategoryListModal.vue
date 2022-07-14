@@ -57,7 +57,6 @@ watchEffect(() => {
         :placeholder="placeholder"
         @focus="placeholder = ''"
         @blur="placeholder = '＋新しいカテゴリを作成'"
-        @keyup.enter.prevent="storeCategory()"
       />
       <div class="store-button-area">
         <button
