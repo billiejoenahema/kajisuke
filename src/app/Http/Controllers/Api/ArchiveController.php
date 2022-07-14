@@ -5,11 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Archive\StoreRequest;
 use App\Http\Requests\Archive\UpdateRequest;
-use App\Http\Resources\ArchiveResource;
 use App\Models\Archive;
 use App\Services\HouseworkService;
 use Illuminate\Support\Facades\DB;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 class ArchiveController extends Controller
