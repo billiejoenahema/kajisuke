@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import { useStore } from 'vuex';
-import { isOverDate } from '../utilities/isOverDate';
+import { isOverDate } from '../../utilities/isOverDate';
 import HouseworkDetailModal from './HouseworkDetailModal';
 import HouseworkEditModal from './HouseworkEditModal';
 

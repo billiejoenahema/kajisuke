@@ -2,8 +2,8 @@
 import { computed, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
-import CategoryListModal from './CategoryListModal';
-import HouseworkCreateModal from './HouseworkCreateModal';
+import CategoryListModal from '../components/Category/CategoryListModal';
+import HouseworkCreateModal from '../components/Housework/HouseworkCreateModal';
 
 const props = defineProps({
   isLoading: Boolean,

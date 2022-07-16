@@ -1,7 +1,7 @@
 <script setup>
 import { reactive, ref, watchEffect } from 'vue';
 import { useStore } from 'vuex';
-import { useDebounce } from '../utilities/useDebounce';
+import { useDebounce } from '../../utilities/useDebounce';
 
 const store = useStore();
 
