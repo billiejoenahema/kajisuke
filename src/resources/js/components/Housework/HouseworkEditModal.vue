@@ -69,7 +69,7 @@ const updateHousework = async () => {
           <span> に一度</span>
         </div>
       </div>
-      <label>初回実施日</label>
+      <label>次回実施日</label>
       <Datepicker
         class="date-picker"
         v-model="housework.next_date"
