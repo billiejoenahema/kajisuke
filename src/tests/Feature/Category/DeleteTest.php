@@ -12,7 +12,7 @@ class DeleteTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * A basic feature test example.
+     * カテゴリを削除できることを確認するテスト
      *
      * @return void
      */

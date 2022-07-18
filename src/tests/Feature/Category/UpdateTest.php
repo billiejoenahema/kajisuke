@@ -12,7 +12,7 @@ class UpdateTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * A basic feature test example.
+     * カテゴリを更新できることを確認するテスト
      *
      * @return void
      */

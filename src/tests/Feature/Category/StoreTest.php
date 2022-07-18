@@ -11,7 +11,7 @@ class StoreTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * A basic feature test example.
+     * カテゴリを登録できることを確認するテスト
      *
      * @return void
      */

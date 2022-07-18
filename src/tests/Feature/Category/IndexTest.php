@@ -12,7 +12,7 @@ class IndexTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * A basic feature test example.
+     * カテゴリ一覧を取得できることを確認するテスト
      *
      * @return void
      */

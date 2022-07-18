@@ -13,7 +13,7 @@ class DeleteTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * 家事を削除するテスト
+     * 家事を削除できることを確認するテスト
      *
      * @return void
      */

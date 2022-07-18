@@ -14,7 +14,7 @@ class UpdateTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * A basic feature test example.
+     * 家事を更新できることを確認するテスト
      *
      * @param UpdateRequest $request
      * @return void

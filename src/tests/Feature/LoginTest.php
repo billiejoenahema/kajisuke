@@ -12,7 +12,7 @@ class LoginTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * Login test.
+     * ログインできることを確認するテスト
      *
      * @return void
      */
