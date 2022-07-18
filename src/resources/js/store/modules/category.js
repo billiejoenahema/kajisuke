@@ -50,7 +50,7 @@ const actions = {
   },
   async update({ commit }, data) {
     await axios
-      .patch('/api/categories', data)
+      .patch(`/api/categories/${data.id}`, data)
       .then((res) => {
         commit('resetErrors');
         commit(
