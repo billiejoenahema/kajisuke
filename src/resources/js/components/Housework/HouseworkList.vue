@@ -1,9 +1,9 @@
 <script setup>
 import { computed, reactive } from 'vue';
 import { useStore } from 'vuex';
-import { SORT_COLUMNS } from '../consts/sortColumns';
+import { SORT_COLUMNS } from '../../consts/sortColumns';
+import SortIcon from '../SortIcon';
 import HouseworkListItem from './HouseworkListItem';
-import SortIcon from './SortIcon';
 
 const store = useStore();
 const houseworks = computed(() => store.getters['housework/data']);

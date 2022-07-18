@@ -3,7 +3,7 @@ import Datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 import { computed, reactive } from 'vue';
 import { useStore } from 'vuex';
-import ArchiveListItem from './ArchiveListItem';
+import ArchiveListItem from '../Archive/ArchiveListItem';
 
 const store = useStore();
 

@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import VueElementLoading from 'vue-element-loading';
-import HouseworkList from '../components/HouseworkList';
+import HouseworkList from '../components/Housework/HouseworkList';
 import NavigationBar from '../components/NavigationBar';
 import ToastMessage from '../components/ToastMessage';
 

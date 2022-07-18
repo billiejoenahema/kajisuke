@@ -2,9 +2,9 @@
 import { computed, onMounted, reactive, ref, watchEffect } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
-import { MAX_LENGTH } from '../consts/maxLength';
-import { determineIsOver } from '../utilities/determineIsOver';
-import { scrollToBottom } from '../utilities/scrollToBottom';
+import { MAX_LENGTH } from '../../consts/maxLength';
+import { determineIsOver } from '../../utilities/determineIsOver';
+import { scrollToBottom } from '../../utilities/scrollToBottom';
 import CategoryListItem from './CategoryListItem';
 
 const router = useRouter();
