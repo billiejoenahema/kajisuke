@@ -13,7 +13,7 @@ class IndexTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * A basic feature test example.
+     * 家事一覧を取得できることを確認するテスト
      *
      * @return void
      */

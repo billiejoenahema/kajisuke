@@ -12,7 +12,7 @@ class StoreTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * 家事を登録できるかどうか
+     * 家事を登録できることを確認するテスト
      *
      * @return void
      */
