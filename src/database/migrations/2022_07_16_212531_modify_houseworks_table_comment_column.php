@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('houseworks', function (Blueprint $table) {
+        Schema::table('houseworks', function (Blueprint $table) {
             $table->string('comment')->nullable()->change();
         });
     }
