@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Archive\StoreRequest;
 use App\Http\Requests\Archive\UpdateRequest;
 use App\Models\Archive;
+use App\Models\Housework;
 use App\Services\HouseworkService;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,7 +20,12 @@ class ArchiveController extends Controller
      */
     public function index()
     {
-        //
+        $user = auth()->user();
+        $houseworks = Housework::where('user_id', $user->id)->get();
+        $query = Archive::with('housework', 'housework.user');
+        $archives = $query->whereIn('housework_id', $houseworks->pluck('id'))->get();
+
+        return response()->json($archives);
     }
 
     /**
