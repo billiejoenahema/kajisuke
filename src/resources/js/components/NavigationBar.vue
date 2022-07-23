@@ -12,9 +12,9 @@ const props = defineProps({
 
 const store = useStore();
 const router = useRouter();
-const profile = computed(() => store.getters['profile/profile']);
+const user = computed(() => store.getters['user/user']);
 onMounted(async () => {
-  await store.dispatch('profile/getIfNeeded');
+  await store.dispatch('user/getIfNeeded');
   if (!isLogin.value) {
     router.push('/login');
   } else {
@@ -25,7 +25,7 @@ onMounted(async () => {
   }
 });
 const modalOpen = ref('');
-const isLogin = computed(() => store.getters['profile/isLogin']);
+const isLogin = computed(() => store.getters['user/isLogin']);
 const isShowUserMenu = ref(false);
 const logout = () => {
   store.dispatch('auth/logout');
@@ -58,7 +58,7 @@ const hideShowUserMenu = () => {
         >Category List</a
       >
       <a class="nav-item-user" href="#" @click.prevent="toggleShowUserMenu()">{{
-        profile.name
+        user.name
       }}</a>
     </nav>
     <div class="user-menu" v-if="isShowUserMenu">
