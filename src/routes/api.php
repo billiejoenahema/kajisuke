@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\ArchiveController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\HouseworkController;
 use App\Http\Controllers\Api\ProfileController;
+use App\Http\Controllers\Api\UserController;
 use App\Models\Housework;
 use Illuminate\Support\Facades\Route;
 
@@ -20,7 +21,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     // ログインユーザー情報
-    Route::get('/profile', ProfileController::class);
+    Route::get('/auth_user', UserController::class);
+    // ユーザー情報
+    Route::get('/profiles', [ProfileController::class, 'index']);
+    Route::patch('/profiles', [ProfileController::class, 'update']);
 
     // 家事
     Route::get('/houseworks', [HouseworkController::class, 'index'])->can('viewAny', Housework::class);
