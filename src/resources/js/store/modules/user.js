@@ -10,7 +10,7 @@ const state = {
 };
 
 const getters = {
-  profile(state) {
+  user(state) {
     return state.data.id > 0 ? state.data : {};
   },
   isLogin(state) {
@@ -27,7 +27,7 @@ const getters = {
 const actions = {
   async get({ commit }) {
     await axios
-      .get('/api/profile')
+      .get('/api/auth_user')
       .then((res) => {
         commit('resetErrors');
         commit('setData', res.data.data);

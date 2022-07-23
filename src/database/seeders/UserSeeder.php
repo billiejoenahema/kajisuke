@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class UserSeeder extends Seeder
 {
@@ -14,9 +16,15 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $user = User::factory([
-            'name' => 'example',
-            'email' => 'example@example.com'
-        ])->create();
+        DB::transaction(function () {
+            $user = User::factory([
+                'name' => 'example',
+                'email' => 'example@example.com'
+            ])->create();
+
+            Profile::create([
+                'user_id' => $user->id,
+            ]);
+        });
     }
 }

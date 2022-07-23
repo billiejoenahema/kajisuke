@@ -5,7 +5,7 @@ import NavigationBar from '../components/NavigationBar';
 
 const store = useStore();
 
-const profile = computed(() => store.getters['profile/profile']);
+const user = computed(() => store.getters['user/user']);
 const isLoading = ref(false);
 const setIsLoading = (bool) => {
   isLoading.value = bool;
@@ -17,8 +17,8 @@ const setIsLoading = (bool) => {
   <div>
     <h4>User Profile</h4>
     <ul>
-      <li>User ID: {{ profile.id }}</li>
-      <li>User Name: {{ profile.name }}</li>
+      <li>ID: {{ user.id }}</li>
+      <li>Name: {{ user.name }}</li>
     </ul>
   </div>
 </template>

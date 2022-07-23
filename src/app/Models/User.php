@@ -41,6 +41,14 @@ class User extends Authenticatable
     ];
 
     /**
+     * 所有するプロフィールを取得する。
+     */
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
+    }
+
+    /**
      * 所有する家事を取得する。
      */
     public function houseworks()
