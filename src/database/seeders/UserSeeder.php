@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
                 'email' => 'example@example.com'
             ])->create();
 
-            Profile::create([
+            Profile::factory()->create([
                 'user_id' => $user->id,
             ]);
         });
