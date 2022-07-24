@@ -79,7 +79,7 @@ class Housework extends Model
     public function sortByOrder($query, $request)
     {
         if (empty($request['column'])) {
-            return $this->sortByUpdatedAt($query);
+            return $this->sortByNextDate($query);
         }
         $sortValue = $request['column'];
         $sortDirection = $request->toDirection();
@@ -96,5 +96,17 @@ class Housework extends Model
     public function sortByUpdatedAt($query)
     {
         return $query->orderBy('updated_at', 'desc');
+    }
+
+    /**
+     * 家事の次回実施日が近い順にソートする。
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  string|null $order
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function sortByNextDate($query)
+    {
+        return $query->orderBy('next_date', 'asc');
     }
 }
