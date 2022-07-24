@@ -1,10 +1,7 @@
 import axios from 'axios';
 
 const state = {
-  data: {
-    id: null,
-    name: '',
-  },
+  data: {},
   isLogin: false,
   errors: {},
 };
@@ -40,6 +37,21 @@ const actions = {
   async getIfNeeded({ dispatch, getters }) {
     if (getters.isLogin) return;
     await dispatch('get');
+  },
+  async update({ commit }, data) {
+    await axios
+      .patch('/api/profiles', data)
+      .then((res) => {
+        commit('resetErrors');
+        commit(
+          'toast/setData',
+          { status: res.status, content: res.data.message },
+          { root: true }
+        );
+      })
+      .catch((err) => {
+        commit('setErrors', err.response.data.errors);
+      });
   },
 };
 

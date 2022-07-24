@@ -6,7 +6,7 @@ const state = {
 
 const getters = {
   data(state) {
-    return state.data;
+    return state.data ?? {};
   },
   status(state) {
     if (state.data.status === undefined) return;
