@@ -12,14 +12,20 @@ const getters = {
   genderValues(state) {
     return state.data.GENDER_VALUES ?? [];
   },
-  defaultGender: (state) => (id) => {
-    return state.data.GENDER_VALUES?.find((v) => {
-      console.log(id);
-      return v.id == id;
-    });
-  },
   prefectures(state) {
     return state.data.PREFECTURES ?? [];
+  },
+  defaultGender: (state) => (id) => {
+    const gender = state.data.GENDER_VALUES?.find((v) => {
+      return v.id == id;
+    });
+    return gender?.value ?? '';
+  },
+  defaultPrefecture: (state) => (key) => {
+    const prefecture = state.data.PREFECTURES?.find((v) => {
+      return Object.keys(v)[0] == key;
+    });
+    return prefecture && Object.values(prefecture)[0];
   },
   hasErrors(state) {
     return Object.keys(state.errors).length > 0;
