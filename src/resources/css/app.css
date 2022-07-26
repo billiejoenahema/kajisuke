@@ -6,6 +6,9 @@ body {
 main {
   padding: 0;
 }
+input {
+  box-sizing: border-box;
+}
 input,
 textarea,
 select {
@@ -295,4 +298,7 @@ button {
 .birth-input > input {
   margin-left: 8px;
   text-align: center;
+}
+.invalid {
+  outline: solid 1px red;
 }
