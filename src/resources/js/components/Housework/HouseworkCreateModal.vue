@@ -58,15 +58,24 @@ const resetHousework = () => {
         </div>
       </div>
       <label>家事名</label>
-      <input class="housework-title-input" v-model="housework.title" />
+      <input
+        class="housework-title-input"
+        :class="invalidFeedback(errors.title) && 'invalid'"
+        v-model="housework.title"
+      />
       <div class="error-message">{{ invalidFeedback(errors.title) }}</div>
       <label>詳細</label>
-      <textarea v-model="housework.comment" rows="8"></textarea>
+      <textarea
+        :class="invalidFeedback(errors.comment) && 'invalid'"
+        v-model="housework.comment"
+        rows="8"
+      ></textarea>
       <div class="error-message">{{ invalidFeedback(errors.comment) }}</div>
       <div class="column">
         <label>初回実施日</label>
         <Datepicker
           class="date-picker"
+          :class="invalidFeedback(errors.next_date) && 'invalid'"
           v-model="housework.next_date"
           format="yyyy/MM/dd"
           autoApply
@@ -90,6 +99,7 @@ const resetHousework = () => {
       <label>カテゴリ</label>
       <select
         class="category-select"
+        :class="invalidFeedback(errors.category_id) && 'invalid'"
         v-model="housework.category_id"
         name="category"
       >

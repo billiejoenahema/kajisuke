@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Housework;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreRequest extends FormRequest
@@ -24,7 +25,7 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'category_id' => 'required|integer|exists:categories,id',
+            'category_id' => ['required', 'integer', Rule::notIn(['0']), 'exists:categories,id'],
             'title' => 'required|string|max:30',
             'comment' => 'required|string|max:200',
             'cycle_num' => 'required|integer',
@@ -46,7 +47,7 @@ class StoreRequest extends FormRequest
             'cycle_num' => '実行周期',
             'cycle_unit' => '実行周期単位',
             'next_date' => '次回実行日',
-            'category_id' => 'カテゴリID',
+            'category_id' => 'カテゴリ',
         ];
     }
 
