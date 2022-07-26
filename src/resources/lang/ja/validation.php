@@ -43,7 +43,7 @@ return [
     'distinct'             => ':attributeには異なった値を指定してください。',
     'email'                => ':attributeには、有効なメールアドレスを指定してください。',
     'ends_with'            => ':attributeには、:valuesのどれかで終わる値を指定してください。',
-    'exists'               => '選択された:attributeは正しくありません。',
+    'exists'               => '選択された:attributeは存在しません。',
     'file'                 => ':attributeにはファイルを指定してください。',
     'filled'               => ':attributeに値を指定してください。',
     'gt'                   => [
@@ -93,7 +93,7 @@ return [
         'array'   => ':attributeは:min個以上指定してください。',
     ],
     'multiple_of' => ':attributeには、:valueの倍数を指定してください。',
-    'not_in'               => '選択された:attributeは正しくありません。',
+    'not_in'               => ':attributeを選択してください。',
     'not_regex'            => ':attributeの形式が正しくありません。',
     'numeric'              => ':attributeには、数字を指定してください。',
     'password'             => '正しいパスワードを指定してください。',
