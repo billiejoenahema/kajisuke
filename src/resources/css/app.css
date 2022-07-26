@@ -276,3 +276,23 @@ button {
 .archive-list-item:hover {
   background: rgb(78, 78, 78);
 }
+.profile-item {
+  display: grid;
+  grid-template-columns: 3fr 9fr;
+  height: 36px;
+}
+.profile-item-label,
+.profile-item-value {
+  display: flex;
+  align-items: center;
+}
+.birth-input {
+  width: 50%;
+  min-width: 200px;
+  display: flex;
+  align-items: center;
+}
+.birth-input > input {
+  margin-left: 8px;
+  text-align: center;
+}

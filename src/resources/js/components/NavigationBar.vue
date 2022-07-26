@@ -20,6 +20,7 @@ onMounted(async () => {
   } else {
     props.setIsLoading(true);
     await store.dispatch('housework/getIfNeeded');
+    await store.dispatch('consts/getIfNeeded');
     props.setIsLoading(false);
     store.dispatch('category/getIfNeeded');
   }
