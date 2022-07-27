@@ -137,7 +137,7 @@ const submit = async () => {
         </div>
       </li>
       <li class="profile-item">
-        <label class="profile-item-label">郵便番号:</label>
+        <label class="profile-item-label">住所:</label>
         <input
           v-if="isEditing.includes('zipcode')"
           v-model="user.profile.zipcode"
@@ -147,7 +147,7 @@ const submit = async () => {
         </div>
       </li>
       <li class="profile-item">
-        <label class="profile-item-label">都道府県:</label>
+        <label class="profile-item-label"></label>
         <select
           v-if="isEditing.includes('prefecture')"
           v-model="user.profile.prefecture"
@@ -165,14 +165,14 @@ const submit = async () => {
         </div>
       </li>
       <li class="profile-item">
-        <label class="profile-item-label">市町村:</label>
+        <label class="profile-item-label"></label>
         <input v-if="isEditing.includes('city')" v-model="user.profile.city" />
         <div class="profile-item-value" v-else @click="toEdit('city')">
           {{ user.profile?.city }}
         </div>
       </li>
       <li class="profile-item">
-        <label class="profile-item-label">以下の住所:</label>
+        <label class="profile-item-label"></label>
         <input
           v-if="isEditing.includes('street_address')"
           v-model="user.profile.street_address"
