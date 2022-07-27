@@ -300,5 +300,5 @@ button {
   text-align: center;
 }
 .invalid {
-  outline: solid 1px red;
+  border: solid 1px red;
 }
