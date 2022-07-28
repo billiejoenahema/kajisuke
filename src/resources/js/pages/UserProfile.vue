@@ -11,6 +11,9 @@ const store = useStore();
 const user = computed(() => store.getters['user/user']);
 const genderValues = computed(() => store.getters['consts/genderValues']);
 const prefectures = computed(() => store.getters['consts/prefectures']);
+const years = computed(() => store.getters['consts/years']);
+const months = computed(() => store.getters['consts/months']);
+const days = computed(() => store.getters['consts/days']);
 const defaultGender = computed(() =>
   store.getters['consts/defaultGender'](user.value.profile?.gender)
 );
@@ -118,12 +121,34 @@ const submit = async () => {
       <li class="profile-item">
         <label class="profile-item-label">生年月日:</label>
         <div v-if="isEditing.includes('birth')" class="birth-input row">
-          <input v-model="birthYear" @change="onChangeBirth()" />
-          <div>年</div>
-          <input v-model="birthMonth" @change="onChangeBirth()" />
-          <div>月</div>
-          <input v-model="birthDay" @change="onChangeBirth()" />
-          <div>日</div>
+          <div class="year-select row">
+            <select v-model="birthYear" @change="onChangeBirth()">
+              <option v-for="(year, index) in years" :key="index" :value="year">
+                {{ year }}
+              </option>
+            </select>
+            <div>年</div>
+          </div>
+          <div class="month-select row">
+            <select v-model="birthMonth" @change="onChangeBirth()">
+              <option
+                v-for="(month, index) in months"
+                :key="index"
+                :value="month"
+              >
+                {{ month }}
+              </option>
+            </select>
+            <div>月</div>
+          </div>
+          <div class="day-select row">
+            <select v-model="birthDay" @change="onChangeBirth()">
+              <option v-for="(day, index) in days" :key="index" :value="day">
+                {{ day }}
+              </option>
+            </select>
+            <div>日</div>
+          </div>
         </div>
         <div class="profile-item-value" v-else @click="toEdit('birth')">
           {{ formatBirth(user.profile?.birth) }}

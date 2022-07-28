@@ -290,14 +290,17 @@ button {
   align-items: center;
 }
 .birth-input {
-  width: 50%;
-  min-width: 200px;
+  width: 75%;
+  min-width: 240px;
+  display: grid;
+  grid-template-columns: 4fr 3fr 3fr;
+  grid-gap: 8px;
+}
+.year-select,
+.month-select,
+.day-select {
   display: flex;
   align-items: center;
-}
-.birth-input > input {
-  margin-left: 8px;
-  text-align: center;
 }
 .invalid {
   border: solid 1px red;

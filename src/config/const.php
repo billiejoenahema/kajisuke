@@ -74,5 +74,22 @@ return [
         [45 => '宮崎県'],
         [46 => '鹿児島県'],
         [47 => '沖縄県'],
-    ]
+    ],
+    'YEARS' => range(1940, date('Y')),
+    'MONTHS' => toTwoDigitZeroPaddingArray(range(1, 12)),
+    'DAYS' => toTwoDigitZeroPaddingArray(range(1, 31)),
 ];
+
+/**
+ * 整数の配列を2桁の0埋め文字列の配列で返す。
+ *
+ * @param array $array
+ * @return array
+ */
+function toTwoDigitZeroPaddingArray($array): array
+{
+    foreach($array as $index => $value) {
+        $array[$index] = str_pad($value, 2, '0', STR_PAD_LEFT);
+    }
+    return $array;
+}
