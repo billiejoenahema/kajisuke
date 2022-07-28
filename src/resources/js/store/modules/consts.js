@@ -15,6 +15,15 @@ const getters = {
   prefectures(state) {
     return state.data.PREFECTURES ?? [];
   },
+  years(state) {
+    return state.data.YEARS ?? [];
+  },
+  months(state) {
+    return state.data.MONTHS ?? [];
+  },
+  days(state) {
+    return state.data.DAYS ?? [];
+  },
   defaultGender: (state) => (id) => {
     const gender = state.data.GENDER_VALUES?.find((v) => {
       return v.id == id;
