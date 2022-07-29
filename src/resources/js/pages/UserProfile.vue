@@ -5,7 +5,6 @@ import { useStore } from 'vuex';
 import NavigationBar from '../components/NavigationBar';
 import ToastMessage from '../components/ToastMessage';
 import { formatBirth } from '../utilities/formatBirth';
-import { formatZipcode } from '../utilities/formatZipcode';
 
 const store = useStore();
 const user = computed(() => store.getters['user/user']);
@@ -163,12 +162,14 @@ const submit = async () => {
       </li>
       <li class="profile-item">
         <label class="profile-item-label">住所:</label>
-        <input
-          v-if="isEditing.includes('zipcode')"
-          v-model="user.profile.zipcode"
-        />
+        <div v-if="isEditing.includes('zipcode')">
+          <input class="zipcode1-input" v-model="user.profile.zipcode1" />
+          <span>-</span>
+          <input class="zipcode2-input" v-model="user.profile.zipcode2" />
+        </div>
         <div class="profile-item-value" v-else @click="toEdit('zipcode')">
-          <span>〒</span>{{ formatZipcode(user.profile?.zipcode) }}
+          <span>〒</span>{{ user.profile?.zipcode1 }}<span>-</span
+          >{{ user.profile?.zipcode2 }}
         </div>
       </li>
       <li class="profile-item">

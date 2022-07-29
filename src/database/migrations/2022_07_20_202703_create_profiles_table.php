@@ -21,7 +21,8 @@ return new class extends Migration
             $table->string('gender', 1)->comment('性別')->default('0');
             $table->date('birth')->comment('生年月日')->nullable();
             $table->string('tel')->comment('電話番号')->nullable();
-            $table->string('zipcode')->comment('郵便番号')->nullable();
+            $table->string('zipcode1', 3)->comment('郵便番号1')->nullable();
+            $table->string('zipcode2', 4)->comment('郵便番号2')->nullable();
             $table->string('prefecture')->comment('都道府県')->nullable();
             $table->string('city')->comment('市町村')->nullable();
             $table->string('street_address')->comment('町丁目以下')->nullable();
