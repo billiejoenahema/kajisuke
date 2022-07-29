@@ -25,8 +25,8 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => 'required|integer',
-            'housework_id' => 'required|integer',
+            'id' => 'required|integer|exists:archives,id',
+            'housework_id' => 'required|integer|exists:houseworks,id',
             'date' => ['required', 'date', new UniqueDate($this->housework_id)],
             'content' => 'required|string|max:200',
         ];
