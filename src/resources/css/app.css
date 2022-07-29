@@ -305,3 +305,11 @@ button {
 .invalid {
   border: solid 1px red;
 }
+.zipcode1-input {
+  width: 54px;
+  text-align: center;
+}
+.zipcode2-input {
+  width: 64px;
+  text-align: center;
+}
