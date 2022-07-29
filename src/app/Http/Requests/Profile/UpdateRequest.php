@@ -31,8 +31,9 @@ class UpdateRequest extends FormRequest
             'gender' => ['required', 'integer', ValidationRule::in([0, 1, 2, 9])],
             'birth' => 'nullable|string|size:10',
             'tel' => 'nullable|string|max:13',
-            'zipcode' => 'nullable|string|max:50',
-            'prefecture' => ['nullable', 'string'],
+            'zipcode1' => 'nullable|string|max:3',
+            'zipcode2' => 'nullable|string|max:4',
+            'prefecture' => ['nullable', 'string', ValidationRule::in(range(1, 47))],
             'city' => 'nullable|string|max:50',
             'street_address' => 'nullable|string|max:50',
         ];
