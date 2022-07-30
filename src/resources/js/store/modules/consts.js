@@ -24,13 +24,13 @@ const getters = {
   days(state) {
     return state.data.DAYS ?? [];
   },
-  defaultGender: (state) => (id) => {
+  currentGender: (state) => (id) => {
     const gender = state.data.GENDER_VALUES?.find((v) => {
       return v.id == id;
     });
     return gender?.value ?? '';
   },
-  defaultPrefecture: (state) => (key) => {
+  currentPrefecture: (state) => (key) => {
     const prefecture = state.data.PREFECTURES?.find((v) => {
       return Object.keys(v)[0] == key;
     });

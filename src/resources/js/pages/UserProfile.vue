@@ -13,11 +13,11 @@ const prefectures = computed(() => store.getters['consts/prefectures']);
 const years = computed(() => store.getters['consts/years']);
 const months = computed(() => store.getters['consts/months']);
 const days = computed(() => store.getters['consts/days']);
-const defaultGender = computed(() =>
-  store.getters['consts/defaultGender'](user.value.profile?.gender)
+const currentGender = computed(() =>
+  store.getters['consts/currentGender'](user.value.profile?.gender)
 );
-const defaultPrefecture = computed(() =>
-  store.getters['consts/defaultPrefecture'](user.value.profile?.prefecture)
+const currentPrefecture = computed(() =>
+  store.getters['consts/currentPrefecture'](user.value.profile?.prefecture)
 );
 
 const birthYear = ref('');
@@ -114,7 +114,7 @@ const submit = async () => {
           </option>
         </select>
         <div class="profile-item-value" v-else @click="toEdit('gender')">
-          {{ defaultGender }}
+          {{ currentGender }}
         </div>
       </li>
       <li class="profile-item">
@@ -187,7 +187,7 @@ const submit = async () => {
           </option>
         </select>
         <div class="profile-item-value" v-else @click="toEdit('prefecture')">
-          {{ defaultPrefecture }}
+          {{ currentPrefecture }}
         </div>
       </li>
       <li class="profile-item">
