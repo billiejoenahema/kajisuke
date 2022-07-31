@@ -26,6 +26,7 @@
     "simpledotcss": "^2.0.6",
     "vue-draggable-next": "^2.1.1",
     "vue-router": "^4.0.14",
+    "vue3-loading-overlay": "0.0.0",
     "vuex": "^4.0.2"
   }
 }
