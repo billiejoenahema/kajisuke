@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\HouseworkController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\UserController;
+use App\Models\Category;
 use App\Models\Housework;
 use Illuminate\Support\Facades\Route;
 
@@ -37,10 +38,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::delete('/houseworks/{housework}', [HouseworkController::class, 'destroy']);
 
     // カテゴリ
-    Route::get('/categories', [CategoryController::class, 'index']);
-    Route::post('/categories', [CategoryController::class, 'store']);
-    Route::patch('/categories/{category}', [CategoryController::class, 'update']);
-    Route::delete('/categories/{category}', [CategoryController::class, 'destroy']);
+    Route::get('/categories', [CategoryController::class, 'index'])->can('viewAny', Category::class);
+    Route::post('/categories', [CategoryController::class, 'store'])->can('create', Category::class);
+    Route::patch('/categories/{category}', [CategoryController::class, 'update'])->can('update', Category::class);
+    Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->can('delete', Category::class);
 
     // 履歴
     Route::get('/archives', [ArchiveController::class, 'index']);

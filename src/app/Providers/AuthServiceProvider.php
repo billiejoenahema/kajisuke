@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Category;
 use App\Models\Housework;
+use App\Policies\CategoryPolicy;
 use App\Policies\HouseworkPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 class AuthServiceProvider extends ServiceProvider
@@ -14,6 +16,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         Housework::class => HouseworkPolicy::class,
+        Category::class => CategoryPolicy::class,
     ];
 
     /**
