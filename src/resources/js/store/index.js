@@ -5,6 +5,7 @@ import archive from './modules/archive';
 import category from './modules/category';
 import consts from './modules/consts';
 import housework from './modules/housework';
+import loading from './modules/loading';
 import user from './modules/user';
 import toast from './modules/toast';
 
@@ -15,6 +16,7 @@ export const store = createStore({
     category,
     consts,
     housework,
+    loading,
     toast,
     user,
   },
