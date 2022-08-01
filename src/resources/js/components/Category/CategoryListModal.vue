@@ -22,9 +22,12 @@ const newCategory = reactive({
 const isOver = ref('');
 const placeholder = ref('＋新しいカテゴリを作成');
 const categories = computed(() => store.getters['category/data']);
+const setIsLoading = (bool) => store.commit('loading/setIsLoading', bool);
 const storeCategory = async () => {
+  setIsLoading(true);
   await store.dispatch('category/post', newCategory);
   await store.dispatch('category/get');
+  setIsLoading(false);
   scrollToBottom('category-list');
   newCategory.name = '';
   placeholder.value = '＋新しいカテゴリを作成';

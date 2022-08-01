@@ -1,27 +1,27 @@
 <script setup>
 import { computed, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import Loading from 'vue3-loading-overlay/dist/index';
+import 'vue3-loading-overlay/dist/vue3-loading-overlay.css';
 import { useStore } from 'vuex';
 import CategoryListModal from '../components/Category/CategoryListModal';
 import HouseworkCreateModal from '../components/Housework/HouseworkCreateModal';
 
-const props = defineProps({
-  isLoading: Boolean,
-  setIsLoading: Function,
-});
-
 const store = useStore();
 const router = useRouter();
 const user = computed(() => store.getters['user/user']);
+const isLoading = computed(() => store.getters['loading/isLoading']);
+const setIsLoading = (bool) => store.commit('loading/setIsLoading', bool);
 onMounted(async () => {
+  setIsLoading(true);
   await store.dispatch('user/getIfNeeded');
   if (!isLogin.value) {
+    setIsLoading(false);
     router.push('/login');
   } else {
-    props.setIsLoading(true);
     await store.dispatch('housework/getIfNeeded');
-    await store.dispatch('consts/getIfNeeded');
-    props.setIsLoading(false);
+    setIsLoading(false);
+    store.dispatch('consts/getIfNeeded');
     store.dispatch('category/getIfNeeded');
   }
 });
@@ -51,6 +51,7 @@ const hideShowUserMenu = () => {
 </script>
 
 <template>
+  <Loading :active="isLoading" color="#FFF" opacity="0.1" />
   <div @mouseleave="hideShowUserMenu()">
     <nav class="nav">
       <a href="#" @click.prevent="toHome()">Home</a>

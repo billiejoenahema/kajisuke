@@ -12,7 +12,6 @@ const getters = {
 
 const mutations = {
   setIsLoading(state, bool) {
-    console.log('setIsLoading', bool);
     state.isLoading = bool;
   },
 };

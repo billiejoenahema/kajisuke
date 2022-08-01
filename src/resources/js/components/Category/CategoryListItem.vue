@@ -22,6 +22,7 @@ const showTrashIcon = ref(false);
 const invalidStatus = ref('');
 const inputRef = ref(null);
 const canUpdate = ref(false);
+const setIsLoading = (bool) => store.commit('loading/setIsLoading', bool);
 watchEffect(() => {
   canUpdate.value =
     category.name !== props.category.name && category.name.length > 0;
@@ -65,8 +66,10 @@ const onEnter = () => {
   debounceShowTooltip(false);
 };
 const deleteCategoryItem = async () => {
-  if (alert('このカテゴリを削除しますか？')) return;
+  if (!confirm('この履歴を削除しますか？')) return;
+  setIsLoading(true);
   await store.dispatch('category/delete', category.id);
+  setIsLoading(false);
   store.dispatch('category/get');
 };
 </script>
