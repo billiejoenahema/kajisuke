@@ -11,6 +11,7 @@ defineProps({
 });
 const showTrashIcon = ref(false);
 const hasErrors = computed(() => store.getters['archive/hasErrors']);
+const setIsLoading = (bool) => store.commit('loading/setIsLoading', bool);
 const onMouseover = () => {
   showTrashIcon.value = true;
 };
@@ -19,7 +20,9 @@ const onMouseleave = () => {
 };
 const deleteArchive = async (id) => {
   if (!confirm('この履歴を削除しますか？')) return;
+  setIsLoading(true);
   await store.dispatch('archive/delete', id);
+  setIsLoading(false);
   if (!hasErrors.value) {
     store.dispatch('housework/get');
   }

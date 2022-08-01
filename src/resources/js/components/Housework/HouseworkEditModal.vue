@@ -18,6 +18,7 @@ onMounted(async () => {
 onUnmounted(() => {
   store.commit('housework/resetItem');
 });
+const setIsLoading = (bool) => store.commit('loading/setIsLoading', bool);
 const housework = computed(() => store.getters['housework/item']);
 const categories = computed(() => store.getters['category/data']);
 const errors = computed(() => store.getters['housework/errors']);
@@ -26,7 +27,9 @@ const invalidFeedback = (attr) => {
   return attr ? attr[0] : '';
 };
 const updateHousework = async () => {
+  setIsLoading(true);
   await store.dispatch('housework/update', housework.value);
+  setIsLoading(false);
   if (hasErrors.value) {
     return;
   }

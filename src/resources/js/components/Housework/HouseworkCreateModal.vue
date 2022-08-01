@@ -28,8 +28,11 @@ const hasErrors = computed(() => store.getters['housework/hasErrors']);
 const invalidFeedback = (attr) => {
   return attr ? attr[0] : '';
 };
+const setIsLoading = (bool) => store.commit('loading/setIsLoading', bool);
 const storeHousework = async () => {
+  setIsLoading(true);
   await store.dispatch('housework/post', housework);
+  setIsLoading(false);
   if (hasErrors.value) {
     return;
   }

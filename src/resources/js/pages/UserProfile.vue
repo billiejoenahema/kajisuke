@@ -1,6 +1,5 @@
 <script setup>
 import { computed, ref, watchEffect } from 'vue';
-import VueElementLoading from 'vue-element-loading';
 import { useStore } from 'vuex';
 import NavigationBar from '../components/NavigationBar';
 import ToastMessage from '../components/ToastMessage';
@@ -38,10 +37,7 @@ const toEdit = (prop) => {
   isEditing.value = [];
   isEditing.value = [...isEditing.value, prop];
 };
-const isLoading = ref(false);
-const setIsLoading = (bool) => {
-  isLoading.value = bool;
-};
+const setIsLoading = (bool) => store.commit('loading/setIsLoading', bool);
 const onChangeBirth = () => {
   user.value.profile.birth = `${birthYear.value}-${birthMonth.value}-${birthDay.value}`;
 };
@@ -55,16 +51,8 @@ const submit = async () => {
 
 <template>
   <ToastMessage />
-  <NavigationBar :isLoading="isLording" :setIsLoading="setIsLoading" />
-  <vue-element-loading
-    v-if="isLoading"
-    :active="isLoading"
-    color="#fff"
-    background-color="rgba(0, 0, 0, 0)"
-    spinner="spinner"
-    is-full-screen
-  />
-  <div v-else>
+  <NavigationBar />
+  <div>
     <h4>User Profile</h4>
     <ul>
       <li class="profile-item">
@@ -85,7 +73,7 @@ const submit = async () => {
           v-if="isEditing.includes('last_name')"
           v-model="user.profile.last_name"
         />
-        <div v-else @click="toEdit('last_name')">
+        <div class="profile-item-value" v-else @click="toEdit('last_name')">
           {{ user.profile?.last_name }}
         </div>
       </li>
