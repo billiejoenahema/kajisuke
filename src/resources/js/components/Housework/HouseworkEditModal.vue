@@ -5,6 +5,7 @@ import { computed, onMounted, onUnmounted } from 'vue';
 import { useStore } from 'vuex';
 import { CYCLE_UNIT } from '../../consts/cycle_unit';
 import { ONE_MONTH } from '../../consts/oneMonthDateList';
+import InvalidFeedback from '../InvalidFeedback';
 
 const props = defineProps({
   id: Number,
@@ -21,11 +22,11 @@ onUnmounted(() => {
 const setIsLoading = (bool) => store.commit('loading/setIsLoading', bool);
 const housework = computed(() => store.getters['housework/item']);
 const categories = computed(() => store.getters['category/data']);
-const errors = computed(() => store.getters['housework/errors']);
 const hasErrors = computed(() => store.getters['housework/hasErrors']);
-const invalidFeedback = (attr) => {
-  return attr ? attr[0] : '';
-};
+const invalidFeedback = computed(
+  () => store.getters['housework/invalidFeedback']
+);
+
 const updateHousework = async () => {
   setIsLoading(true);
   await store.dispatch('housework/update', housework.value);
@@ -49,17 +50,17 @@ const updateHousework = async () => {
       <label>家事名</label>
       <input
         class="housework-title-input"
-        :class="invalidFeedback(errors.title) && 'invalid'"
+        :class="invalidFeedback('title') && 'invalid'"
         v-model="housework.title"
       />
-      <div class="error-message">{{ invalidFeedback(errors.title) }}</div>
+      <InvalidFeedback :errors="invalidFeedback('title')" />
       <label>詳細</label>
       <textarea
-        :class="invalidFeedback(errors.comment) && 'invalid'"
+        :class="invalidFeedback('comment') && 'invalid'"
         v-model="housework.comment"
         rows="8"
       ></textarea>
-      <div class="error-message">{{ invalidFeedback(errors.comment) }}</div>
+      <InvalidFeedback :errors="invalidFeedback('comment')" />
       <div class="column">
         <label>実行周期</label>
         <div class="housework-cycle">
@@ -83,7 +84,7 @@ const updateHousework = async () => {
       <label>次回実施日</label>
       <Datepicker
         class="date-picker"
-        :class="invalidFeedback(errors.next_date) && 'invalid'"
+        :class="invalidFeedback('next_date') && 'invalid'"
         v-model="housework.next_date"
         format="yyyy/MM/dd"
         autoApply
@@ -91,7 +92,7 @@ const updateHousework = async () => {
       <label>カテゴリ</label>
       <select
         class="category-select"
-        :class="invalidFeedback(errors.category_id) && 'invalid'"
+        :class="invalidFeedback('category_id') && 'invalid'"
         v-model="housework.category_id"
         name="category"
       >
