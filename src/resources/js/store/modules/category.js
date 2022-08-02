@@ -12,7 +12,7 @@ const getters = {
   hasErrors(state) {
     return Object.keys(state.errors).length > 0;
   },
-  errors(state) {
+  invalidFeedback(state) {
     return state.errors ?? {};
   },
 };

@@ -11,6 +11,5 @@ const isLoading = store.getters['loading/isLoading'];
 <template>
   <ToastMessage />
   <NavigationBar />
-
   <HouseworkList v-if="!isLoading" />
 </template>
