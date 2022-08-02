@@ -15,13 +15,13 @@ const isAscending = reactive({
   title: false,
   comment: false,
   cycle_unit: false,
-  next_date: false,
+  next_date: true,
 });
 const initIsAscending = () => {
   isAscending.title = false;
   isAscending.comment = false;
   isAscending.cycle_unit = false;
-  isAscending.next_date = false;
+  isAscending.next_date = true;
 };
 const resetWord = () => {
   return sort.column === '' ? '' : '並び順をリセット';
