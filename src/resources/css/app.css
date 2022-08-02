@@ -246,10 +246,6 @@ button {
 .is-over-date-soon {
   color: orange;
 }
-.invalid-feedback {
-  color: red;
-  font-size: 0.8rem;
-}
 .cancel-button {
   background: rgb(128, 128, 128);
 }

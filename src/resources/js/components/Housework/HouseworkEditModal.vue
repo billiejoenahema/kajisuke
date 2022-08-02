@@ -5,6 +5,7 @@ import { computed, onMounted, onUnmounted } from 'vue';
 import { useStore } from 'vuex';
 import { CYCLE_UNIT } from '../../consts/cycle_unit';
 import { ONE_MONTH } from '../../consts/oneMonthDateList';
+import InvalidFeedback from '../InvalidFeedback';
 
 const props = defineProps({
   id: Number,
@@ -52,22 +53,14 @@ const updateHousework = async () => {
         :class="invalidFeedback('title') && 'invalid'"
         v-model="housework.title"
       />
-      <div class="invalid-feedback" v-if="invalidFeedback('title')">
-        <div v-for="(error, index) in invalidFeedback('title')" :key="index">
-          {{ error }}
-        </div>
-      </div>
+      <InvalidFeedback :errors="invalidFeedback('title')" />
       <label>詳細</label>
       <textarea
         :class="invalidFeedback('comment') && 'invalid'"
         v-model="housework.comment"
         rows="8"
       ></textarea>
-      <div class="invalid-feedback" v-if="invalidFeedback('comment')">
-        <div v-for="(error, index) in invalidFeedback('comment')" :key="index">
-          {{ error }}
-        </div>
-      </div>
+      <InvalidFeedback :errors="invalidFeedback('comment')" />
       <div class="column">
         <label>実行周期</label>
         <div class="housework-cycle">

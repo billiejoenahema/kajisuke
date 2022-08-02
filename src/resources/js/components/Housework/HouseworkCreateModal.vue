@@ -6,6 +6,7 @@ import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 import { CYCLE_UNIT } from '../../consts/cycle_unit';
 import { ONE_MONTH } from '../../consts/oneMonthDateList';
+import InvalidFeedback from '../InvalidFeedback';
 
 const router = useRouter();
 const store = useStore();
@@ -66,22 +67,14 @@ const resetHousework = () => {
         :class="invalidFeedback('title') && 'invalid'"
         v-model="housework.title"
       />
-      <div class="invalid-feedback" v-if="invalidFeedback('title')">
-        <div v-for="(error, index) in invalidFeedback('title')" :key="index">
-          {{ error }}
-        </div>
-      </div>
+      <InvalidFeedback :errors="invalidFeedback('title')" />
       <label>詳細</label>
       <textarea
         :class="invalidFeedback('comment') && 'invalid'"
         v-model="housework.comment"
         rows="8"
       ></textarea>
-      <div class="invalid-feedback" v-if="invalidFeedback('comment')">
-        <div v-for="(error, index) in invalidFeedback('comment')" :key="index">
-          {{ error }}
-        </div>
-      </div>
+      <InvalidFeedback :errors="invalidFeedback('comment')" />
       <div class="column">
         <label>初回実施日</label>
         <Datepicker
@@ -91,14 +84,7 @@ const resetHousework = () => {
           format="yyyy/MM/dd"
           autoApply
         ></Datepicker>
-        <div class="invalid-feedback" v-if="invalidFeedback('next_date')">
-          <div
-            v-for="(error, index) in invalidFeedback('next_date')"
-            :key="index"
-          >
-            {{ error }}
-          </div>
-        </div>
+        <InvalidFeedback :errors="invalidFeedback('next_date')" />
         <label>実行周期</label>
         <div class="housework-cycle">
           <select v-model="housework.cycle_num">
@@ -130,14 +116,7 @@ const resetHousework = () => {
           {{ category.name }}
         </option>
       </select>
-      <div class="invalid-feedback" v-if="invalidFeedback('category_id')">
-        <div
-          v-for="(error, index) in invalidFeedback('category_id')"
-          :key="index"
-        >
-          {{ error }}
-        </div>
-      </div>
+      <InvalidFeedback :errors="invalidFeedback('category_id')" />
       <div class="store-button-area">
         <button class="store-button" @click="storeHousework()">作成する</button>
       </div>
