@@ -258,12 +258,6 @@ button {
   display: flex;
   flex-direction: row;
 }
-.sort-direction-icon-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0 8px;
-}
 .reset-order {
   cursor: default;
   user-select: none;

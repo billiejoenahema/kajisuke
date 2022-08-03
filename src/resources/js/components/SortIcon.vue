@@ -17,3 +17,12 @@ defineProps({
     />
   </div>
 </template>
+
+<style scoped>
+.sort-direction-icon-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 8px;
+}
+</style>
