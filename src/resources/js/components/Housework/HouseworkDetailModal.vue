@@ -85,10 +85,12 @@ const deleteHousework = async () => {
       <label>履歴</label>
       <div class="show-housework-archives">
         <ArchiveListItem
+          v-if="housework.archives.length > 0"
           v-for="archive in housework.archives"
           :key="archive.id"
           :archive="archive"
         />
+        <div v-else>履歴はまだありません</div>
       </div>
       <div class="store-button-area">
         <button class="edit-button" @click="editHousework()">編集</button>

@@ -36,7 +36,7 @@ const deleteArchive = async (id) => {
     @mouseleave="onMouseleave()"
   >
     <div class="archive-date">
-      {{ archive.date ?? '履歴はまだありません' }}
+      {{ archive.date }}
     </div>
     <div
       class="trash-icon-wrapper"
