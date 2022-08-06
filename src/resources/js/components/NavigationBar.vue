@@ -29,8 +29,10 @@ const modalOpen = ref('');
 const isLogin = computed(() => store.getters['user/isLogin']);
 const isShowUserMenu = ref(false);
 const logout = () => {
-  store.dispatch('auth/logout');
-  router.push('/login');
+  if (confirm('ログアウトしますか？')) {
+    store.dispatch('user/logout');
+    router.push('/login');
+  }
 };
 const toHome = () => {
   router.push('/');
@@ -62,14 +64,14 @@ const hideShowUserMenu = () => {
       <a class="nav-item-user" href="#" @click.prevent="toggleShowUserMenu()">{{
         user.name
       }}</a>
+      <div class="user-menu" v-if="isShowUserMenu">
+        <div class="user-menu-item">Menu</div>
+        <router-link class="user-menu-item" to="/profile">Profile</router-link>
+        <div class="user-menu-item">Settings</div>
+        <div class="user-menu-item">Other</div>
+        <div class="user-menu-item logout" @click="logout()">Logout</div>
+      </div>
     </nav>
-    <div class="user-menu" v-if="isShowUserMenu">
-      <div class="user-menu-item">Menu</div>
-      <router-link class="user-menu-item" to="/profile">Profile</router-link>
-      <div class="user-menu-item">Settings</div>
-      <div class="user-menu-item">Other</div>
-      <div class="user-menu-item" @click="logout()">Logout</div>
-    </div>
   </div>
   <HouseworkCreateModal
     v-if="modalOpen === 'houseworkCreate'"
