@@ -108,7 +108,7 @@ const deleteCategoryItem = async () => {
       >
         {{ housework }}
       </div>
-      <div v-else>関連するカテゴリはありません</div>
+      <div v-else>関連する家事はありません</div>
     </div>
   </li>
 </template>
