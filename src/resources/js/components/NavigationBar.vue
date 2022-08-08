@@ -44,26 +44,30 @@ const setModalOpen = (prop) => {
 const closeModal = () => {
   modalOpen.value = '';
 };
-const toggleShowUserMenu = () => {
-  isShowUserMenu.value = !isShowUserMenu.value;
-};
-const hideShowUserMenu = () => {
-  isShowUserMenu.value = false;
+const toggleUserMenuDisplay = (prop = null) => {
+  if (prop === null) {
+    isShowUserMenu.value = !isShowUserMenu.value;
+  } else {
+    isShowUserMenu.value = prop;
+  }
 };
 </script>
 
 <template>
   <Loading :active="isLoading" color="#FFF" opacity="0.1" />
-  <div @mouseleave="hideShowUserMenu()">
+  <div @mouseleave="toggleUserMenuDisplay(false)">
     <nav class="nav">
       <a href="#" @click.prevent="toHome()">Home</a>
       <a href="#" @click.prevent="setModalOpen('houseworkCreate')">Create HW</a>
       <a href="#" @click.prevent="setModalOpen('categoryList')"
         >Category List</a
       >
-      <a class="nav-item-user" href="#" @click.prevent="toggleShowUserMenu()">{{
-        user.name
-      }}</a>
+      <a
+        class="nav-item-user"
+        href="#"
+        @click.prevent="toggleUserMenuDisplay()"
+        >{{ user.name }}</a
+      >
       <div class="user-menu" v-if="isShowUserMenu">
         <div class="user-menu-item">Menu</div>
         <router-link class="user-menu-item" to="/profile">Profile</router-link>
