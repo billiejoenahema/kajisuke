@@ -78,6 +78,12 @@ return [
     'YEARS' => range(1940, date('Y')),
     'MONTHS' => toTwoDigitZeroPaddingArray(range(1, 12)),
     'DAYS' => toTwoDigitZeroPaddingArray(range(1, 31)),
+    'MAX_LENGTHS' => [
+        ['housework_title' => 30],
+        ['housework_comment' => 200],
+        ['category_name' => 30],
+        ['archive_content' => 200],
+    ]
 ];
 
 /**

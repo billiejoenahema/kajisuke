@@ -1,7 +1,7 @@
 <script setup>
 import Datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
-import { computed, onMounted, onUnmounted } from 'vue';
+import { computed, onUnmounted } from 'vue';
 import { useStore } from 'vuex';
 import { CYCLE_UNIT } from '../../consts/cycle_unit';
 import { ONE_MONTH } from '../../consts/oneMonthDateList';
@@ -13,15 +13,14 @@ const props = defineProps({
 });
 
 const store = useStore();
-onMounted(async () => {
-  store.dispatch('housework/getItem', props.id);
-});
+store.dispatch('housework/getItem', props.id);
 onUnmounted(() => {
   store.commit('housework/resetItem');
 });
 const setIsLoading = (bool) => store.commit('loading/setIsLoading', bool);
 const housework = computed(() => store.getters['housework/item']);
 const categories = computed(() => store.getters['category/data']);
+const maxLength = computed(() => store.getters['consts/maxLength']);
 const hasErrors = computed(() => store.getters['housework/hasErrors']);
 const invalidFeedback = computed(
   () => store.getters['housework/invalidFeedback']
@@ -53,6 +52,10 @@ const updateHousework = async () => {
         :class="invalidFeedback('title') && 'invalid'"
         v-model="housework.title"
       />
+      <div class="characters-length">
+        Characters used: {{ housework.title?.length ?? 0 }} out of
+        {{ maxLength('housework_title') }}
+      </div>
       <InvalidFeedback :errors="invalidFeedback('title')" />
       <label>詳細</label>
       <textarea
@@ -60,6 +63,10 @@ const updateHousework = async () => {
         v-model="housework.comment"
         rows="8"
       ></textarea>
+      <div class="characters-length">
+        Characters used: {{ housework.comment?.length ?? 0 }} out of
+        {{ maxLength('housework_comment') }}
+      </div>
       <InvalidFeedback :errors="invalidFeedback('comment')" />
       <div class="column">
         <label>実行周期</label>

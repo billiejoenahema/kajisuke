@@ -307,3 +307,8 @@ nav {
 .logout:hover {
   color: #ffb300;
 }
+.characters-length {
+  font-size: 0.5rem;
+  display: flex;
+  justify-content: flex-end;
+}

@@ -24,6 +24,7 @@ const housework = reactive({
   next_date: '',
   category_id: 0,
 });
+const maxLength = computed(() => store.getters['consts/maxLength']);
 const invalidFeedback = computed(
   () => store.getters['housework/invalidFeedback']
 );
@@ -66,14 +67,24 @@ const resetHousework = () => {
         class="housework-title-input"
         :class="invalidFeedback('title') && 'invalid'"
         v-model="housework.title"
+        :maxlength="maxLength('housework_title')"
       />
+      <div class="characters-length">
+        Characters used: {{ housework.title?.length ?? 0 }} out of
+        {{ maxLength('housework_title') }}
+      </div>
       <InvalidFeedback :errors="invalidFeedback('title')" />
       <label>詳細</label>
       <textarea
         :class="invalidFeedback('comment') && 'invalid'"
         v-model="housework.comment"
         rows="8"
+        :maxlength="maxLength('housework_comment')"
       ></textarea>
+      <div class="characters-length">
+        Characters used: {{ housework.comment?.length ?? 0 }} out of
+        {{ maxLength('housework_comment') }}
+      </div>
       <InvalidFeedback :errors="invalidFeedback('comment')" />
       <div class="column">
         <label>初回実施日</label>
