@@ -312,3 +312,9 @@ nav {
   display: flex;
   justify-content: flex-end;
 }
+.full {
+  color: rgb(149, 149, 149);
+}
+.warning {
+  color: orange;
+}
