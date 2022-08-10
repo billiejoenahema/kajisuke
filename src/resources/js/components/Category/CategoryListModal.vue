@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 import { determineIsOver } from '../../utilities/determineIsOver';
 import { scrollToBottom } from '../../utilities/scrollToBottom';
+import CharacterLength from '../CharacterLength';
 import CategoryListItem from './CategoryListItem';
 
 const router = useRouter();
@@ -61,10 +62,10 @@ watchEffect(() => {
         @focus="placeholder = ''"
         @blur="placeholder = '＋新しいカテゴリを作成'"
       />
-      <div class="characters-length">
-        Characters used: {{ newCategory.name?.length ?? 0 }} out of
-        {{ maxLength('category_name') }}
-      </div>
+      <CharacterLength
+        :character="newCategory.name"
+        :maxLength="maxLength('category_name') ?? 0"
+      />
       <div class="store-button-area">
         <button
           class="store-button"
@@ -74,9 +75,6 @@ watchEffect(() => {
         >
           作成する
         </button>
-        <div class="error-message" v-if="isOver === 'error'">
-          文字数オーバー
-        </div>
       </div>
     </div>
   </div>

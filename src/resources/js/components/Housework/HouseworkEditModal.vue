@@ -5,6 +5,7 @@ import { computed, onUnmounted } from 'vue';
 import { useStore } from 'vuex';
 import { CYCLE_UNIT } from '../../consts/cycle_unit';
 import { ONE_MONTH } from '../../consts/oneMonthDateList';
+import CharacterLength from '../CharacterLength';
 import InvalidFeedback from '../InvalidFeedback';
 
 const props = defineProps({
@@ -51,11 +52,12 @@ const updateHousework = async () => {
         class="housework-title-input"
         :class="invalidFeedback('title') && 'invalid'"
         v-model="housework.title"
+        :maxlength="maxLength('housework_title')"
       />
-      <div class="characters-length">
-        Characters used: {{ housework.title?.length ?? 0 }} out of
-        {{ maxLength('housework_title') }}
-      </div>
+      <CharacterLength
+        :character="housework.title"
+        :maxLength="maxLength('housework_title') ?? 0"
+      />
       <InvalidFeedback :errors="invalidFeedback('title')" />
       <label>詳細</label>
       <textarea
@@ -63,10 +65,10 @@ const updateHousework = async () => {
         v-model="housework.comment"
         rows="8"
       ></textarea>
-      <div class="characters-length">
-        Characters used: {{ housework.comment?.length ?? 0 }} out of
-        {{ maxLength('housework_comment') }}
-      </div>
+      <CharacterLength
+        :character="housework.comment"
+        :maxLength="maxLength('housework_comment') ?? 0"
+      />
       <InvalidFeedback :errors="invalidFeedback('comment')" />
       <div class="column">
         <label>実行周期</label>

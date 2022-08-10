@@ -6,6 +6,7 @@ import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 import { CYCLE_UNIT } from '../../consts/cycle_unit';
 import { ONE_MONTH } from '../../consts/oneMonthDateList';
+import CharacterLength from '../CharacterLength';
 import InvalidFeedback from '../InvalidFeedback';
 
 const router = useRouter();
@@ -14,7 +15,7 @@ const store = useStore();
 const props = defineProps({
   closeModal: Function,
 });
-
+const maxLength = computed(() => store.getters['consts/maxLength']);
 const categories = computed(() => store.getters['category/data']);
 const housework = reactive({
   title: '',
@@ -24,7 +25,6 @@ const housework = reactive({
   next_date: '',
   category_id: 0,
 });
-const maxLength = computed(() => store.getters['consts/maxLength']);
 const invalidFeedback = computed(
   () => store.getters['housework/invalidFeedback']
 );
@@ -69,10 +69,10 @@ const resetHousework = () => {
         v-model="housework.title"
         :maxlength="maxLength('housework_title')"
       />
-      <div class="characters-length">
-        Characters used: {{ housework.title?.length ?? 0 }} out of
-        {{ maxLength('housework_title') }}
-      </div>
+      <CharacterLength
+        :character="housework.title"
+        :maxLength="maxLength('housework_title') ?? 0"
+      />
       <InvalidFeedback :errors="invalidFeedback('title')" />
       <label>詳細</label>
       <textarea
@@ -81,10 +81,10 @@ const resetHousework = () => {
         rows="8"
         :maxlength="maxLength('housework_comment')"
       ></textarea>
-      <div class="characters-length">
-        Characters used: {{ housework.comment?.length ?? 0 }} out of
-        {{ maxLength('housework_comment') }}
-      </div>
+      <CharacterLength
+        :character="housework.comment"
+        :maxLength="maxLength('housework_comment') ?? 0"
+      />
       <InvalidFeedback :errors="invalidFeedback('comment')" />
       <div class="column">
         <label>初回実施日</label>
