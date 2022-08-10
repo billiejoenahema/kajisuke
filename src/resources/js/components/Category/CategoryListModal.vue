@@ -1,16 +1,13 @@
 <script setup>
-import { computed, onMounted, reactive, ref, watchEffect } from 'vue';
-import { useRouter } from 'vue-router';
+import { computed, onMounted, reactive, ref } from 'vue';
 import { useStore } from 'vuex';
-import { determineIsOver } from '../../utilities/determineIsOver';
 import { scrollToBottom } from '../../utilities/scrollToBottom';
 import CharacterLength from '../CharacterLength';
 import CategoryListItem from './CategoryListItem';
 
-const router = useRouter();
 const store = useStore();
 
-const props = defineProps({
+defineProps({
   closeModal: Function,
 });
 onMounted(() => {
@@ -19,7 +16,6 @@ onMounted(() => {
 const newCategory = reactive({
   name: '',
 });
-const isOver = ref('');
 const placeholder = ref('＋新しいカテゴリを作成');
 const maxLength = computed(() => store.getters['consts/maxLength']);
 const categories = computed(() => store.getters['category/data']);
@@ -33,9 +29,6 @@ const storeCategory = async () => {
   newCategory.name = '';
   placeholder.value = '＋新しいカテゴリを作成';
 };
-watchEffect(() => {
-  isOver.value = determineIsOver('categoryName', newCategory.name.length);
-});
 </script>
 
 <template>
@@ -70,7 +63,6 @@ watchEffect(() => {
         <button
           class="store-button"
           v-if="newCategory.name.length > 0"
-          :disabled="isOver === 'error'"
           @click="storeCategory()"
         >
           作成する
