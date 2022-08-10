@@ -1,16 +1,13 @@
 <script setup>
-import { computed, onMounted, reactive, ref, watchEffect } from 'vue';
-import { useRouter } from 'vue-router';
+import { computed, onMounted, reactive, ref } from 'vue';
 import { useStore } from 'vuex';
-import { MAX_LENGTH } from '../../consts/maxLength';
-import { determineIsOver } from '../../utilities/determineIsOver';
 import { scrollToBottom } from '../../utilities/scrollToBottom';
+import CharacterLength from '../CharacterLength';
 import CategoryListItem from './CategoryListItem';
 
-const router = useRouter();
 const store = useStore();
 
-const props = defineProps({
+defineProps({
   closeModal: Function,
 });
 onMounted(() => {
@@ -19,8 +16,8 @@ onMounted(() => {
 const newCategory = reactive({
   name: '',
 });
-const isOver = ref('');
 const placeholder = ref('＋新しいカテゴリを作成');
+const maxLength = computed(() => store.getters['consts/maxLength']);
 const categories = computed(() => store.getters['category/data']);
 const setIsLoading = (bool) => store.commit('loading/setIsLoading', bool);
 const storeCategory = async () => {
@@ -32,9 +29,6 @@ const storeCategory = async () => {
   newCategory.name = '';
   placeholder.value = '＋新しいカテゴリを作成';
 };
-watchEffect(() => {
-  isOver.value = determineIsOver('categoryName', newCategory.name.length);
-});
 </script>
 
 <template>
@@ -56,23 +50,23 @@ watchEffect(() => {
       <input
         class="category-input"
         v-model="newCategory.name"
-        :maxlength="MAX_LENGTH.categoryName"
+        :maxlength="maxLength('category_name')"
         :placeholder="placeholder"
         @focus="placeholder = ''"
         @blur="placeholder = '＋新しいカテゴリを作成'"
+      />
+      <CharacterLength
+        :character="newCategory.name"
+        :maxLength="maxLength('category_name') ?? 0"
       />
       <div class="store-button-area">
         <button
           class="store-button"
           v-if="newCategory.name.length > 0"
-          :disabled="isOver === 'error'"
           @click="storeCategory()"
         >
           作成する
         </button>
-        <div class="error-message" v-if="isOver === 'error'">
-          文字数オーバー
-        </div>
       </div>
     </div>
   </div>

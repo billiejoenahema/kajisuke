@@ -36,6 +36,12 @@ const getters = {
     });
     return prefecture && Object.values(prefecture)[0];
   },
+  maxLength: (state) => (key) => {
+    const maxLength = state.data.MAX_LENGTHS?.find((v) => {
+      return Object.keys(v)[0] == key;
+    });
+    return Object.values(maxLength)[0] ?? 0;
+  },
   hasErrors(state) {
     return Object.keys(state.errors).length > 0;
   },

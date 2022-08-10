@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, ref, watchEffect } from 'vue';
+import { computed, reactive, ref, watchEffect } from 'vue';
 import { useStore } from 'vuex';
 import { useDebounce } from '../../utilities/useDebounce';
 
@@ -17,6 +17,7 @@ const category = reactive({
   name: props.category.name,
   houseworks: props.category.houseworks,
 });
+const maxLength = computed(() => store.getters['consts/maxLength']);
 const isShowTooltip = ref(false);
 const showTrashIcon = ref(false);
 const invalidStatus = ref('');
@@ -85,6 +86,7 @@ const deleteCategoryItem = async () => {
       class="category-input"
       :class="invalidStatus"
       ref="inputRef"
+      :maxlength="maxLength('category_name') ?? 0"
       @blur="onBlur()"
       @keyup="onChange()"
       @keyup.enter.prevent="onEnter()"
