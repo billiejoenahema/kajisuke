@@ -30,7 +30,7 @@ class HouseworkController extends Controller
      */
     public function __construct(HouseworkService $houseworkService)
     {
-        $this->houseworkService = $houseworkService;
+        $this->service = $houseworkService;
     }
 
     /**
@@ -65,7 +65,7 @@ class HouseworkController extends Controller
      */
     public function store(StoreRequest $request): Response
     {
-        $this->houseworkService->store($request);
+        $this->service->store($request);
 
         return response()->json(config('const.HOUSEWORK.CREATED'), Response::HTTP_CREATED);
     }
@@ -78,7 +78,7 @@ class HouseworkController extends Controller
      */
     public function update(UpdateRequest $request, Int $id): Response
     {
-        $this->houseworkService->update($request, $id);
+        $this->service->update($request, $id);
 
         return response()->json(config('const.HOUSEWORK.UPDATED'), Response::HTTP_OK);
     }
@@ -92,7 +92,7 @@ class HouseworkController extends Controller
      */
     public function destroy(Int $id): Response
     {
-        $this->houseworkService->destroy($id);
+        $this->service->destroy($id);
 
         return response()->json(config('const.HOUSEWORK.DELETED'), Response::HTTP_OK);
     }
