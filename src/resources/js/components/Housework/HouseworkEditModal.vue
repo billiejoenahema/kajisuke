@@ -54,22 +54,22 @@ const updateHousework = async () => {
         v-model="housework.title"
         :maxlength="maxLength('housework_title')"
       />
+      <InvalidFeedback :errors="invalidFeedback('title')" />
       <CharacterLength
         :character="housework.title"
         :maxLength="maxLength('housework_title') ?? 0"
       />
-      <InvalidFeedback :errors="invalidFeedback('title')" />
       <label>詳細</label>
       <textarea
         :class="invalidFeedback('comment') && 'invalid'"
         v-model="housework.comment"
         rows="8"
       ></textarea>
+      <InvalidFeedback :errors="invalidFeedback('comment')" />
       <CharacterLength
         :character="housework.comment"
         :maxLength="maxLength('housework_comment') ?? 0"
       />
-      <InvalidFeedback :errors="invalidFeedback('comment')" />
       <div class="column">
         <label>実行周期</label>
         <div class="housework-cycle">

@@ -29,7 +29,6 @@ const invalidFeedback = computed(
   () => store.getters['housework/invalidFeedback']
 );
 const hasErrors = computed(() => store.getters['housework/hasErrors']);
-
 const setIsLoading = (bool) => store.commit('loading/setIsLoading', bool);
 const storeHousework = async () => {
   setIsLoading(true);
@@ -69,11 +68,11 @@ const resetHousework = () => {
         v-model="housework.title"
         :maxlength="maxLength('housework_title')"
       />
+      <InvalidFeedback :errors="invalidFeedback('title')" />
       <CharacterLength
         :character="housework.title"
         :maxLength="maxLength('housework_title') ?? 0"
       />
-      <InvalidFeedback :errors="invalidFeedback('title')" />
       <label>詳細</label>
       <textarea
         :class="invalidFeedback('comment') && 'invalid'"
@@ -81,11 +80,11 @@ const resetHousework = () => {
         rows="8"
         :maxlength="maxLength('housework_comment')"
       ></textarea>
+      <InvalidFeedback :errors="invalidFeedback('comment')" />
       <CharacterLength
         :character="housework.comment"
         :maxLength="maxLength('housework_comment') ?? 0"
       />
-      <InvalidFeedback :errors="invalidFeedback('comment')" />
       <div class="column">
         <label>初回実施日</label>
         <Datepicker
