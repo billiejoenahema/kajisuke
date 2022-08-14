@@ -8,8 +8,8 @@ const getters = {
   hasErrors(state) {
     return Object.keys(state.errors).length > 0;
   },
-  errors(state) {
-    return state.errors ?? {};
+  invalidFeedback: (state) => (prop) => {
+    return state.errors[prop] ?? '';
   },
 };
 
@@ -24,7 +24,7 @@ const actions = {
             commit('resetErrors');
           })
           .catch((err) => {
-            commit('setErrors', err.message);
+            commit('setErrors', err.response.data.errors);
           });
       });
   },
