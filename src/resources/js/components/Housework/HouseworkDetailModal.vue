@@ -85,7 +85,7 @@ const deleteHousework = async () => {
       <label>履歴</label>
       <div class="show-housework-archives">
         <ArchiveListItem
-          v-if="housework.archives.length > 0"
+          v-if="housework.archives.length"
           v-for="archive in housework.archives"
           :key="archive.id"
           :archive="archive"

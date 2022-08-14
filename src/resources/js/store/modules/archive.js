@@ -40,7 +40,7 @@ const actions = {
   },
   async update({ commit }, data) {
     await axios
-      .patch('/api/archives', data)
+      .patch(`/api/archives/${data.id}`, data)
       .then((res) => {
         commit('resetErrors');
         commit(

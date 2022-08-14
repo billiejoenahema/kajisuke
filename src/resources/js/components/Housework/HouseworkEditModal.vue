@@ -1,7 +1,7 @@
 <script setup>
 import Datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
-import { computed, onUnmounted } from 'vue';
+import { computed, onUnmounted, ref } from 'vue';
 import { useStore } from 'vuex';
 import { CYCLE_UNIT } from '../../consts/cycle_unit';
 import { ONE_MONTH } from '../../consts/oneMonthDateList';
@@ -18,6 +18,12 @@ store.dispatch('housework/getItem', props.id);
 onUnmounted(() => {
   store.commit('housework/resetItem');
 });
+const editable = ref([]);
+const onEditable = (index) => {
+  editable.value = [];
+  editable.value[index] = true;
+};
+
 const setIsLoading = (bool) => store.commit('loading/setIsLoading', bool);
 const housework = computed(() => store.getters['housework/item']);
 const categories = computed(() => store.getters['category/data']);
@@ -31,11 +37,27 @@ const updateHousework = async () => {
   setIsLoading(true);
   await store.dispatch('housework/update', housework.value);
   setIsLoading(false);
-  if (hasErrors.value) {
-    return;
-  }
+  if (hasErrors.value) return;
   store.dispatch('housework/get');
   props.closeModal();
+};
+const updateArchive = async (archive) => {
+  if (!confirm('この履歴を更新しますか？')) return;
+  setIsLoading(true);
+  await store.dispatch('archive/update', archive);
+  setIsLoading(false);
+  if (hasErrors.value) return;
+  editable.value = [];
+  store.dispatch('housework/getItem', props.id);
+};
+const deleteArchive = async (id) => {
+  if (!confirm('この履歴を削除しますか？')) return;
+  setIsLoading(true);
+  await store.dispatch('archive/delete', id);
+  setIsLoading(false);
+  if (!hasErrors.value) {
+    store.dispatch('housework/getItem', props.id);
+  }
 };
 </script>
 
@@ -114,6 +136,37 @@ const updateHousework = async () => {
           {{ category.name }}
         </option>
       </select>
+      <label>履歴</label>
+      <div class="show-housework-archives">
+        <div
+          v-if="housework.archives?.length"
+          v-for="(archive, index) in housework.archives"
+          :key="archive.id"
+          class="archive-list-item"
+        >
+          <div class="archive-date-edit row" v-if="editable[index]">
+            <input type="text" v-model="archive.date" />
+            <div class="archive-icons-wrapper row">
+              <font-awesome-icon
+                class="circle-check-icon"
+                icon="circle-check"
+                title="履歴を更新"
+                @click="updateArchive(archive)"
+              />
+              <font-awesome-icon
+                class="trash-icon"
+                icon="trash"
+                title="履歴を削除"
+                @click="deleteArchive(archive.id)"
+              />
+            </div>
+          </div>
+          <div class="archive-date" v-else @click="onEditable(index)">
+            {{ archive.date }}
+          </div>
+        </div>
+        <div v-else>履歴はまだありません</div>
+      </div>
       <div class="store-button-area">
         <button class="store-button" @click="updateHousework()">更新</button>
         <button class="cancel-button" @click="closeModal()">キャンセル</button>

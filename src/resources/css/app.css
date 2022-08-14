@@ -266,6 +266,25 @@ nav {
 }
 .archive-date {
   margin: 0 16px 0 0;
+  height: 36px;
+  display: flex;
+  align-items: center;
+}
+.archive-date-edit {
+  position: relative;
+}
+.archive-icons-wrapper {
+  position: absolute;
+  right: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  width: 48px;
+}
+.circle-check-icon {
+  color: rgb(108, 255, 155);
+  font-size: 1.1rem;
 }
 .archive-list-item:hover {
   background: rgb(78, 78, 78);
@@ -317,4 +336,11 @@ nav {
 }
 .warning {
   color: orange;
+}
+.category-select {
+  margin-bottom: 16px;
+}
+.show-housework-archives {
+  max-height: 108px;
+  overflow: scroll;
 }
