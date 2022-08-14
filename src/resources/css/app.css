@@ -22,6 +22,18 @@ button {
 }
 .login-form {
   margin: 0 auto;
+  max-width: 480px;
+  padding: 32px;
+  background: rgb(45, 45, 45);
+  margin-top: 40px;
+}
+.login-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+.login-button {
+  margin-top: 24px;
 }
 .column {
   display: flex;
