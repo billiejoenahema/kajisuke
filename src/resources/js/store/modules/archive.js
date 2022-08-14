@@ -36,21 +36,31 @@ const actions = {
       })
       .catch((err) => {
         commit('setErrors', err.response.data.errors);
+        commit(
+          'toast/setData',
+          { status: err.status, content: err.response.data.message },
+          { root: true }
+        );
       });
   },
   async update({ commit }, data) {
     await axios
-      .patch('/api/archives', data)
+      .patch(`/api/archives/${data.id}`, data)
       .then((res) => {
         commit('resetErrors');
         commit(
           'toast/setData',
-          { status: res.status, content: res.data.message },
+          { status: res.response.status, content: res.data.message },
           { root: true }
         );
       })
       .catch((err) => {
         commit('setErrors', err.response.data.errors);
+        commit(
+          'toast/setData',
+          { status: err.response.status, content: err.response.data.message },
+          { root: true }
+        );
       });
   },
   async delete({ commit }, id) {
