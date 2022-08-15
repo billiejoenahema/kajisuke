@@ -1,7 +1,7 @@
 <script setup>
 import Datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
-import { computed, reactive } from 'vue';
+import { computed, onMounted, reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 import { CYCLE_UNIT } from '../../consts/cycle_unit';
@@ -28,6 +28,10 @@ const housework = reactive({
 const invalidFeedback = computed(
   () => store.getters['housework/invalidFeedback']
 );
+const titleRef = ref(null);
+onMounted(() => {
+  titleRef.value.focus();
+});
 const hasErrors = computed(() => store.getters['housework/hasErrors']);
 const setIsLoading = (bool) => store.commit('loading/setIsLoading', bool);
 const storeHousework = async () => {
@@ -67,6 +71,7 @@ const resetHousework = () => {
         :class="invalidFeedback('title') && 'invalid'"
         v-model="housework.title"
         :maxlength="maxLength('housework_title')"
+        ref="titleRef"
       />
       <InvalidFeedback :errors="invalidFeedback('title')" />
       <CharacterLength
