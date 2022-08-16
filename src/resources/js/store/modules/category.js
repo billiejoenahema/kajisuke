@@ -12,8 +12,8 @@ const getters = {
   hasErrors(state) {
     return Object.keys(state.errors).length > 0;
   },
-  invalidFeedback(state) {
-    return state.errors ?? {};
+  invalidFeedback: (state) => (prop) => {
+    return state.errors[prop] ?? '';
   },
 };
 
