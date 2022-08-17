@@ -1,6 +1,7 @@
 <script setup>
 import { computed, ref, watchEffect } from 'vue';
 import { useStore } from 'vuex';
+import InvalidFeedback from '../components/InvalidFeedback.vue';
 import NavigationBar from '../components/NavigationBar';
 import ToastMessage from '../components/ToastMessage';
 import { formatBirth } from '../utilities/formatBirth';
@@ -30,7 +31,7 @@ watchEffect(() => {
     birthDay.value = birth[2];
   }
 });
-const errors = computed(() => store.getters['user/errors']);
+const invalidFeedback = computed(() => store.getters['user/invalidFeedback']);
 const hasErrors = computed(() => store.getters['user/hasErrors']);
 const isEditing = ref([]);
 const toEdit = (prop) => {
@@ -69,22 +70,26 @@ const submit = async () => {
       </li>
       <li class="profile-item">
         <label class="profile-item-label">姓:</label>
-        <input
-          v-if="isEditing.includes('last_name')"
-          v-model="user.profile.last_name"
-        />
-        <div class="profile-item-value" v-else @click="toEdit('last_name')">
-          {{ user.profile?.last_name }}
+        <div v-if="isEditing.includes('last_name')">
+          <input v-model="user.profile.last_name" maxlength="50" />
+        </div>
+        <div v-else>
+          <div class="profile-item-value" @click="toEdit('last_name')">
+            {{ user.profile?.last_name }}
+          </div>
+          <InvalidFeedback :errors="invalidFeedback('last_name')" />
         </div>
       </li>
       <li class="profile-item">
         <label class="profile-item-label">名:</label>
-        <input
-          v-if="isEditing.includes('first_name')"
-          v-model="user.profile.first_name"
-        />
-        <div class="profile-item-value" v-else @click="toEdit('first_name')">
-          {{ user.profile?.first_name }}
+        <div v-if="isEditing.includes('first_name')">
+          <input v-model="user.profile.first_name" maxlength="50" />
+        </div>
+        <div v-else>
+          <div class="profile-item-value" @click="toEdit('first_name')">
+            {{ user.profile?.first_name }}
+          </div>
+          <InvalidFeedback :errors="invalidFeedback('first_name')" />
         </div>
       </li>
       <li class="profile-item">
@@ -143,21 +148,42 @@ const submit = async () => {
       </li>
       <li class="profile-item">
         <label class="profile-item-label">電話番号:</label>
-        <input v-if="isEditing.includes('tel')" v-model="user.profile.tel" />
-        <div class="profile-item-value" v-else @click="toEdit('tel')">
-          {{ user.profile?.tel }}
+        <input
+          v-if="isEditing.includes('tel')"
+          v-model="user.profile.tel"
+          maxlength="13"
+        />
+        <div class="profile-item-value-column" v-else @click="toEdit('tel')">
+          <span>{{ user.profile?.tel }}</span>
+          <InvalidFeedback :errors="invalidFeedback('tel')" />
         </div>
       </li>
       <li class="profile-item">
         <label class="profile-item-label">住所:</label>
-        <div v-if="isEditing.includes('zipcode')">
-          <input class="zipcode1-input" v-model="user.profile.zipcode1" />
-          <span>-</span>
-          <input class="zipcode2-input" v-model="user.profile.zipcode2" />
+        <div class="column" v-if="isEditing.includes('zipcode')">
+          <div class="row">
+            <input
+              class="zipcode1-input"
+              v-model="user.profile.zipcode1"
+              maxlength="3"
+            />
+            <span>-</span>
+            <input
+              class="zipcode2-input"
+              v-model="user.profile.zipcode2"
+              maxlength="4"
+            />
+          </div>
         </div>
-        <div class="profile-item-value" v-else @click="toEdit('zipcode')">
-          <span>〒</span>{{ user.profile?.zipcode1 }}<span>-</span
-          >{{ user.profile?.zipcode2 }}
+        <div v-else>
+          <div class="profile-item-value" @click="toEdit('zipcode')">
+            <span>〒</span>{{ user.profile?.zipcode1 }}<span>-</span
+            >{{ user.profile?.zipcode2 }}
+          </div>
+          <div class="row">
+            <InvalidFeedback :errors="invalidFeedback('zipcode1')" />
+            <InvalidFeedback :errors="invalidFeedback('zipcode2')" />
+          </div>
         </div>
       </li>
       <li class="profile-item">
@@ -180,23 +206,26 @@ const submit = async () => {
       </li>
       <li class="profile-item">
         <label class="profile-item-label"></label>
-        <input v-if="isEditing.includes('city')" v-model="user.profile.city" />
-        <div class="profile-item-value" v-else @click="toEdit('city')">
-          {{ user.profile?.city }}
+        <div v-if="isEditing.includes('city')">
+          <input v-model="user.profile.city" maxlength="50" />
+        </div>
+        <div v-else>
+          <div class="profile-item-value" @click="toEdit('city')">
+            {{ user.profile?.city }}
+          </div>
+          <InvalidFeedback :errors="invalidFeedback('city')" />
         </div>
       </li>
       <li class="profile-item">
         <label class="profile-item-label"></label>
-        <input
-          v-if="isEditing.includes('street_address')"
-          v-model="user.profile.street_address"
-        />
-        <div
-          class="profile-item-value"
-          v-else
-          @click="toEdit('street_address')"
-        >
-          {{ user.profile?.street_address }}
+        <div v-if="isEditing.includes('street_address')">
+          <input v-model="user.profile.street_address" maxlength="50" />
+        </div>
+        <div v-else>
+          <div class="profile-item-value" @click="toEdit('street_address')">
+            {{ user.profile?.street_address }}
+          </div>
+          <InvalidFeedback :errors="invalidFeedback('street_address')" />
         </div>
       </li>
     </ul>

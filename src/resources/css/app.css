@@ -311,6 +311,11 @@ nav {
   display: flex;
   align-items: center;
 }
+.profile-item-value-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 .birth-input {
   width: 75%;
   min-width: 240px;
