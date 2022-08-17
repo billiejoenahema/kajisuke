@@ -13,11 +13,11 @@ const getters = {
   isLogin(state) {
     return state.data && state.data.id > 0;
   },
+  invalidFeedback: (state) => (prop) => {
+    return state.errors[prop] ?? '';
+  },
   hasErrors(state) {
     return Object.keys(state.errors).length > 0;
-  },
-  errors(state) {
-    return state.errors ?? {};
   },
 };
 
