@@ -42,6 +42,7 @@ const updateCategoryName = async () => {
 const onBlur = () => {
   updateCategoryName();
   invalidStatus.value = '';
+  showTrashIcon.value = false;
 };
 const onMouseover = () => {
   showTrashIcon.value = true;
@@ -87,6 +88,7 @@ const deleteCategoryItem = async () => {
       :class="invalidStatus"
       ref="inputRef"
       :maxlength="maxLength('category_name') ?? 0"
+      @focus="showTrashIcon = true"
       @blur="onBlur()"
       @keyup="onChange()"
       @keyup.enter.prevent="onEnter()"
