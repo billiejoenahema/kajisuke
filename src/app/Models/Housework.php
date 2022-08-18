@@ -5,6 +5,41 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Housework
+ *
+ * @property int $id
+ * @property int $user_id ユーザーID
+ * @property int $category_id カテゴリ
+ * @property string $title タイトル
+ * @property string|null $comment コメント
+ * @property int $cycle_num 実行周期数値
+ * @property int $cycle_unit 実行周期単位
+ * @property string $next_date 次回実施日
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Archive[] $archives
+ * @property-read int|null $archives_count
+ * @property-read \App\Models\Category|null $category
+ * @property-read \App\Models\User|null $user
+ * @method static \Database\Factories\HouseworkFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Housework newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Housework newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Housework query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Housework whereCategoryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Housework whereComment($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Housework whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Housework whereCycleNum($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Housework whereCycleUnit($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Housework whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Housework whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Housework whereNextDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Housework whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Housework whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Housework whereUserId($value)
+ * @mixin \Eloquent
+ */
 class Housework extends Model
 {
     use HasFactory;
