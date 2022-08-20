@@ -68,5 +68,4 @@ class HouseworkResource extends JsonResource
 
         return $diff;
     }
-
 }

@@ -37,7 +37,7 @@ class CategoryController extends Controller
     public function store(StoreRequest $request)
     {
         DB::transaction(function () use ($request) {
-           Category::create([
+            Category::create([
                 'user_id' => Auth::user()->id,
                 'name' => $request['name'],
             ]);
@@ -72,7 +72,7 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($id);
         $hasHousework = $category->houseworks->isNotEmpty();
-        if($hasHousework) {
+        if ($hasHousework) {
             return response()->json(config('const.CATEGORY.HAS_HOUSEWORK'), Response::HTTP_BAD_REQUEST);
         }
         $category->delete();

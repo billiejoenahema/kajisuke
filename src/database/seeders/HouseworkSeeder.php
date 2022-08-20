@@ -16,7 +16,7 @@ class HouseworkSeeder extends Seeder
     public function run()
     {
         $categories = Category::factory()->count(10)->create();
-        foreach($categories as $category) {
+        foreach ($categories as $category) {
             Housework::factory()->create([
                 'category_id' => $category->id,
             ]);

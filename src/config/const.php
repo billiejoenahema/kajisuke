@@ -94,7 +94,7 @@ return [
  */
 function toTwoDigitZeroPaddingArray($array): array
 {
-    foreach($array as $index => $value) {
+    foreach ($array as $index => $value) {
         $array[$index] = str_pad($value, 2, '0', STR_PAD_LEFT);
     }
     return $array;
