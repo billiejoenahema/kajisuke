@@ -7,6 +7,7 @@ use App\Models\Housework;
 use App\Policies\CategoryPolicy;
 use App\Policies\HouseworkPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+
 class AuthServiceProvider extends ServiceProvider
 {
     /**
