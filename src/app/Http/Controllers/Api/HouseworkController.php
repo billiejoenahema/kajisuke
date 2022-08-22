@@ -54,6 +54,8 @@ class HouseworkController extends Controller
      */
     public function show(Housework $housework): HouseworkResource
     {
+        $housework->load(['archives', 'category']);
+
         return new HouseworkResource($housework);
     }
 
