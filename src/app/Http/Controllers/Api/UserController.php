@@ -15,6 +15,7 @@ class UserController extends Controller
      */
     public function __invoke(): UserResource
     {
-        return new UserResource(Auth::user());
+        $user = Auth::user()->with('profile')->first();
+        return new UserResource($user);
     }
 }
