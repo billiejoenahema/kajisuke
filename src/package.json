@@ -23,6 +23,7 @@
     "@fortawesome/vue-fontawesome": "^3.0.0-5",
     "@vuepic/vue-datepicker": "^3.2.2",
     "npm": "^8.15.1",
+    "qalendar": "^1.6.1",
     "simpledotcss": "^2.0.6",
     "vue-draggable-next": "^2.1.1",
     "vue-router": "^4.0.14",
