@@ -1,6 +1,7 @@
 <script setup>
 import { computed, reactive } from 'vue';
 import { useStore } from 'vuex';
+import Calendar from '../../Calendar';
 import { SORT_COLUMNS } from '../../consts/sortColumns';
 import SortIcon from '../SortIcon';
 import HouseworkListItem from './HouseworkListItem';
@@ -46,6 +47,7 @@ const sortOrder = (value) => {
 </script>
 
 <template>
+  <Calendar />
   <div class="reset-order" @click="resetSort()">
     {{ resetWord() }}
   </div>
