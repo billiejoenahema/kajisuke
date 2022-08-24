@@ -20,7 +20,7 @@ export default {
         {
           title: 'Meeting with Dora',
           with: 'Albert Einstein',
-          time: { start: '2022-01-01 04:52', end: '2022-01-01 05:37' },
+          time: { start: '2022-01-01', end: '2022-01-01' },
           color: 'green',
           isEditable: true,
           id: 'de471c78cb5c',
@@ -50,8 +50,11 @@ export default {
       ],
 
       config: {
-        locale: 'zh-CN',
+        locale: 'ja-JP',
         defaultMode: 'month',
+        week: {
+          startsOn: 'sunday',
+        },
         style: {
           colorSchemes: {
             meetings: {
@@ -69,3 +72,9 @@ export default {
   },
 };
 </script>
+
+<style>
+/** Please observe,
+    that your path to the node_modules directory might be different */
+@import '../../node_modules/qalendar/dist/style.css';
+</style>
