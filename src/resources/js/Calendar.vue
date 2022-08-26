@@ -1,6 +1,40 @@
 <script setup>
 import { Qalendar } from 'qalendar';
-import { reactive } from 'vue';
+import { computed, onMounted, reactive } from 'vue';
+import { useStore } from 'vuex';
+import { today } from './utilities/today';
+
+const store = useStore();
+
+const props = defineProps({
+  houseworks: {
+    type: String,
+    required: true,
+    default: () => {},
+  },
+});
+const isLoading = computed(() => store.getters['loading/isLoading']);
+const setData = () => {
+  const event = props.houseworks?.map((e) => {
+    const event = {
+      title: e.title,
+      with: '',
+      time: {
+        start: e.next_date,
+        end: e.next_date,
+      },
+      color: color(e.date_diff),
+      id: e.id,
+      description: e.comment,
+    };
+    return { ...event };
+  });
+  Object.assign(events, event);
+};
+
+onMounted(() => {
+  setData();
+});
 
 const events = reactive([
   {
@@ -16,6 +50,16 @@ const events = reactive([
     description: '',
   },
 ]);
+
+const color = (diff) => {
+  if (diff < 0) {
+    return 'red';
+  } else if (0 < diff < 6) {
+    return 'yellow';
+  } else {
+    ('green');
+  }
+};
 
 const config = {
   locale: 'ja-JP',
@@ -40,14 +84,13 @@ const config = {
 
 <template>
   <Qalendar
-    :selected-date="new Date(2022, 0, 8)"
+    v-if="!isLoading"
+    :selected-date="today()"
     :events="events"
     :config="config"
   />
 </template>
 
 <style>
-/** Please observe,
-    that your path to the node_modules directory might be different */
 @import '../../node_modules/qalendar/dist/style.css';
 </style>

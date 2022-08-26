@@ -1,5 +1,5 @@
 <script setup>
-import { computed, reactive } from 'vue';
+import { computed, reactive, ref } from 'vue';
 import { useStore } from 'vuex';
 import Calendar from '../../Calendar';
 import { SORT_COLUMNS } from '../../consts/sortColumns';
@@ -8,6 +8,7 @@ import HouseworkListItem from './HouseworkListItem';
 
 const store = useStore();
 const houseworks = computed(() => store.getters['housework/data']);
+const isCalendarView = ref(false);
 const sort = reactive({
   column: '',
   is_ascending: false,
@@ -47,11 +48,14 @@ const sortOrder = (value) => {
 </script>
 
 <template>
-  <Calendar />
+  <button class="toggle-button" @click="isCalendarView = !isCalendarView">
+    {{ isCalendarView ? '一覧' : 'カレンダー' }}
+  </button>
   <div class="reset-order" @click="resetSort()">
     {{ resetWord() }}
   </div>
-  <div class="column list-body">
+  <Calendar v-if="isCalendarView" :houseworks="houseworks" />
+  <div v-else class="column list-body">
     <div class="row list-header">
       <div class="list-title" @click="sortOrder(SORT_COLUMNS.title)">
         <span>家事</span>
