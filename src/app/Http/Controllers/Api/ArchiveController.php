@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Archive\StoreRequest;
-use App\Http\Requests\Archive\UpdateRequest;
+use App\Http\Requests\Archive\SaveRequest;
 use App\Models\Archive;
 use App\Models\Housework;
 use App\Services\HouseworkService;
@@ -31,10 +30,10 @@ class ArchiveController extends Controller
     /**
      * 家事の履歴を登録する。
      *
-     * @param  StoreRequest  $request
+     * @param  SaveRequest  $request
      * @return Response
      */
-    public function store(StoreRequest $request, HouseworkService $houseworkService): Response
+    public function store(SaveRequest $request, HouseworkService $houseworkService): Response
     {
         DB::transaction(function () use ($request, $houseworkService) {
             $archive = Archive::create([
@@ -50,11 +49,11 @@ class ArchiveController extends Controller
     /**
      * 家事履歴を更新する。
      *
-     * @param  UpdateRequest  $request
+     * @param  SaveRequest  $request
      * @param  Archive  $archive
      * @return Response
      */
-    public function update(UpdateRequest $request): Response
+    public function update(SaveRequest $request): Response
     {
         DB::transaction(function () use ($request) {
             $archive = Archive::findOrFail($request['id']);

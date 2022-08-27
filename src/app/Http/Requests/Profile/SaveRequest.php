@@ -5,7 +5,7 @@ namespace App\Http\Requests\Profile;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule as ValidationRule;
 
-class UpdateRequest extends FormRequest
+class SaveRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,6 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'required|integer|exists:users,id',
             'last_name' => 'nullable|string|max:50',
             'first_name' => 'nullable|string|max:50',
             'gender' => ['nullable', 'integer', ValidationRule::in([0, 1, 2, 9])],
