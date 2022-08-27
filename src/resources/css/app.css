@@ -363,9 +363,10 @@ nav {
 }
 .calendar-root .calendar-month > .event-flyout {
   width: 500px !important;
-  max-height: 300px !important;
+  max-height: 420px !important;
   overflow: scroll !important;
   background: rgb(45, 45, 45);
+  top: 40% !important;
 }
 .event-dialog-content {
   padding: 16px;
