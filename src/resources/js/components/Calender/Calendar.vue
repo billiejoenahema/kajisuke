@@ -1,21 +1,17 @@
 <script setup>
 import { Qalendar } from 'qalendar';
-import { computed, onMounted, reactive } from 'vue';
+import { computed, onMounted, reactive, ref } from 'vue';
 import { useStore } from 'vuex';
-import { today } from './utilities/today';
+import { today } from '../../utilities/today';
+import HouseworkDetail from './HouseworkDetail.vue';
+import HouseworkEdit from './HouseworkEdit.vue';
 
 const store = useStore();
 
-const props = defineProps({
-  houseworks: {
-    type: String,
-    required: true,
-    default: () => {},
-  },
-});
+const houseworks = computed(() => store.getters['housework/data']);
 const isLoading = computed(() => store.getters['loading/isLoading']);
 const setData = () => {
-  const event = props.houseworks?.map((e) => {
+  const event = houseworks.value.map((e) => {
     const event = {
       title: e.title,
       with: '',
@@ -45,9 +41,13 @@ const events = reactive([
       end: '',
     },
     color: '',
-    isEditable: false,
+    isCustom: true,
+    isEditable: true,
     id: null,
     description: '',
+    comment: '',
+    next_date: '',
+    archives: [],
   },
 ]);
 
@@ -60,12 +60,19 @@ const color = (diff) => {
     ('green');
   }
 };
+const isShowEdit = ref(false);
+const setIsShowEdit = (bool) => {
+  isShowEdit.value = bool;
+};
 
 const config = {
   locale: 'ja-JP',
   defaultMode: 'month',
   week: {
     startsOn: 'sunday',
+  },
+  eventDialog: {
+    isCustom: true,
   },
   style: {
     colorSchemes: {
@@ -88,9 +95,29 @@ const config = {
     :selected-date="today()"
     :events="events"
     :config="config"
-  />
+  >
+    <template #eventDialog="props">
+      <div
+        v-if="props.eventDialogData && props.eventDialogData.title"
+        class="event-dialog"
+      >
+        <HouseworkDetail
+          v-show="!isShowEdit"
+          :id="props.eventDialogData.id"
+          :closeDialog="props.closeEventDialog"
+          :setIsShowEdit="setIsShowEdit"
+        />
+        <HouseworkEdit
+          v-show="isShowEdit"
+          :id="props.eventDialogData.id"
+          :closeDialog="props.closeEventDialog"
+          :setIsShowEdit="setIsShowEdit"
+        />
+      </div>
+    </template>
+  </Qalendar>
 </template>
 
 <style>
-@import '../../node_modules/qalendar/dist/style.css';
+@import '../../../../node_modules/qalendar/dist/style.css';
 </style>

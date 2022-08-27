@@ -1,8 +1,8 @@
 <script setup>
 import { computed, reactive, ref } from 'vue';
 import { useStore } from 'vuex';
-import Calendar from '../../Calendar';
 import { SORT_COLUMNS } from '../../consts/sortColumns';
+import Calendar from '../Calender/Calendar.vue';
 import SortIcon from '../SortIcon';
 import HouseworkListItem from './HouseworkListItem';
 

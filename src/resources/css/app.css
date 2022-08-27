@@ -361,3 +361,22 @@ nav {
   max-height: 108px;
   overflow: scroll;
 }
+.calendar-root .calendar-month > .event-flyout {
+  width: 500px !important;
+  max-height: 300px !important;
+  overflow: scroll !important;
+  background: rgb(45, 45, 45);
+}
+.event-dialog-content {
+  padding: 16px;
+}
+.event-dialog-content > .modal-header > .xmark-wrapper {
+  height: 24px;
+  width: 24px;
+}
+.toggle-button {
+  padding: 8px;
+}
+.calendar-root-wrapper .calendar-root {
+  max-height: 600px;
+}
