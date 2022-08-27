@@ -50,7 +50,7 @@ button {
 }
 .nav > a {
   text-decoration: none;
-  margin: 0 0 40px;
+  margin: 0;
   border-radius: 0;
 }
 nav {
@@ -360,4 +360,24 @@ nav {
 .show-housework-archives {
   max-height: 108px;
   overflow: scroll;
+}
+.calendar-root .calendar-month > .event-flyout {
+  width: 500px !important;
+  max-height: 420px !important;
+  overflow: scroll !important;
+  background: rgb(45, 45, 45);
+  top: 40% !important;
+}
+.event-dialog-content {
+  padding: 16px;
+}
+.event-dialog-content > .modal-header > .xmark-wrapper {
+  height: 24px;
+  width: 24px;
+}
+.toggle-button {
+  padding: 8px;
+}
+.calendar-root-wrapper .calendar-root {
+  max-height: 600px;
 }

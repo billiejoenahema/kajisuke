@@ -26,7 +26,7 @@ const actions = {
     await axios
       .get('/api/houseworks', { params })
       .then((res) => {
-        commit('resetErrors');
+        commit('setErrors', {});
         commit('setData', res.data.data);
       })
       .catch((err) => {
@@ -41,7 +41,7 @@ const actions = {
     await axios
       .get(`/api/houseworks/${id}`)
       .then((res) => {
-        commit('resetErrors');
+        commit('setErrors', {});
         commit('setItem', res.data.data);
       })
       .catch((err) => {
@@ -53,7 +53,7 @@ const actions = {
     await axios
       .post('/api/houseworks', data)
       .then((res) => {
-        commit('resetErrors');
+        commit('setErrors', {});
         commit(
           'toast/setData',
           { status: res.status, content: res.data.message },
@@ -68,7 +68,7 @@ const actions = {
     await axios
       .patch(`/api/houseworks/${data.id}`, data)
       .then((res) => {
-        commit('resetErrors');
+        commit('setErrors', {});
         commit(
           'toast/setData',
           { status: res.status, content: res.data.message },
@@ -83,7 +83,7 @@ const actions = {
     await axios
       .delete(`/api/houseworks/${id}`)
       .then((res) => {
-        commit('resetErrors');
+        commit('setErrors', {});
         commit(
           'toast/setData',
           { status: res.status, content: res.data.message },
@@ -111,10 +111,6 @@ const mutations = {
   setErrors(state, data) {
     state.errors = {};
     state.errors = data;
-  },
-  resetErrors(state) {
-    state.errors = {};
-    state.hasErrors = false;
   },
 };
 

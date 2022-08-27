@@ -26,7 +26,7 @@ const actions = {
     await axios
       .get('/api/auth_user')
       .then((res) => {
-        commit('resetErrors');
+        commit('setErrors', {});
         commit('setData', res.data.data);
       })
       .catch((err) => {
@@ -42,7 +42,7 @@ const actions = {
     await axios
       .patch('/api/profiles', data)
       .then((res) => {
-        commit('resetErrors');
+        commit('setErrors', {});
         commit(
           'toast/setData',
           { status: res.status, content: res.data.message },
@@ -62,10 +62,6 @@ const mutations = {
   setErrors(state, data) {
     state.errors = {};
     state.errors = data;
-  },
-  resetErrors(state) {
-    state.errors = {};
-    state.hasErrors = false;
   },
 };
 

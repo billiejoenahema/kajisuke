@@ -38,7 +38,7 @@ const updateHousework = async () => {
   await store.dispatch('housework/update', housework.value);
   setIsLoading(false);
   if (hasErrors.value) return;
-  store.dispatch('housework/get');
+  await store.dispatch('housework/get');
   props.closeModal();
 };
 const updateArchive = async (archive) => {

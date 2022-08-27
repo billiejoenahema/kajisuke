@@ -18,8 +18,9 @@ class UserSeeder extends Seeder
     {
         DB::transaction(function () {
             $user = User::factory([
-                'name' => 'example',
-                'email' => 'example@example.com'
+                'name' => 'dev_user',
+                'email' => 'user@example.com',
+                'password' => bcrypt('11111111'),
             ])->create();
 
             Profile::factory()->create([
