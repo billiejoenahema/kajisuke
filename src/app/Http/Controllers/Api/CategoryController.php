@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Category\StoreRequest;
-use App\Http\Requests\Category\UpdateRequest;
+use App\Http\Requests\Category\SaveRequest;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -31,10 +30,10 @@ class CategoryController extends Controller
     /**
      * カテゴリを登録する。
      *
-     * @param  StoreRequest  $request
+     * @param  SaveRequest  $request
      * @return CategoryResource
      */
-    public function store(StoreRequest $request)
+    public function store(SaveRequest $request)
     {
         DB::transaction(function () use ($request) {
             Category::create([
@@ -48,10 +47,10 @@ class CategoryController extends Controller
     /**
      * カテゴリを更新する。
      *
-     * @param  UpdateRequest  $request
+     * @param  SaveRequest  $request
      * @return CategoryResource
      */
-    public function update(UpdateRequest $request)
+    public function update(SaveRequest $request)
     {
         DB::transaction(function () use ($request) {
             $category = Category::findOrFail($request['id']);

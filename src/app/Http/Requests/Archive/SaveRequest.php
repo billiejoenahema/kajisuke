@@ -5,7 +5,7 @@ namespace App\Http\Requests\Archive;
 use App\Rules\UniqueDate;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreRequest extends FormRequest
+class SaveRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,9 +25,21 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'housework_id' => 'required|integer|exists:houseworks,id',
             'date' => ['required', 'date', new UniqueDate($this->housework_id)],
             'content' => 'required|string|max:200',
+        ];
+    }
+
+    /**
+     * バリデーションエラーのカスタム属性の取得
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        return [
+            'date' => '完了日',
+            'content' => '内容',
         ];
     }
 
