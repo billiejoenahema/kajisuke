@@ -27,7 +27,7 @@ const actions = {
     await axios
       .post('/api/archives', data)
       .then((res) => {
-        commit('resetErrors');
+        commit('setErrors', {});
         commit(
           'toast/setData',
           { status: res.status, content: res.data.message },
@@ -38,7 +38,7 @@ const actions = {
         commit('setErrors', err.response.data.errors);
         commit(
           'toast/setData',
-          { status: err.status, content: err.response.data.message },
+          { status: err.response.status, content: err.response.data.message },
           { root: true }
         );
       });
@@ -47,7 +47,7 @@ const actions = {
     await axios
       .patch(`/api/archives/${data.id}`, data)
       .then((res) => {
-        commit('resetErrors');
+        commit('setErrors', {});
         commit(
           'toast/setData',
           { status: res.response.status, content: res.data.message },
@@ -67,7 +67,7 @@ const actions = {
     await axios
       .delete(`/api/archives/${id}`)
       .then((res) => {
-        commit('resetErrors');
+        commit('setErrors', {});
         commit(
           'toast/setData',
           { status: res.status, content: res.data.message },
@@ -87,10 +87,6 @@ const mutations = {
   setErrors(state, data) {
     state.errors = {};
     state.errors = data;
-  },
-  resetErrors(state) {
-    state.errors = {};
-    state.hasErrors = false;
   },
 };
 

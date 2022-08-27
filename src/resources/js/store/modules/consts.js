@@ -56,7 +56,7 @@ const actions = {
     await axios
       .get('/api/consts')
       .then((res) => {
-        commit('resetErrors');
+        commit('setErrors', {});
         commit('setData', res.data);
       })
       .catch((err) => {
@@ -77,10 +77,6 @@ const mutations = {
   setErrors(state, data) {
     state.errors = {};
     state.errors = data;
-  },
-  resetErrors(state) {
-    state.errors = {};
-    state.hasErrors = false;
   },
 };
 

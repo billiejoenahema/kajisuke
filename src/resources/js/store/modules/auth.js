@@ -21,7 +21,7 @@ const actions = {
         await axios
           .post('/login', data)
           .then((res) => {
-            commit('resetErrors');
+            commit('setErrors', {});
           })
           .catch((err) => {
             commit('setErrors', err.response.data.errors);
@@ -37,9 +37,6 @@ const mutations = {
   setErrors(state, data) {
     state.errors = {};
     state.errors = data;
-  },
-  resetErrors(state) {
-    state.errors = {};
   },
 };
 
