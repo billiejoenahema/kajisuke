@@ -9,7 +9,6 @@ import HouseworkEdit from './HouseworkEdit.vue';
 const store = useStore();
 
 const houseworks = computed(() => store.getters['housework/data']);
-const isLoading = computed(() => store.getters['loading/isLoading']);
 const setData = () => {
   const event = houseworks.value.map((e) => {
     const event = {
@@ -90,12 +89,7 @@ const config = {
 </script>
 
 <template>
-  <Qalendar
-    v-if="!isLoading"
-    :selected-date="today()"
-    :events="events"
-    :config="config"
-  >
+  <Qalendar :selected-date="today()" :events="events" :config="config">
     <template #eventDialog="props">
       <div
         v-if="props.eventDialogData && props.eventDialogData.title"
