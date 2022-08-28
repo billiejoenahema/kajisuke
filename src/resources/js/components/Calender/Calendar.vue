@@ -18,7 +18,7 @@ const setData = () => {
         start: e.next_date,
         end: e.next_date,
       },
-      color: color(e.date_diff),
+      color: getColor(e.date_diff),
       id: e.id,
       description: e.comment,
     };
@@ -50,13 +50,13 @@ const events = reactive([
   },
 ]);
 
-const color = (diff) => {
+const getColor = (diff) => {
   if (diff < 0) {
     return 'red';
-  } else if (0 < diff < 6) {
+  } else if (diff < 6) {
     return 'yellow';
   } else {
-    ('green');
+    return 'green';
   }
 };
 const isShowEdit = ref(false);
