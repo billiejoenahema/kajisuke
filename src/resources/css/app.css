@@ -381,3 +381,6 @@ nav {
 .calendar-root-wrapper .calendar-root {
   max-height: 600px;
 }
+.calendar-root-wrapper > .calendar-root > .ps {
+  overflow: unset !important;
+}
