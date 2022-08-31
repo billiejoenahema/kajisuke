@@ -114,7 +114,7 @@ class Housework extends Model
     public function sortByOrder($query, $request)
     {
         if (empty($request['column'])) {
-            return $this->sortByNextDate($query);
+            return $query;
         }
         $sortValue = $request['column'];
         $sortDirection = $request->toDirection();

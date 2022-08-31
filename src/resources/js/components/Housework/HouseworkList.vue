@@ -14,16 +14,13 @@ const sort = reactive({
   is_ascending: false,
 });
 const isAscending = reactive({
-  title: false,
-  comment: false,
-  cycle_unit: false,
-  next_date: true,
+  ...initialIsAscending,
 });
-const initIsAscending = () => {
+const initialIsAscending = () => {
   isAscending.title = false;
   isAscending.comment = false;
   isAscending.cycle_unit = false;
-  isAscending.next_date = true;
+  isAscending.next_date = false;
 };
 const resetWord = () => {
   return sort.column === '' ? '' : '並び順をリセット';
@@ -31,7 +28,7 @@ const resetWord = () => {
 const resetSort = () => {
   sort.column = '';
   sort.is_ascending = false;
-  initIsAscending();
+  initialIsAscending();
   store.dispatch('housework/get');
 };
 const sortOrder = (value) => {
@@ -40,7 +37,7 @@ const sortOrder = (value) => {
   } else {
     sort.column = value;
     sort.is_ascending = true;
-    initIsAscending();
+    initialIsAscending();
   }
   isAscending[value] = sort.is_ascending;
   store.dispatch('housework/get', sort);
