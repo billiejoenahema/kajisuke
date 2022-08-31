@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\Gender;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,7 +21,7 @@ class ProfileFactory extends Factory
             'user_id' => rand(1, 10),
             'last_name' => $this->faker->lastName,
             'first_name' => $this->faker->firstName,
-            'gender' => array_rand(['0', '1', '2', '9']),
+            'gender' => array_rand(Gender::cases()),
             'birth' => now()->format('Y-m-d'),
             'tel' => '0' . random_int(100000000, 999999999),
             'zipcode1' => $this->faker->postcode1,

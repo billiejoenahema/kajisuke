@@ -27,13 +27,15 @@ class UpdateTest extends TestCase
             'last_name' => '更新後の姓',
             'first_name' => '更新後の名',
             'gender' => $genderList[array_rand($genderList)],
-            'birth' => now()->format('Ymd'),
+            'birth' => now()->format('Y-m-d'),
             'tel' => '09011112222',
-            'zipcode' => '100-0000',
+            'zipcode1' => '100',
+            'zipcode2' => '0000',
             'prefecture' => (string) array_rand(range(1, 47)),
             'city' => '更新後の都市',
             'street_address' => '更新後の住所',
         ];
+
         // 実行
         $response = $this->actingAs($user)->patchJson('api/profiles', $data);
         $response->assertStatus(Response::HTTP_OK);

@@ -54,10 +54,11 @@ class SaveRequest extends FormRequest
     /**
      * 次回実施日を先頭から10文字切り出す。
      *
+     * @param date
      * @return string
      */
-    public function nextDate(): string
+    public function nextDate($date): string
     {
-        return substr($this->input('next_date'), 0, 10);
+        return substr($date, 0, 10);
     }
 }
