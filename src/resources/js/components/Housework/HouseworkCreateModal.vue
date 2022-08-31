@@ -70,26 +70,26 @@ const resetHousework = () => {
         class="housework-title-input"
         :class="invalidFeedback('title') && 'invalid'"
         v-model="housework.title"
-        :maxlength="maxLength('housework_title')"
+        :max-length="maxLength('housework_title')"
         ref="titleRef"
       />
-      <InvalidFeedback :errors="invalidFeedback('title')" />
-      <CharacterLength
+      <invalid-feedback :errors="invalidFeedback('title')"></invalid-feedback>
+      <character-length
         :character="housework.title"
-        :maxLength="maxLength('housework_title') ?? 0"
-      />
+        :max-length="maxLength('housework_title') ?? 0"
+      ></character-length>
       <label>詳細</label>
       <textarea
         :class="invalidFeedback('comment') && 'invalid'"
         v-model="housework.comment"
         rows="8"
-        :maxlength="maxLength('housework_comment')"
+        :max-length="maxLength('housework_comment')"
       ></textarea>
-      <InvalidFeedback :errors="invalidFeedback('comment')" />
-      <CharacterLength
+      <invalid-feedback :errors="invalidFeedback('comment')"></invalid-feedback>
+      <character-length
         :character="housework.comment"
-        :maxLength="maxLength('housework_comment') ?? 0"
-      />
+        :max-length="maxLength('housework_comment') ?? 0"
+      ></character-length>
       <div class="column">
         <label>初回実施日</label>
         <Datepicker
@@ -99,7 +99,9 @@ const resetHousework = () => {
           format="yyyy/MM/dd"
           autoApply
         ></Datepicker>
-        <InvalidFeedback :errors="invalidFeedback('next_date')" />
+        <invalid-feedback
+          :errors="invalidFeedback('next_date')"
+        ></invalid-feedback>
         <label>実行周期</label>
         <div class="housework-cycle">
           <select v-model="housework.cycle_num">
@@ -131,7 +133,9 @@ const resetHousework = () => {
           {{ category.name }}
         </option>
       </select>
-      <InvalidFeedback :errors="invalidFeedback('category_id')" />
+      <invalid-feedback
+        :errors="invalidFeedback('category_id')"
+      ></invalid-feedback>
       <div class="store-button-area">
         <button class="store-button" @click="storeHousework()">作成する</button>
       </div>
