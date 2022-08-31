@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Http\Requests\Housework\StoreRequest;
+use App\Http\Requests\Housework\SaveRequest;
 use App\Models\Housework;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -57,10 +57,10 @@ class HouseworkService
     /**
      * 家事を新規登録する。
      *
-     * @param StoreRequest $request
+     * @param SaveRequest $request
      * @return Housework
      */
-    public static function store(StoreRequest $request): Housework
+    public static function store(SaveRequest $request): Housework
     {
         $housework = DB::transaction(function () use ($request) {
             // 家事を新規登録する
@@ -70,7 +70,7 @@ class HouseworkService
                 'comment' => $request['comment'],
                 'cycle_num' => $request['cycle_num'],
                 'cycle_unit' => $request['cycle_unit'],
-                'next_date' => $request->nextDate(),
+                'next_date' => $request->nextDate($request['next_date']),
                 'category_id' => $request->category_id,
             ]);
 
