@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Enums\ResponseMessage;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Profile\SaveRequest;
 use App\Http\Resources\ProfileResource;
@@ -34,6 +35,6 @@ class ProfileController extends Controller
         $user = Auth::user();
         $profile = Profile::where('user_id', $user->id)->first();
         $profile->update($request->all());
-        return response()->json(config('const.PROFILE.UPDATED'), Response::HTTP_OK);
+        return response()->json(['message' => ResponseMessage::PROFILE_UPDATED->value], Response::HTTP_OK);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Enums\ResponseMessage;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Category\SaveRequest;
 use App\Http\Resources\CategoryResource;
@@ -41,7 +42,7 @@ class CategoryController extends Controller
                 'name' => $request['name'],
             ]);
         });
-        return response()->json(config('const.CATEGORY.CREATED'), Response::HTTP_CREATED);
+        return response()->json(['message', ResponseMessage::CATEGORY_CERATED->value], Response::HTTP_CREATED);
     }
 
     /**
@@ -58,7 +59,7 @@ class CategoryController extends Controller
             $category->name = $request['name'];
             $category->save();
         });
-        return response()->json(config('const.CATEGORY.UPDATED'), Response::HTTP_OK);
+        return response()->json(['message', ResponseMessage::CATEGORY_UPDATED->value], Response::HTTP_OK);
     }
 
     /**
@@ -72,10 +73,10 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
         $hasHousework = $category->houseworks->isNotEmpty();
         if ($hasHousework) {
-            return response()->json(config('const.CATEGORY.HAS_HOUSEWORK'), Response::HTTP_BAD_REQUEST);
+            return response()->json(['message', ResponseMessage::CATEGORY_HAS_HOUSEWORK->value], Response::HTTP_BAD_REQUEST);
         }
         $category->delete();
 
-        return response()->json(config('const.CATEGORY.DELETED'), Response::HTTP_OK);
+        return response()->json(['message', ResponseMessage::CATEGORY_DELETED->value], Response::HTTP_OK);
     }
 }

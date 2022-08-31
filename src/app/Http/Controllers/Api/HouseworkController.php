@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Enums\Gender;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Housework\IndexRequest;
 use App\Http\Requests\Housework\SaveRequest;
@@ -10,6 +11,7 @@ use App\Models\Housework;
 use App\Services\HouseworkService;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Auth;
+use App\Enums\ResponseMessage;
 use Symfony\Component\HttpFoundation\Response;
 
 class HouseworkController extends Controller
@@ -68,7 +70,7 @@ class HouseworkController extends Controller
     {
         $this->service->store($request);
 
-        return response()->json(config('const.HOUSEWORK.CREATED'), Response::HTTP_CREATED);
+        return response()->json(['message', ResponseMessage::HOUSEWORK_CERATED->value], Response::HTTP_CREATED);
     }
 
     /**
@@ -81,7 +83,7 @@ class HouseworkController extends Controller
     {
         $this->service->update($request, $id);
 
-        return response()->json(config('const.HOUSEWORK.UPDATED'), Response::HTTP_OK);
+        return response()->json(['message' => ResponseMessage::HOUSEWORK_UPDATED->value], Response::HTTP_OK);
     }
 
     /**
@@ -95,6 +97,6 @@ class HouseworkController extends Controller
     {
         $this->service->destroy($id);
 
-        return response()->json(config('const.HOUSEWORK.DELETED'), Response::HTTP_OK);
+        return response()->json(['message' => ResponseMessage::HOUSEWORK_DELETED->value], Response::HTTP_OK);
     }
 }

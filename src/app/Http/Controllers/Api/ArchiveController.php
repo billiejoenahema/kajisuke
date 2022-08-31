@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Enums\ResponseMessage;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Archive\SaveRequest;
 use App\Models\Archive;
@@ -43,7 +44,7 @@ class ArchiveController extends Controller
             ]);
             $houseworkService->updateNextDate($archive);
         });
-        return response()->json(config('const.ARCHIVE.CREATED'), Response::HTTP_CREATED);
+        return response()->json(['message', ResponseMessage::ARCHIVE_CERATED->value], Response::HTTP_CREATED);
     }
 
     /**
@@ -63,7 +64,7 @@ class ArchiveController extends Controller
             $archive->content = $request['content'];
             $archive->save();
         });
-        return response()->json(config('const.ARCHIVE.UPDATED'), Response::HTTP_OK);
+        return response()->json(['message', ResponseMessage::ARCHIVE_UPDATED->value], Response::HTTP_OK);
     }
 
     /**
@@ -75,6 +76,6 @@ class ArchiveController extends Controller
     public function destroy(Archive $archive)
     {
         $archive->delete();
-        return response()->json(config('const.ARCHIVE.DELETED'), Response::HTTP_NO_CONTENT);
+        return response()->json(['message', ResponseMessage::ARCHIVE_DELETED->value], Response::HTTP_NO_CONTENT);
     }
 }
