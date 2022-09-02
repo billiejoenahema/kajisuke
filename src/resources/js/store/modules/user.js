@@ -19,6 +19,15 @@ const getters = {
   hasErrors(state) {
     return Object.keys(state.errors).length > 0;
   },
+  birthDate(state) {
+    const birth = state.data?.profile?.birth ?? '';
+    const split = birth.split('-') ?? '';
+    return {
+      year: split[0] ?? '',
+      month: split[1] ?? '',
+      day: split[2] ?? '',
+    };
+  },
 };
 
 const actions = {

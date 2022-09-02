@@ -9,11 +9,23 @@ const getters = {
   data(state) {
     return state.data ?? [];
   },
-  genderValues(state) {
-    return state.data.GENDER_VALUES ?? [];
+  genderFormOptions(state) {
+    return state.data?.GENDER ?? [];
   },
-  prefectures(state) {
+  genderTextValue: (state) => (id) => {
+    const gender = state.data.GENDER?.find((v) => {
+      return v.id == id;
+    });
+    return gender?.name ?? '';
+  },
+  prefectureFormOptions(state) {
     return state.data.PREFECTURES ?? [];
+  },
+  prefectureTextValue: (state) => (key) => {
+    const prefecture = state.data.PREFECTURES?.find((v) => {
+      return Object.keys(v)[0] == key;
+    });
+    return prefecture && Object.values(prefecture)[0];
   },
   years(state) {
     return state.data.YEARS ?? [];
@@ -24,30 +36,12 @@ const getters = {
   days(state) {
     return state.data.DAYS ?? [];
   },
-  currentGender: (state) => (id) => {
-    const gender = state.data.GENDER_VALUES?.find((v) => {
-      return v.id == id;
-    });
-    return gender?.value ?? '';
-  },
-  currentPrefecture: (state) => (key) => {
-    const prefecture = state.data.PREFECTURES?.find((v) => {
-      return Object.keys(v)[0] == key;
-    });
-    return prefecture && Object.values(prefecture)[0];
-  },
   maxLength: (state) => (key) => {
     const maxLength =
       state.data.MAX_LENGTHS?.find((v) => {
         return Object.keys(v)[0] == key;
       }) ?? {};
     return Object.values(maxLength)[0] ?? 0;
-  },
-  hasErrors(state) {
-    return Object.keys(state.errors).length > 0;
-  },
-  errors(state) {
-    return state.errors ?? {};
   },
 };
 
