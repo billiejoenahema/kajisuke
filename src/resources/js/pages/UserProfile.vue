@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref, watchEffect } from 'vue';
+import { computed, onMounted, reactive, ref } from 'vue';
 import { useStore } from 'vuex';
 import InvalidFeedback from '../components/InvalidFeedback.vue';
 import NavigationBar from '../components/NavigationBar';
@@ -7,32 +7,45 @@ import ToastMessage from '../components/ToastMessage';
 import { formatBirth } from '../utilities/formatBirth';
 
 const store = useStore();
-const user = computed(() => store.getters['user/user']);
-const genderValues = computed(() => store.getters['consts/genderValues']);
-const prefectures = computed(() => store.getters['consts/prefectures']);
+
+const user = reactive({
+  id: null,
+  name: '',
+  email: '',
+  profile: {
+    first_name: '',
+    last_name: '',
+    gender: '0',
+    birth: '',
+    tel: '',
+    zipcode1: '',
+    zipcode2: '',
+    prefecture: '',
+    city: '',
+    street_address: '',
+  },
+});
+const genderFormOptions = computed(
+  () => store.getters['consts/genderFormOptions']
+);
+const prefectureFormOptions = computed(
+  () => store.getters['consts/prefectureFormOptions']
+);
+const genderTextValue = computed(() => store.getters['consts/genderTextValue']);
+const prefectureTextValue = computed(
+  () => store.getters['consts/prefectureTextValue']
+);
 const years = computed(() => store.getters['consts/years']);
 const months = computed(() => store.getters['consts/months']);
 const days = computed(() => store.getters['consts/days']);
-const currentGender = computed(() =>
-  store.getters['consts/currentGender'](user.value.profile?.gender)
-);
-const currentPrefecture = computed(() =>
-  store.getters['consts/currentPrefecture'](user.value.profile?.prefecture)
-);
 
-const birthYear = ref('');
-const birthMonth = ref('');
-const birthDay = ref('');
-watchEffect(() => {
-  const birth = user.value.profile?.birth.split('-');
-  if (birth) {
-    birthYear.value = birth[0];
-    birthMonth.value = birth[1];
-    birthDay.value = birth[2];
-  }
+const birthDate = reactive({});
+onMounted(async () => {
+  await store.dispatch('user/getIfNeeded');
+  Object.assign(user, store.getters['user/user']);
+  Object.assign(birthDate, store.getters['user/birthDate']);
 });
 const invalidFeedback = computed(() => store.getters['user/invalidFeedback']);
-const hasErrors = computed(() => store.getters['user/hasErrors']);
 const isEditing = ref([]);
 const toEdit = (prop) => {
   isEditing.value = [];
@@ -40,12 +53,12 @@ const toEdit = (prop) => {
 };
 const setIsLoading = (bool) => store.commit('loading/setIsLoading', bool);
 const onChangeBirth = () => {
-  user.value.profile.birth = `${birthYear.value}-${birthMonth.value}-${birthDay.value}`;
+  user.profile.birth = `${birthDate.year}-${birthDate.month}-${birthDate.day}`;
 };
 const submit = async () => {
   isEditing.value = [];
   setIsLoading(true);
-  await store.dispatch('user/update', user.value.profile);
+  await store.dispatch('user/update', user.profile);
   setIsLoading(false);
 };
 </script>
@@ -99,22 +112,22 @@ const submit = async () => {
           v-model="user.profile.gender"
         >
           <option
-            v-for="(gender, index) in genderValues"
+            v-for="(gender, index) in genderFormOptions"
             :key="index"
             :value="gender.id"
           >
-            {{ gender.value }}
+            {{ gender.name }}
           </option>
         </select>
         <div class="profile-item-value" v-else @click="toEdit('gender')">
-          {{ currentGender }}
+          {{ genderTextValue(user.profile?.gender) }}
         </div>
       </li>
       <li class="profile-item">
         <label class="profile-item-label">生年月日:</label>
         <div v-if="isEditing.includes('birth')" class="birth-input row">
           <div class="year-select row">
-            <select v-model="birthYear" @change="onChangeBirth()">
+            <select v-model="birthDate.year" @change="onChangeBirth()">
               <option v-for="(year, index) in years" :key="index" :value="year">
                 {{ year }}
               </option>
@@ -122,7 +135,7 @@ const submit = async () => {
             <div>年</div>
           </div>
           <div class="month-select row">
-            <select v-model="birthMonth" @change="onChangeBirth()">
+            <select v-model="birthDate.month" @change="onChangeBirth()">
               <option
                 v-for="(month, index) in months"
                 :key="index"
@@ -134,7 +147,7 @@ const submit = async () => {
             <div>月</div>
           </div>
           <div class="day-select row">
-            <select v-model="birthDay" @change="onChangeBirth()">
+            <select v-model="birthDate.day" @change="onChangeBirth()">
               <option v-for="(day, index) in days" :key="index" :value="day">
                 {{ day }}
               </option>
@@ -193,7 +206,7 @@ const submit = async () => {
           v-model="user.profile.prefecture"
         >
           <option
-            v-for="(prefecture, index) in prefectures"
+            v-for="(prefecture, index) in prefectureFormOptions"
             :key="index"
             :value="Object.keys(prefecture)[0]"
           >
@@ -201,7 +214,7 @@ const submit = async () => {
           </option>
         </select>
         <div class="profile-item-value" v-else @click="toEdit('prefecture')">
-          {{ currentPrefecture }}
+          {{ prefectureTextValue(user.profile?.prefecture) }}
         </div>
       </li>
       <li class="profile-item">

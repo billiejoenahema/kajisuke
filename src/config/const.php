@@ -1,31 +1,11 @@
 <?php
 
+use App\Enums\CycleUnit;
+use App\Enums\Gender;
+
 return [
-    'ARCHIVE' => [
-        'CREATED' => ['message' => '新しい履歴を登録しました'],
-        'UPDATED' => ['message' => '履歴を更新しました'],
-        'DELETED' => ['message' => '履歴を削除しました'],
-    ],
-    'CATEGORY' => [
-        'CREATED' => ['message' => '新しいカテゴリを登録しました'],
-        'UPDATED' => ['message' => 'カテゴリを更新しました'],
-        'DELETED' => ['message' => 'カテゴリを削除しました'],
-        'HAS_HOUSEWORK' => ['message' => 'このカテゴリは使用されているため削除できません'],
-    ],
-    'HOUSEWORK' => [
-        'CREATED' => ['message' => '新しい家事を登録しました'],
-        'UPDATED' => ['message' => '家事を更新しました'],
-        'DELETED' => ['message' => '家事を削除しました'],
-    ],
-    'PROFILE' => [
-        'UPDATED' => ['message' => 'プロフィールを更新しました'],
-    ],
-    'GENDER_VALUES' => [
-        ['id' => 0, 'value' => '未選択'],
-        ['id' => 1, 'value' => '男性'],
-        ['id' => 2, 'value' => '女性'],
-        ['id' => 9, 'value' => '適用不能'],
-    ],
+    'CYCLE_UNIT' => CycleUnit::toArray(),
+    'GENDER' => Gender::toArray(),
     'PREFECTURES' => [
         [1 => '北海道'],
         [2 => '青森県'],
