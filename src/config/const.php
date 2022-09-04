@@ -2,11 +2,13 @@
 
 use App\Enums\CycleUnit;
 use App\Enums\Gender;
+use App\Enums\Prefecture;
 
 return [
     'CYCLE_UNIT' => CycleUnit::toArray(),
     'GENDER' => Gender::toArray(),
-    'PREFECTURES' => [
+    'PREFECTURES' => Prefecture::toArray(),
+    'PREFECTURES_CONST' => [
         [1 => '北海道'],
         [2 => '青森県'],
         [3 => '岩手県'],

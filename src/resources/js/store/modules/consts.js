@@ -13,19 +13,20 @@ const getters = {
     return state.data?.GENDER ?? [];
   },
   genderTextValue: (state) => (id) => {
-    const gender = state.data.GENDER?.find((v) => {
+    const item = state.data.GENDER?.find((v) => {
       return v.id == id;
     });
-    return gender?.name ?? '';
+    return item?.name ?? '';
   },
   prefectureFormOptions(state) {
+    console.log(state.data.PREFECTURES ?? []);
     return state.data.PREFECTURES ?? [];
   },
-  prefectureTextValue: (state) => (key) => {
-    const prefecture = state.data.PREFECTURES?.find((v) => {
-      return Object.keys(v)[0] == key;
+  prefectureTextValue: (state) => (id) => {
+    const item = state.data.PREFECTURES?.find((v) => {
+      return v.id == id;
     });
-    return prefecture && Object.values(prefecture)[0];
+    return item?.name ?? '';
   },
   years(state) {
     return state.data.YEARS ?? [];
