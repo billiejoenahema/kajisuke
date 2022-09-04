@@ -208,9 +208,9 @@ const submit = async () => {
           <option
             v-for="(prefecture, index) in prefectureFormOptions"
             :key="index"
-            :value="Object.keys(prefecture)[0]"
+            :value="prefecture.id"
           >
-            {{ Object.values(prefecture)[0] }}
+            {{ prefecture.name }}
           </option>
         </select>
         <div class="profile-item-value" v-else @click="toEdit('prefecture')">
