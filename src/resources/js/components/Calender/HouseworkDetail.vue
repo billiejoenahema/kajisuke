@@ -26,14 +26,11 @@ onMounted(async () => {
   await store.dispatch('housework/getItem', props.id);
   completedArchive.content = housework.value.comment;
 });
-const fetchData = () => {
-  store.dispatch('housework/get');
-};
 const hasErrors = computed(() => store.getters['archive/hasErrors']);
-const commitArchive = async () => {
+const fixArchive = async () => {
   await store.dispatch('archive/post', completedArchive);
   if (hasErrors.value) return;
-  await fetchData();
+  await store.dispatch('housework/get');
   props.closeDialog();
 };
 const deleteHousework = async () => {
@@ -45,8 +42,8 @@ const deleteHousework = async () => {
   if (hasErrors.value) {
     return;
   }
-  fetchData();
-  closeDialog();
+  await store.dispatch('housework/get');
+  props.closeDialog();
 };
 const onClick = () => {
   props.setIsShowEdit(true);
@@ -86,7 +83,7 @@ const onClick = () => {
         v-model="completedArchive.date"
         autoApply
       ></Datepicker>
-      <button class="store-button" @click="commitArchive()">完了</button>
+      <button class="store-button" @click="fixArchive()">完了</button>
     </div>
   </div>
 </template>
