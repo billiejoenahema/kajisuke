@@ -8,6 +8,8 @@ use App\Http\Requests\Profile\SaveRequest;
 use App\Http\Resources\ProfileResource;
 use App\Models\Profile;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
 
 class ProfileController extends Controller
@@ -32,9 +34,38 @@ class ProfileController extends Controller
      */
     public function update(SaveRequest $request): Response
     {
+        DB::transaction(function ($request) {
+            $user = Auth::user();
+            $profile = Profile::where('user_id', $user->id)->first();
+            $profile->update($request->all());
+        });
+        return response()->json(['message' => ResponseMessage::PROFILE_UPDATED->value], Response::HTTP_OK);
+    }
+
+    /**
+     * 自身のプロフィール画像を更新する
+     *
+     * @param  SaveRequest  $request
+     * @return Response
+     */
+    public function updateImage(SaveRequest $request): Response
+    {
         $user = Auth::user();
         $profile = Profile::where('user_id', $user->id)->first();
-        $profile->update($request->all());
+        // 画像ファイルが存在しなければ処理を終了する
+        if (empty($request->file())) {
+            return
+                response()->json(['message' => ResponseMessage::PROFILE_NO_IMAGE->value], Response::HTTP_UNSUPPORTED_MEDIA_TYPE);
+        }
+        $image = $request->file('image');
+        if ($profile->image) {
+            Storage::disk('public')->delete($profile->image);
+        }
+        $path = Storage::disk('public')->put('/', $image);
+        DB::transaction(function () use ($profile, $path) {
+            $profile->image = $path;
+            $profile->save();
+        });
         return response()->json(['message' => ResponseMessage::PROFILE_UPDATED->value], Response::HTTP_OK);
     }
 }

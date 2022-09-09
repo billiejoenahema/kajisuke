@@ -17,4 +17,5 @@ enum ResponseMessage: string
     case HOUSEWORK_UPDATED = '家事を更新しました';
     case HOUSEWORK_DELETED = '家事を削除しました';
     case PROFILE_UPDATED = 'プロフィールを更新しました';
+    case PROFILE_NO_IMAGE = '画像が存在しません';
 }
