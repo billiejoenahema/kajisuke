@@ -28,6 +28,9 @@ const getters = {
       day: split[2] ?? '',
     };
   },
+  profileImagePath: (state) => (image) => {
+    return image ? `/storage/${image}` : '/storage/images/no_image.jpeg';
+  },
 };
 
 const actions = {
@@ -50,6 +53,23 @@ const actions = {
   async update({ commit }, data) {
     await axios
       .patch('/api/profiles', data)
+      .then((res) => {
+        commit('setErrors', {});
+        commit(
+          'toast/setData',
+          { status: res.status, content: res.data.message },
+          { root: true }
+        );
+      })
+      .catch((err) => {
+        commit('setErrors', err.response.data.errors);
+      });
+  },
+  async updateImage({ commit }, data) {
+    const formData = new FormData();
+    formData.append('image', data);
+    await axios
+      .post('/api/profile_image', formData)
       .then((res) => {
         commit('setErrors', {});
         commit(

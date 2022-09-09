@@ -26,9 +26,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // ユーザー情報
     Route::get('/profiles', [ProfileController::class, 'index']);
     Route::patch('/profiles', [ProfileController::class, 'update']);
+    Route::post('/profile_image', [ProfileController::class, 'updateImage']);
 
     // 定数
-    Route::get('/consts', fn() => config('const'));
+    Route::get('/consts', fn () => config('const'));
 
     // 家事
     Route::get('/houseworks', [HouseworkController::class, 'index'])->can('viewAny', Housework::class);

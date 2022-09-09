@@ -19,7 +19,6 @@ const getters = {
     return item?.name ?? '';
   },
   prefectureFormOptions(state) {
-    console.log(state.data.PREFECTURES ?? []);
     return state.data.PREFECTURES ?? [];
   },
   prefectureTextValue: (state) => (id) => {

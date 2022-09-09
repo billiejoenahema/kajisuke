@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('profiles', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->comment('ユーザーID')->index();
+            $table->string('image')->comment('プロフィール画像')->nullable();
             $table->string('last_name')->comment('姓')->nullable();
             $table->string('first_name')->comment('名')->nullable();
             $table->string('gender', 1)->comment('性別')->default('0');

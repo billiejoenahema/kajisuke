@@ -43,6 +43,9 @@ button {
   display: flex;
   flex-direction: row;
 }
+.between {
+  justify-content: space-between;
+}
 .nav {
   display: flex;
   justify-content: space-between;
@@ -383,4 +386,27 @@ nav {
 }
 .calendar-root-wrapper > .calendar-root > .ps {
   overflow: unset !important;
+}
+.input-profile-image {
+  margin: auto;
+  padding: 16px;
+  background: rgb(45, 45, 45);
+}
+.input-profile-image > input {
+  padding: 16px;
+  margin: 16px auto;
+}
+.profile-image {
+  width: 50% !important;
+  height: auto !important;
+}
+.pen-to-square-icon {
+  font-size: 1.5rem;
+  transform: translate(-3%, -160%);
+}
+.pen-to-square-icon:hover {
+  color: aquamarine;
+}
+.input-file {
+  max-width: 600px;
 }
