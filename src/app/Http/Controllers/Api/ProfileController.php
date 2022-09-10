@@ -34,10 +34,11 @@ class ProfileController extends Controller
      */
     public function update(SaveRequest $request): Response
     {
-        DB::transaction(function ($request) {
+        $data = $request->all();
+        DB::transaction(function () use ($data) {
             $user = Auth::user();
             $profile = Profile::where('user_id', $user->id)->first();
-            $profile->update($request->all());
+            $profile->update($data);
         });
         return response()->json(['message' => ResponseMessage::PROFILE_UPDATED->value], Response::HTTP_OK);
     }
