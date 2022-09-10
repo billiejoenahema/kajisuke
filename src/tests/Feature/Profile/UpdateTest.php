@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Profile;
 
+use App\Enums\Gender;
 use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -21,12 +22,12 @@ class UpdateTest extends TestCase
         /** @var \Illuminate\Contracts\Auth\Authenticatable $user */
         $user = User::factory()->create();
         Profile::factory()->create(['user_id' => $user->id]);
-        $genderList = ['0', '1', '2', '9'];
         $data = [
             'user_id' => $user->id,
+            'image' => 'updated_image.jpg',
             'last_name' => '更新後の姓',
             'first_name' => '更新後の名',
-            'gender' => $genderList[array_rand($genderList)],
+            'gender' => Gender::values()[array_rand(Gender::values())],
             'birth' => now()->format('Y-m-d'),
             'tel' => '09011112222',
             'zipcode1' => '100',

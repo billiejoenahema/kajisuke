@@ -58,8 +58,8 @@ return [
         [47 => '沖縄県'],
     ],
     'YEARS' => range(1940, date('Y')),
-    'MONTHS' => toTwoDigitZeroPaddingArray(range(1, 12)),
-    'DAYS' => toTwoDigitZeroPaddingArray(range(1, 31)),
+    'MONTHS' => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    'DAYS' => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 10, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31],
     'MAX_LENGTHS' => [
         ['housework_title' => 30],
         ['housework_comment' => 200],
@@ -67,17 +67,3 @@ return [
         ['archive_content' => 200],
     ]
 ];
-
-/**
- * 整数の配列を2桁の0埋め文字列の配列で返す。
- *
- * @param array $array
- * @return array
- */
-function toTwoDigitZeroPaddingArray($array): array
-{
-    foreach ($array as $index => $value) {
-        $array[$index] = str_pad($value, 2, '0', STR_PAD_LEFT);
-    }
-    return $array;
-}

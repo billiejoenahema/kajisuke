@@ -21,7 +21,7 @@ class ProfileFactory extends Factory
             'user_id' => rand(1, 10),
             'last_name' => $this->faker->lastName,
             'first_name' => $this->faker->firstName,
-            'gender' => array_rand(Gender::cases()),
+            'gender' => Gender::values()[array_rand(Gender::values())],
             'birth' => now()->format('Y-m-d'),
             'tel' => '0' . random_int(100000000, 999999999),
             'zipcode1' => $this->faker->postcode1,
