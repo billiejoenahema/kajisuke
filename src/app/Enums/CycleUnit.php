@@ -6,6 +6,8 @@ namespace App\Enums;
 
 enum CycleUnit: int
 {
+    use CodeTrait;
+
     case DAY = 1;
     case WEEK = 2;
     case MONTH = 3;
@@ -22,33 +24,5 @@ enum CycleUnit: int
             self::MONTH => '月',
             self::YEAR => '年',
         };
-    }
-
-    /**
-     * @return array
-     */
-    public static function toArray()
-    {
-        return array_map(function (self $case) {
-            return [
-                'id' => $case->value,
-                'name' => $case->text(),
-            ];
-        }, self::cases());
-    }
-
-    /**
-     * コード値を元に対応するテキストを取得する
-     *
-     * @param string|int|null $value コード値
-     * @return string|null
-     */
-    public static function textByCode($value)
-    {
-        if ($value === null) {
-            return null;
-        }
-
-        return self::tryFrom($value)?->text();
     }
 }

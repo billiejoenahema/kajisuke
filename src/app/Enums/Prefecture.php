@@ -6,6 +6,8 @@ namespace App\Enums;
 
 enum Prefecture: int
 {
+    use CodeTrait;
+
     case HOKKAIDO = 1;
     case AOMORI = 2;
     case IWATE = 3;
@@ -108,33 +110,5 @@ enum Prefecture: int
             self::KAGOSHIMA => '鹿児島県',
             self::OKINAWA => '沖縄県',
         };
-    }
-
-    /**
-     * @return array
-     */
-    public static function toArray()
-    {
-        return array_map(function (self $case) {
-            return [
-                'id' => $case->value,
-                'name' => $case->text(),
-            ];
-        }, self::cases());
-    }
-
-    /**
-     * コード値を元に対応するテキストを取得する
-     *
-     * @param string|int|null $value コード値
-     * @return string|null
-     */
-    public static function textByCode($value)
-    {
-        if ($value === null) {
-            return null;
-        }
-
-        return self::tryFrom($value)?->text();
     }
 }
