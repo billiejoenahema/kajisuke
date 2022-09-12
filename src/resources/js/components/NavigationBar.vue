@@ -13,12 +13,11 @@ const user = computed(() => store.getters['user/user']);
 const isLoading = computed(() => store.getters['loading/isLoading']);
 const setIsLoading = (bool) => store.commit('loading/setIsLoading', bool);
 onMounted(async () => {
-  setIsLoading(true);
   await store.dispatch('user/getIfNeeded');
   if (!isLogin.value) {
-    setIsLoading(false);
     router.push('/login');
   } else {
+    setIsLoading(true);
     await store.dispatch('housework/getIfNeeded');
     setIsLoading(false);
     store.dispatch('consts/getIfNeeded');
