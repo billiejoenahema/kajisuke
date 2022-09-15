@@ -41,11 +41,11 @@ const storeCategory = async () => {
       </div>
       <div>カテゴリ</div>
       <ul class="category-list" id="category-list">
-        <category-list-item
+        <CategoryListItem
           v-for="category in categories"
           :key="category.id"
           :category="category"
-        ></category-list-item>
+        ></CategoryListItem>
       </ul>
       <input
         class="category-input"
@@ -55,10 +55,10 @@ const storeCategory = async () => {
         @focus="placeholder = ''"
         @blur="placeholder = '＋新しいカテゴリを作成'"
       />
-      <character-length
+      <CharacterLength
         :character="newCategory.name"
         :max-length="maxLength('category_name') ?? 0"
-      ></character-length>
+      ></CharacterLength>
       <div class="store-button-area">
         <button
           class="store-button"

@@ -51,42 +51,42 @@ const sortOrder = (value) => {
   <div class="reset-order" @click="resetSort()">
     {{ resetWord() }}
   </div>
-  <calendar v-if="isCalendarView" :houseworks="houseworks"></calendar>
+  <Calendar v-if="isCalendarView" :houseworks="houseworks"></Calendar>
   <div v-else class="column list-body">
     <div class="row list-header">
       <div class="list-title" @click="sortOrder(SORT_COLUMNS.title)">
         <span>家事</span>
-        <sort-icon
+        <SortIcon
           v-model:isAscending="isAscending.title"
           :label="SORT_COLUMNS.title"
-        ></sort-icon>
+        ></SortIcon>
       </div>
       <div class="list-title" @click="sortOrder(SORT_COLUMNS.comment)">
         <span>内容</span>
-        <sort-icon
+        <SortIcon
           v-model:isAscending="isAscending.comment"
           :label="SORT_COLUMNS.comment"
-        ></sort-icon>
+        ></SortIcon>
       </div>
       <div class="list-title" @click="sortOrder(SORT_COLUMNS.cycle_unit)">
         <span>実行周期</span>
-        <sort-icon
+        <SortIcon
           v-model:isAscending="isAscending.cycle_unit"
           :label="SORT_COLUMNS.cycle_unit"
-        ></sort-icon>
+        ></SortIcon>
       </div>
       <div class="list-title" @click="sortOrder(SORT_COLUMNS.next_date)">
         <span>次回実施日</span>
-        <sort-icon
+        <SortIcon
           v-model:isAscending="isAscending.next_date"
           :label="SORT_COLUMNS.next_date"
-        ></sort-icon>
+        ></SortIcon>
       </div>
     </div>
-    <housework-list-item
+    <HouseworkListItem
       v-for="item in houseworks"
       :key="item.id"
       :housework="item"
-    ></housework-list-item>
+    ></HouseworkListItem>
   </div>
 </template>

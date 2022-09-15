@@ -73,11 +73,11 @@ const resetHousework = () => {
         :max-length="maxLength('housework_title')"
         ref="titleRef"
       />
-      <invalid-feedback :errors="invalidFeedback('title')"></invalid-feedback>
-      <character-length
+      <InvalidFeedback :errors="invalidFeedback('title')"></InvalidFeedback>
+      <CharacterLength
         :character="housework.title"
         :max-length="maxLength('housework_title') ?? 0"
-      ></character-length>
+      ></CharacterLength>
       <label>詳細</label>
       <textarea
         :class="invalidFeedback('comment') && 'invalid'"
@@ -85,11 +85,11 @@ const resetHousework = () => {
         rows="8"
         :max-length="maxLength('housework_comment')"
       ></textarea>
-      <invalid-feedback :errors="invalidFeedback('comment')"></invalid-feedback>
-      <character-length
+      <InvalidFeedback :errors="invalidFeedback('comment')"></InvalidFeedback>
+      <CharacterLength
         :character="housework.comment"
         :max-length="maxLength('housework_comment') ?? 0"
-      ></character-length>
+      ></CharacterLength>
       <div class="column">
         <label>初回実施日</label>
         <Datepicker
@@ -99,9 +99,9 @@ const resetHousework = () => {
           format="yyyy/MM/dd"
           autoApply
         ></Datepicker>
-        <invalid-feedback
+        <InvalidFeedback
           :errors="invalidFeedback('next_date')"
-        ></invalid-feedback>
+        ></InvalidFeedback>
         <label>実行周期</label>
         <div class="housework-cycle">
           <select v-model="housework.cycle_num">
@@ -133,9 +133,9 @@ const resetHousework = () => {
           {{ category.name }}
         </option>
       </select>
-      <invalid-feedback
+      <InvalidFeedback
         :errors="invalidFeedback('category_id')"
-      ></invalid-feedback>
+      ></InvalidFeedback>
       <div class="store-button-area">
         <button class="store-button" @click="storeHousework()">作成する</button>
       </div>

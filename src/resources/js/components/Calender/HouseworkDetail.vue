@@ -65,12 +65,12 @@ const onClick = () => {
     <div class="show-housework-next-date">{{ housework.next_date }}</div>
     <label>履歴</label>
     <div class="show-housework-archives">
-      <archive-list-item
+      <ArchiveListItem
         v-if="housework.archives?.length"
         v-for="archive in housework.archives"
         :key="archive.id"
         :archive="archive"
-      ></archive-list-item>
+      ></ArchiveListItem>
       <div v-else>履歴はまだありません</div>
     </div>
     <div class="store-button-area">
