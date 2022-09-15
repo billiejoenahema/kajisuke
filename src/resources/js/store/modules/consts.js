@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const state = {
-  data: {},
+  data: [],
   errors: {},
 };
 
@@ -37,11 +37,7 @@ const getters = {
     return state.data.DAYS ?? [];
   },
   maxLength: (state) => (key) => {
-    const maxLength =
-      state.data.MAX_LENGTHS?.find((v) => {
-        return Object.keys(v)[0] == key;
-      }) ?? {};
-    return Object.values(maxLength)[0] ?? 0;
+    return state.data.MAX_LENGTHS[key] ?? 0;
   },
 };
 
