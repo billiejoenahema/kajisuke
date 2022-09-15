@@ -78,7 +78,7 @@ const deleteArchive = async (id) => {
       class="housework-title-input"
       :class="invalidFeedback('title') && 'invalid'"
       v-model="housework.title"
-      :max-length="maxLength('housework_title')"
+      :maxlength="maxLength('housework_title')"
     />
     <InvalidFeedback :errors="invalidFeedback('title')"></InvalidFeedback>
     <CharacterLength

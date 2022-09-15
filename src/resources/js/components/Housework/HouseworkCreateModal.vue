@@ -70,7 +70,7 @@ const resetHousework = () => {
         class="housework-title-input"
         :class="invalidFeedback('title') && 'invalid'"
         v-model="housework.title"
-        :max-length="maxLength('housework_title')"
+        :maxlength="maxLength('housework_title')"
         ref="titleRef"
       />
       <InvalidFeedback :errors="invalidFeedback('title')"></InvalidFeedback>
@@ -83,7 +83,7 @@ const resetHousework = () => {
         :class="invalidFeedback('comment') && 'invalid'"
         v-model="housework.comment"
         rows="8"
-        :max-length="maxLength('housework_comment')"
+        :maxlength="maxLength('housework_comment')"
       ></textarea>
       <InvalidFeedback :errors="invalidFeedback('comment')"></InvalidFeedback>
       <CharacterLength
