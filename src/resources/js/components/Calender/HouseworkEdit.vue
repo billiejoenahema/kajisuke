@@ -80,22 +80,22 @@ const deleteArchive = async (id) => {
       v-model="housework.title"
       :max-length="maxLength('housework_title')"
     />
-    <invalid-feedback :errors="invalidFeedback('title')"></invalid-feedback>
-    <character-length
+    <InvalidFeedback :errors="invalidFeedback('title')"></InvalidFeedback>
+    <CharacterLength
       :character="housework.title"
       :max-length="maxLength('housework_title') ?? 0"
-    ></character-length>
+    ></CharacterLength>
     <label>詳細</label>
     <textarea
       :class="invalidFeedback('comment') && 'invalid'"
       v-model="housework.comment"
       rows="6"
     ></textarea>
-    <invalid-feedback :errors="invalidFeedback('comment')"></invalid-feedback>
-    <character-length
+    <InvalidFeedback :errors="invalidFeedback('comment')"></InvalidFeedback>
+    <CharacterLength
       :character="housework.comment"
       :max-length="maxLength('housework_comment') ?? 0"
-    ></character-length>
+    ></CharacterLength>
     <div class="column">
       <label>実行周期</label>
       <div class="housework-cycle">

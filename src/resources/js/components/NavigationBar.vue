@@ -76,12 +76,12 @@ const toggleUserMenuDisplay = (prop = null) => {
       </div>
     </nav>
   </div>
-  <housework-create-modal
+  <HouseworkCreateModal
     v-if="modalOpen === 'houseworkCreate'"
     :close-modal="closeModal"
-  ></housework-create-modal>
-  <category-list-modal
+  ></HouseworkCreateModal>
+  <CategoryListModal
     v-if="modalOpen === 'categoryList'"
     :close-modal="closeModal"
-  ></category-list-modal>
+  ></CategoryListModal>
 </template>

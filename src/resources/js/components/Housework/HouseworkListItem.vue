@@ -59,16 +59,16 @@ const closeModal = () => {
     >
       {{ housework.next_date }}
     </div>
-    <housework-edit-modal
+    <HouseworkEditModal
       v-if="isShowEditModal"
       :id="housework.id"
       :close-modal="closeModal"
-    ></housework-edit-modal>
-    <housework-detail-modal
+    ></HouseworkEditModal>
+    <HouseworkDetailModal
       v-if="isShowDetailModal"
       :housework="housework"
       :show-edit-modal="showEditModal"
       :close-modal="closeModal"
-    ></housework-detail-modal>
+    ></HouseworkDetailModal>
   </div>
 </template>

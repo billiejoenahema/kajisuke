@@ -95,18 +95,18 @@ const config = {
         v-if="props.eventDialogData && props.eventDialogData.title"
         class="event-dialog"
       >
-        <housework-detail
+        <HouseworkDetail
           v-show="!isShowEdit"
           :id="props.eventDialogData.id"
           :close-dialog="props.closeEventDialog"
           :set-is-show-edit="setIsShowEdit"
-        ></housework-detail>
-        <housework-edit
+        ></HouseworkDetail>
+        <HouseworkEdit
           v-show="isShowEdit"
           :id="props.eventDialogData.id"
           :close-dialog="props.closeEventDialog"
           :set-is-show-edit="setIsShowEdit"
-        ></housework-edit>
+        ></HouseworkEdit>
       </div>
     </template>
   </Qalendar>
