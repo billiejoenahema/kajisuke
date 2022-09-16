@@ -87,7 +87,7 @@ const deleteCategoryItem = async () => {
       class="category-input"
       :class="invalidStatus"
       ref="inputRef"
-      :max-length="maxLength('category_name') ?? 0"
+      :maxlength="maxLength('category_name') ?? 0"
       @focus="showTrashIcon = true"
       @blur="onBlur()"
       @keyup="onChange()"

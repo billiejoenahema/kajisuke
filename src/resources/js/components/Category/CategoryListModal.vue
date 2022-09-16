@@ -2,7 +2,7 @@
 import { computed, onMounted, reactive, ref } from 'vue';
 import { useStore } from 'vuex';
 import { scrollToBottom } from '../../utilities/scrollToBottom';
-import CharacterLength from '../CharacterLength';
+import CharacterCounter from '../CharacterCounter';
 import CategoryListItem from './CategoryListItem';
 
 const store = useStore();
@@ -55,10 +55,10 @@ const storeCategory = async () => {
         @focus="placeholder = ''"
         @blur="placeholder = '＋新しいカテゴリを作成'"
       />
-      <CharacterLength
+      <CharacterCounter
         :character="newCategory.name"
         :max-length="maxLength('category_name') ?? 0"
-      ></CharacterLength>
+      ></CharacterCounter>
       <div class="store-button-area">
         <button
           class="store-button"

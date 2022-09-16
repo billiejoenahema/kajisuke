@@ -6,7 +6,7 @@ import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 import { CYCLE_UNIT } from '../../consts/cycle_unit';
 import { ONE_MONTH } from '../../consts/oneMonthDateList';
-import CharacterLength from '../CharacterLength';
+import CharacterCounter from '../CharacterCounter';
 import InvalidFeedback from '../InvalidFeedback';
 
 const router = useRouter();
@@ -70,26 +70,26 @@ const resetHousework = () => {
         class="housework-title-input"
         :class="invalidFeedback('title') && 'invalid'"
         v-model="housework.title"
-        :max-length="maxLength('housework_title')"
+        :maxlength="maxLength('housework_title')"
         ref="titleRef"
       />
       <InvalidFeedback :errors="invalidFeedback('title')"></InvalidFeedback>
-      <CharacterLength
+      <CharacterCounter
         :character="housework.title"
         :max-length="maxLength('housework_title') ?? 0"
-      ></CharacterLength>
+      ></CharacterCounter>
       <label>詳細</label>
       <textarea
         :class="invalidFeedback('comment') && 'invalid'"
         v-model="housework.comment"
         rows="8"
-        :max-length="maxLength('housework_comment')"
+        :maxlength="maxLength('housework_comment')"
       ></textarea>
       <InvalidFeedback :errors="invalidFeedback('comment')"></InvalidFeedback>
-      <CharacterLength
+      <CharacterCounter
         :character="housework.comment"
         :max-length="maxLength('housework_comment') ?? 0"
-      ></CharacterLength>
+      ></CharacterCounter>
       <div class="column">
         <label>初回実施日</label>
         <Datepicker

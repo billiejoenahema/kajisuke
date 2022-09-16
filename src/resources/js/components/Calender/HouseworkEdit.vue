@@ -5,7 +5,7 @@ import { computed, onUnmounted, ref } from 'vue';
 import { useStore } from 'vuex';
 import { CYCLE_UNIT } from '../../consts/cycle_unit';
 import { ONE_MONTH } from '../../consts/oneMonthDateList';
-import CharacterLength from '../CharacterLength';
+import CharacterCounter from '../CharacterCounter';
 import InvalidFeedback from '../InvalidFeedback';
 
 const props = defineProps({
@@ -78,13 +78,13 @@ const deleteArchive = async (id) => {
       class="housework-title-input"
       :class="invalidFeedback('title') && 'invalid'"
       v-model="housework.title"
-      :max-length="maxLength('housework_title')"
+      :maxlength="maxLength('housework_title')"
     />
     <InvalidFeedback :errors="invalidFeedback('title')"></InvalidFeedback>
-    <CharacterLength
+    <CharacterCounter
       :character="housework.title"
       :max-length="maxLength('housework_title') ?? 0"
-    ></CharacterLength>
+    ></CharacterCounter>
     <label>詳細</label>
     <textarea
       :class="invalidFeedback('comment') && 'invalid'"
@@ -92,10 +92,10 @@ const deleteArchive = async (id) => {
       rows="6"
     ></textarea>
     <InvalidFeedback :errors="invalidFeedback('comment')"></InvalidFeedback>
-    <CharacterLength
+    <CharacterCounter
       :character="housework.comment"
       :max-length="maxLength('housework_comment') ?? 0"
-    ></CharacterLength>
+    ></CharacterCounter>
     <div class="column">
       <label>実行周期</label>
       <div class="housework-cycle">
