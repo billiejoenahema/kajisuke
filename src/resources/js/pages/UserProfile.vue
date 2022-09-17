@@ -4,7 +4,7 @@ import { useStore } from 'vuex';
 import InvalidFeedback from '../components/InvalidFeedback.vue';
 import NavigationBar from '../components/NavigationBar';
 import ToastMessage from '../components/ToastMessage';
-import { formatBirth } from '../utilities/formatBirth';
+import { formatDate } from '../utilities/formatDate';
 
 const store = useStore();
 
@@ -229,7 +229,7 @@ const submit = async () => {
         </div>
       </div>
       <div class="profile-item-value" v-else @click="toEdit('birth')">
-        {{ formatBirth(user.profile?.birth) }}
+        {{ formatDate(user.profile?.birth) }}
       </div>
     </li>
     <li class="profile-item">
