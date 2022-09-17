@@ -1,7 +1,6 @@
 <script setup>
 import { computed, reactive, ref } from 'vue';
 import { useStore } from 'vuex';
-import { SORT_COLUMNS } from '../../consts/sortColumns';
 import Calendar from '../Calender/Calendar.vue';
 import SortIcon from '../SortIcon';
 import HouseworkListItem from './HouseworkListItem';
@@ -54,32 +53,32 @@ const sortOrder = (value) => {
   <Calendar v-if="isCalendarView" :houseworks="houseworks"></Calendar>
   <div v-else class="column list-body">
     <div class="row list-header">
-      <div class="list-title" @click="sortOrder(SORT_COLUMNS.title)">
+      <div class="list-title" @click="sortOrder('title')">
         <span>家事</span>
         <SortIcon
           v-model:isAscending="isAscending.title"
-          :label="SORT_COLUMNS.title"
+          :label="'title'"
         ></SortIcon>
       </div>
-      <div class="list-title" @click="sortOrder(SORT_COLUMNS.comment)">
+      <div class="list-title" @click="sortOrder('comment')">
         <span>内容</span>
         <SortIcon
           v-model:isAscending="isAscending.comment"
-          :label="SORT_COLUMNS.comment"
+          :label="'comment'"
         ></SortIcon>
       </div>
-      <div class="list-title" @click="sortOrder(SORT_COLUMNS.cycle_unit)">
+      <div class="list-title" @click="sortOrder('cycle_unit')">
         <span>実行周期</span>
         <SortIcon
           v-model:isAscending="isAscending.cycle_unit"
-          :label="SORT_COLUMNS.cycle_unit"
+          :label="'cycle_unit'"
         ></SortIcon>
       </div>
-      <div class="list-title" @click="sortOrder(SORT_COLUMNS.next_date)">
+      <div class="list-title" @click="sortOrder('next_date')">
         <span>次回実施日</span>
         <SortIcon
           v-model:isAscending="isAscending.next_date"
-          :label="SORT_COLUMNS.next_date"
+          :label="'next_date'"
         ></SortIcon>
       </div>
     </div>
