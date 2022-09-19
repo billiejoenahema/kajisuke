@@ -36,21 +36,20 @@ class UpdateTest extends TestCase
             'comment' => 'テストコメント',
             'cycle_num' => rand(1, 31),
             'cycle_unit' => rand(1, 4),
-            'next_date' => now()->addWeek(),
+            'next_date' => substr(now()->addWeek(), 0, 10),
         ];
 
         // 実行
         $uri = '/api/houseworks/' . $housework->id;
         $response = $this->actingAs($user)->patchJson($uri, $data);
         $response->assertOk();
-        $request = new SaveRequest();
         $this->assertDatabaseHas('houseworks', [
             'id' => $housework->id,
             'title' => $data['title'],
             'comment' => $data['comment'],
             'cycle_num' => $data['cycle_num'],
             'cycle_unit' => $data['cycle_unit'],
-            'next_date' => $request->nextDate($data['next_date']),
+            'next_date' => $data['next_date'],
         ]);
     }
 }

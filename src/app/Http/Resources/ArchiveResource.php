@@ -14,11 +14,6 @@ class ArchiveResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
-            'id' => $this->id,
-            'housework_id' => $this->housework_id,
-            'date' => $this->date,
-            'content' => $this->content,
-        ];
+        return parent::toArray($request);
     }
 }

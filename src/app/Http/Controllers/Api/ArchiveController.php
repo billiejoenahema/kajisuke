@@ -5,36 +5,35 @@ namespace App\Http\Controllers\Api;
 use App\Enums\ResponseMessage;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Archive\SaveRequest;
+use App\Http\Resources\ArchiveResource;
 use App\Models\Archive;
-use App\Models\Housework;
 use App\Services\HouseworkService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
 class ArchiveController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * 家事履歴一覧を取得する。
      *
-     * @return \Illuminate\Http\Response
+     * @return AnonymousResourceCollection
      */
-    public function index()
+    public function index(): AnonymousResourceCollection
     {
-        $user = auth()->user();
-        $houseworks = Housework::where('user_id', $user->id)->get();
-        $query = Archive::with('housework', 'housework.user');
-        $archives = $query->whereIn('housework_id', $houseworks->pluck('id'))->get();
+        $archives = Archive::all();
 
-        return response()->json($archives);
+        return ArchiveResource::collection($archives);
     }
 
     /**
      * 家事の履歴を登録する。
      *
      * @param  SaveRequest  $request
-     * @return Response
+     * @return JsonResponse
      */
-    public function store(SaveRequest $request, HouseworkService $houseworkService): Response
+    public function store(SaveRequest $request, HouseworkService $houseworkService): JsonResponse
     {
         DB::transaction(function () use ($request, $houseworkService) {
             $archive = Archive::create([
@@ -52,28 +51,24 @@ class ArchiveController extends Controller
      *
      * @param  SaveRequest  $request
      * @param  Archive  $archive
-     * @return Response
+     * @return JsonResponse
      */
-    public function update(SaveRequest $request): Response
+    public function update(SaveRequest $request, Archive $archive): JsonResponse
     {
-        DB::transaction(function () use ($request) {
-            $archive = Archive::findOrFail($request['id']);
-
-            $archive->housework_id = $request['housework_id'];
-            $archive->date = $request['date'];
-            $archive->content = $request['content'];
-            $archive->save();
+        $data = $request->all();
+        DB::transaction(function () use ($data, $archive) {
+            $archive->fill($data)->save();
         });
         return response()->json(['message', ResponseMessage::ARCHIVE_UPDATED->value], Response::HTTP_OK);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * 家事履歴を削除する。
      *
-     * @param  \App\Models\Archive  $archive
-     * @return \Illuminate\Http\Response
+     * @param  Archive  $archive
+     * @return JsonResponse
      */
-    public function destroy(Archive $archive)
+    public function destroy(Archive $archive): JsonResponse
     {
         $archive->delete();
         return response()->json(['message', ResponseMessage::ARCHIVE_DELETED->value], Response::HTTP_NO_CONTENT);
