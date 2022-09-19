@@ -12,6 +12,7 @@ use Tests\TestCase;
 class UpdateTest extends TestCase
 {
     use RefreshDatabase;
+
     /**
      * プロフィールを更新できることを確認する。
      *

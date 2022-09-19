@@ -16,5 +16,5 @@ return [
         'housework_comment' => 200,
         'category_name' => 30,
         'archive_content' => 200,
-    ]
+    ],
 ];

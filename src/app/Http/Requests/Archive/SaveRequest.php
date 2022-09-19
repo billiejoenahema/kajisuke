@@ -51,6 +51,7 @@ class SaveRequest extends FormRequest
     public function convertDate()
     {
         $date = $this->input('date');
+
         return substr($date, 0, 10);
     }
 }

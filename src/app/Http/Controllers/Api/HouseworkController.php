@@ -2,38 +2,20 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Enums\Gender;
+use App\Enums\ResponseMessage;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Housework\IndexRequest;
 use App\Http\Requests\Housework\SaveRequest;
 use App\Http\Resources\HouseworkResource;
 use App\Models\Housework;
-use App\Services\HouseworkService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Auth;
-use App\Enums\ResponseMessage;
+use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
 class HouseworkController extends Controller
 {
-    /**
-     * 家事サービスインスタンス
-     *
-     * @var \App\Services\HouseworkService
-     */
-    protected $houseworkService;
-
-    /**
-     * 新しいクラスインスタンスの生成
-     *
-     * @param  \App\Services\HouseworkService  $houseworkService
-     * @return void
-     */
-    public function __construct(HouseworkService $houseworkService)
-    {
-        $this->service = $houseworkService;
-    }
-
     /**
      * 家事一覧を取得する。
      *
@@ -45,12 +27,14 @@ class HouseworkController extends Controller
         $user = Auth::user();
         $query = Housework::with(['archives', 'category'])->where('user_id', $user->id);
         $houseworks = $housework->sortByOrder($query, $request)->get();
+
         return HouseworkResource::collection($houseworks);
     }
 
     /**
      * 指定した家事を取得する。
      *
+     * @param  Housework  $housework
      * @return HouseworkResource
      */
     public function show(Housework $housework): HouseworkResource
@@ -63,12 +47,22 @@ class HouseworkController extends Controller
     /**
      * 家事を新規登録する。
      *
-     * @param  SaveRequest $request
-     * @return Response
+     * @param  SaveRequest  $request
+     * @return JsonResponse
      */
-    public function store(SaveRequest $request): Response
+    public function store(SaveRequest $request): JsonResponse
     {
-        $this->service->store($request);
+        DB::transaction(function () use ($request) {
+            Housework::create([
+                'user_id' => Auth::user()->id,
+                'title' => $request['title'],
+                'comment' => $request['comment'],
+                'cycle_num' => $request['cycle_num'],
+                'cycle_unit' => $request['cycle_unit'],
+                'next_date' => $request['next_date'],
+                'category_id' => $request->category_id,
+            ]);
+        });
 
         return response()->json(['message', ResponseMessage::HOUSEWORK_CERATED->value], Response::HTTP_CREATED);
     }
@@ -77,11 +71,13 @@ class HouseworkController extends Controller
      * 家事を更新する。
      *
      * @param  SaveRequest  $request
-     * @return Response
+     * @param  Housework  $housework
+     * @return JsonResponse
      */
-    public function update(SaveRequest $request, Int $id): Response
+    public function update(SaveRequest $request, Housework $housework): JsonResponse
     {
-        $this->service->update($request, $id);
+        $data = $request->all();
+        $housework->fill($data)->save();
 
         return response()->json(['message' => ResponseMessage::HOUSEWORK_UPDATED->value], Response::HTTP_OK);
     }
@@ -89,13 +85,12 @@ class HouseworkController extends Controller
     /**
      * 家事を削除する。
      *
-     * @param  Int  $id
-     * @param  HouseworkService  $houseworkService
-     * @return Response
+     * @param  Housework  $housework
+     * @return JsonResponse
      */
-    public function destroy(Int $id): Response
+    public function destroy(Housework $housework): JsonResponse
     {
-        $this->service->destroy($id);
+        $housework->delete();
 
         return response()->json(['message' => ResponseMessage::HOUSEWORK_DELETED->value], Response::HTTP_OK);
     }

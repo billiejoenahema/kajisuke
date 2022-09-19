@@ -24,7 +24,7 @@ class UpdateTest extends TestCase
             'user_id' => $user->id,
         ]);
 
-        $response = $this->actingAs($user)->patchJson('/api/categories/' . $category->id, [
+        $response = $this->actingAs($user)->patchJson('/api/categories/'.$category->id, [
             'id' => $category->id,
             'name' => '更新したカテゴリ',
         ]);

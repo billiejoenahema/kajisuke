@@ -26,7 +26,7 @@ class LoginTest extends TestCase
 
         $data = [
             'email' => $user->email,
-            'password' => '11111111'
+            'password' => '11111111',
         ];
 
         // 実行

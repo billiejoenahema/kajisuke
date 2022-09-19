@@ -24,6 +24,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $deleted_at
  * @property-read \App\Models\User|null $user
+ *
  * @method static \Database\Factories\ProfileFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Profile newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Profile newQuery()

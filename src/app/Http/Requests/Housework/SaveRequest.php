@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests\Housework;
 
-use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class SaveRequest extends FormRequest
 {
@@ -52,13 +52,14 @@ class SaveRequest extends FormRequest
     }
 
     /**
-     * 次回実施日を先頭から10文字切り出す。
+     * バリーデーションのためにデータを準備
      *
-     * @param date
-     * @return string
+     * @return void
      */
-    public function nextDate($date): string
+    protected function prepareForValidation()
     {
-        return substr($date, 0, 10);
+        $this->merge([
+            'next_date' => substr($this->next_date, 0, 10),
+        ]);
     }
 }

@@ -29,8 +29,8 @@ class UpdateTest extends TestCase
         ]);
 
         // 実行
-        $uri = '/api/archives/' . $archive->id;
-        $response = $this->actingAs($user)->patchJson($uri , [
+        $uri = '/api/archives/'.$archive->id;
+        $response = $this->actingAs($user)->patchJson($uri, [
             'id' => $archive->id,
             'housework_id' => $housework->id,
             'date' => now(),
@@ -40,7 +40,7 @@ class UpdateTest extends TestCase
         ->assertOK();
 
         $this->assertDatabaseHas('archives', [
-            'content' =>'更新されたコンテント'
+            'content' => '更新されたコンテント',
         ]);
     }
 }

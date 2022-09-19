@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Category\SaveRequest;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -32,16 +33,18 @@ class CategoryController extends Controller
      * カテゴリを登録する。
      *
      * @param  SaveRequest  $request
-     * @return CategoryResource
+     * @return JsonResponse
      */
-    public function store(SaveRequest $request)
+    public function store(SaveRequest $request): JsonResponse
     {
-        DB::transaction(function () use ($request) {
+        $data = $request->all();
+        DB::transaction(function () use ($data) {
             Category::create([
                 'user_id' => Auth::user()->id,
-                'name' => $request['name'],
+                'name' => $data['name'],
             ]);
         });
+
         return response()->json(['message', ResponseMessage::CATEGORY_CERATED->value], Response::HTTP_CREATED);
     }
 
@@ -49,28 +52,27 @@ class CategoryController extends Controller
      * カテゴリを更新する。
      *
      * @param  SaveRequest  $request
-     * @return CategoryResource
+     * @param  Category  $category
+     * @return JsonResponse
      */
-    public function update(SaveRequest $request)
+    public function update(SaveRequest $request, Category $category): JsonResponse
     {
-        DB::transaction(function () use ($request) {
-            $category = Category::findOrFail($request['id']);
-
-            $category->name = $request['name'];
-            $category->save();
+        $data = $request->all();
+        DB::transaction(function () use ($data, $category) {
+            $category->fill($data)->save();
         });
+
         return response()->json(['message', ResponseMessage::CATEGORY_UPDATED->value], Response::HTTP_OK);
     }
 
     /**
      * カテゴリを削除する。
      *
-     * @param  Int  $id
-     * @return \Illuminate\Http\Response
+     * @param  Category  $category
+     * @return JsonResponse
      */
-    public function destroy(Int $id)
+    public function destroy(Category $category): JsonResponse
     {
-        $category = Category::findOrFail($id);
         $hasHousework = $category->houseworks->isNotEmpty();
         if ($hasHousework) {
             return response()->json(['message', ResponseMessage::CATEGORY_HAS_HOUSEWORK->value], Response::HTTP_BAD_REQUEST);

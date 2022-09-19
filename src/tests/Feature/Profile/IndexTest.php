@@ -11,6 +11,7 @@ use Tests\TestCase;
 class IndexTest extends TestCase
 {
     use RefreshDatabase;
+
     /**
      * プロフィールを取得できることを確認する。
      *
