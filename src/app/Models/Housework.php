@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read int|null $archives_count
  * @property-read \App\Models\Category|null $category
  * @property-read \App\Models\User|null $user
+ *
  * @method static \Database\Factories\HouseworkFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Housework newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Housework newQuery()
@@ -49,16 +50,19 @@ class Housework extends Model
         'ID' => 1,
         'EVERY_DAY' => '毎日',
     ];
+
     /** 実行周期の単位が週 */
     public const WEEK = [
         'ID' => 2,
         'EVERY_WEEK' => '毎週',
     ];
+
     /** 実行周期の単位が月 */
     public const MONTH = [
         'ID' => 3,
         'EVERY_MONTH' => '毎月',
     ];
+
     /** 実行周期の単位が年 */
     public const YEAR = [
         'ID' => 4,
@@ -108,7 +112,7 @@ class Housework extends Model
      * 家事の表示順に従って家事一覧をソートする。
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @param  mixed $request
+     * @param  mixed  $request
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function sortByOrder($query, $request)
@@ -118,6 +122,7 @@ class Housework extends Model
         }
         $sortValue = $request['column'];
         $sortDirection = $request->toDirection();
+
         return $query->orderBy($sortValue, $sortDirection);
     }
 
@@ -125,7 +130,7 @@ class Housework extends Model
      * 家事の更新日時が新しい順にソートする。
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @param  string|null $order
+     * @param  string|null  $order
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function sortByUpdatedAt($query)
@@ -137,7 +142,7 @@ class Housework extends Model
      * 家事の次回実施日が近い順にソートする。
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @param  string|null $order
+     * @param  string|null  $order
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function sortByNextDate($query)

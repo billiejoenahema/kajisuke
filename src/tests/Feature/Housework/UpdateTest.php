@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\Housework;
 
-use App\Http\Requests\Housework\SaveRequest;
 use App\Models\Category;
 use App\Models\Housework;
 use App\Models\User;
@@ -40,7 +39,7 @@ class UpdateTest extends TestCase
         ];
 
         // 実行
-        $uri = '/api/houseworks/' . $housework->id;
+        $uri = '/api/houseworks/'.$housework->id;
         $response = $this->actingAs($user)->patchJson($uri, $data);
         $response->assertOk();
         $this->assertDatabaseHas('houseworks', [

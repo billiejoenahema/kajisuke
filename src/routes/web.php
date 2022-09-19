@@ -17,4 +17,4 @@ use Illuminate\Support\Facades\Route;
 Route::post('/login', [CookieAuthenticationController::class, 'login']);
 Route::post('/logout', [CookieAuthenticationController::class, 'logout']);
 
-Route::get('/{any?}', fn() => view('index'))->where('any', '.+');
+Route::get('/{any?}', fn () => view('index'))->where('any', '.+');

@@ -44,6 +44,7 @@ class CategoryController extends Controller
                 'name' => $data['name'],
             ]);
         });
+
         return response()->json(['message', ResponseMessage::CATEGORY_CERATED->value], Response::HTTP_CREATED);
     }
 
@@ -60,13 +61,14 @@ class CategoryController extends Controller
         DB::transaction(function () use ($data, $category) {
             $category->fill($data)->save();
         });
+
         return response()->json(['message', ResponseMessage::CATEGORY_UPDATED->value], Response::HTTP_OK);
     }
 
     /**
      * カテゴリを削除する。
      *
-     * @param  Category $category
+     * @param  Category  $category
      * @return JsonResponse
      */
     public function destroy(Category $category): JsonResponse

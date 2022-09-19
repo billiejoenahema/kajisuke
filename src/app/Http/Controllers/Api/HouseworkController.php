@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Enums\ResponseMessage;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Housework\IndexRequest;
 use App\Http\Requests\Housework\SaveRequest;
 use App\Http\Resources\HouseworkResource;
 use App\Models\Housework;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Auth;
-use App\Enums\ResponseMessage;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -34,6 +34,7 @@ class HouseworkController extends Controller
     /**
      * 指定した家事を取得する。
      *
+     * @param  Housework  $housework
      * @return HouseworkResource
      */
     public function show(Housework $housework): HouseworkResource
@@ -46,7 +47,7 @@ class HouseworkController extends Controller
     /**
      * 家事を新規登録する。
      *
-     * @param  SaveRequest $request
+     * @param  SaveRequest  $request
      * @return JsonResponse
      */
     public function store(SaveRequest $request): JsonResponse

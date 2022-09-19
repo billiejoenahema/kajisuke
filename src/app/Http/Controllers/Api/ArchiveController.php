@@ -43,6 +43,7 @@ class ArchiveController extends Controller
             ]);
             $houseworkService->updateNextDate($archive);
         });
+
         return response()->json(['message', ResponseMessage::ARCHIVE_CERATED->value], Response::HTTP_CREATED);
     }
 
@@ -59,6 +60,7 @@ class ArchiveController extends Controller
         DB::transaction(function () use ($data, $archive) {
             $archive->fill($data)->save();
         });
+
         return response()->json(['message', ResponseMessage::ARCHIVE_UPDATED->value], Response::HTTP_OK);
     }
 
@@ -71,6 +73,7 @@ class ArchiveController extends Controller
     public function destroy(Archive $archive): JsonResponse
     {
         $archive->delete();
+
         return response()->json(['message', ResponseMessage::ARCHIVE_DELETED->value], Response::HTTP_NO_CONTENT);
     }
 }

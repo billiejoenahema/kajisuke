@@ -25,7 +25,7 @@ class DeleteTest extends TestCase
         ]);
 
         // 実行
-        $response = $this->actingAs($user)->deleteJson('/api/categories/' . $category->id);
+        $response = $this->actingAs($user)->deleteJson('/api/categories/'.$category->id);
         $response->assertStatus(200);
         $this->assertDatabaseCount('categories', 0);
     }

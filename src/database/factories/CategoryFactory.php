@@ -18,7 +18,7 @@ class CategoryFactory extends Factory
     {
         return [
             'user_id' => 1,
-            'name' => 'カテゴリ' . rand(1, 99),
+            'name' => 'カテゴリ'.rand(1, 99),
         ];
     }
 }

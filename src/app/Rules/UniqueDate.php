@@ -14,7 +14,7 @@ class UniqueDate implements Rule
      *
      * @return void
      */
-    public function __construct(Int $housework_id)
+    public function __construct(int $housework_id)
     {
         $this->housework_id = $housework_id;
     }
@@ -29,6 +29,7 @@ class UniqueDate implements Rule
     public function passes($attribute, $value)
     {
         $date = substr($value, 0, 10);
+
         return Archive::where('housework_id', $this->housework_id)->where('date', $date)->doesntExist();
     }
 

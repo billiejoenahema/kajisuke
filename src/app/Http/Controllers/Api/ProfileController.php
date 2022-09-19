@@ -40,6 +40,7 @@ class ProfileController extends Controller
             $profile = Profile::where('user_id', $user->id)->first();
             $profile->update($data);
         });
+
         return response()->json(['message' => ResponseMessage::PROFILE_UPDATED->value], Response::HTTP_OK);
     }
 
@@ -67,6 +68,7 @@ class ProfileController extends Controller
             $profile->image = $path;
             $profile->save();
         });
+
         return response()->json(['message' => ResponseMessage::PROFILE_UPDATED->value], Response::HTTP_OK);
     }
 }
