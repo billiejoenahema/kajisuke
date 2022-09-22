@@ -44,14 +44,14 @@ class SaveRequest extends FormRequest
     }
 
     /**
-     * 有効な実施日を返す。
+     * バリーデーションのためにデータを準備
      *
-     * @return array
+     * @return void
      */
-    public function convertDate()
+    protected function prepareForValidation()
     {
-        $date = $this->input('date');
-
-        return substr($date, 0, 10);
+        $this->merge([
+            'date' => substr($this->date, 0, 10),
+        ]);
     }
 }

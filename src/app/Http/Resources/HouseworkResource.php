@@ -40,10 +40,10 @@ class HouseworkResource extends JsonResource
     public static function getCycleValue($cycle_num, $cycle_unit): string
     {
         return  match ($cycle_unit) {
-            1 => $cycle_num == 1 ? Housework::DAY['EVERY_DAY'] : $cycle_num . '日に一度',
-            2 => $cycle_num == 1 ? Housework::WEEK['EVERY_WEEK'] : $cycle_num . '週に一度',
-            3 => $cycle_num == 1 ? Housework::MONTH['EVERY_MONTH'] : $cycle_num . 'ヶ月に一度',
-            4 => $cycle_num == 1 ? Housework::YEAR['EVERY_YEAR'] : $cycle_num . '年に一度',
+            1 => $cycle_num == 1 ? Housework::DAY['EVERY_DAY'] : $cycle_num.'日に一度',
+            2 => $cycle_num == 1 ? Housework::WEEK['EVERY_WEEK'] : $cycle_num.'週に一度',
+            3 => $cycle_num == 1 ? Housework::MONTH['EVERY_MONTH'] : $cycle_num.'ヶ月に一度',
+            4 => $cycle_num == 1 ? Housework::YEAR['EVERY_YEAR'] : $cycle_num.'年に一度',
             default => '不明',
         };
     }

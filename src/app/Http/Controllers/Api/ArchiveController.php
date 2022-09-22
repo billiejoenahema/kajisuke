@@ -35,12 +35,9 @@ class ArchiveController extends Controller
      */
     public function store(SaveRequest $request, HouseworkService $houseworkService): JsonResponse
     {
-        DB::transaction(function () use ($request, $houseworkService) {
-            $archive = Archive::create([
-                'housework_id' => $request['housework_id'],
-                'date' => $request->convertDate(),
-                'content' => $request['content'],
-            ]);
+        $data = $request->all();
+        DB::transaction(function () use ($data, $houseworkService) {
+            $archive = Archive::create($data);
             $houseworkService->updateNextDate($archive);
         });
 

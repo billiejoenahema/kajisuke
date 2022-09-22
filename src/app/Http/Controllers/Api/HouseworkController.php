@@ -52,16 +52,10 @@ class HouseworkController extends Controller
      */
     public function store(SaveRequest $request): JsonResponse
     {
-        DB::transaction(function () use ($request) {
-            Housework::create([
-                'user_id' => Auth::user()->id,
-                'title' => $request['title'],
-                'comment' => $request['comment'],
-                'cycle_num' => $request['cycle_num'],
-                'cycle_unit' => $request['cycle_unit'],
-                'next_date' => $request['next_date'],
-                'category_id' => $request->category_id,
-            ]);
+        $data = $request->all();
+        $data['user_id'] = Auth::user()->id;
+        DB::transaction(function () use ($data) {
+            Housework::create($data);
         });
 
         return response()->json(['message', ResponseMessage::HOUSEWORK_CERATED->value], Response::HTTP_CREATED);

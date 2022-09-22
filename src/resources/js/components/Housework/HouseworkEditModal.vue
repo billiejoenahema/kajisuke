@@ -3,7 +3,6 @@ import Datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 import { computed, onUnmounted, ref } from 'vue';
 import { useStore } from 'vuex';
-import { CYCLE_UNIT } from '../../consts/cycle_unit';
 import { ONE_MONTH } from '../../consts/oneMonthDateList';
 import CharacterCounter from '../CharacterCounter';
 import InvalidFeedback from '../InvalidFeedback';
@@ -27,6 +26,9 @@ const onEditable = (index) => {
 const setIsLoading = (bool) => store.commit('loading/setIsLoading', bool);
 const housework = computed(() => store.getters['housework/item']);
 const categories = computed(() => store.getters['category/data']);
+const cycleUnitFormOptions = computed(
+  () => store.getters['consts/cycleUnitFormOptions']
+);
 const maxLength = computed(() => store.getters['consts/maxLength']);
 const hasErrors = computed(() => store.getters['housework/hasErrors']);
 const invalidFeedback = computed(
@@ -102,11 +104,11 @@ const deleteArchive = async (id) => {
           </select>
           <select v-model="housework.cycle_unit">
             <option
-              v-for="item in CYCLE_UNIT"
-              :value="item.cycle_unit_id"
-              :selected="item.cycle_unit_id == housework.cycle_unit"
+              v-for="item in cycleUnitFormOptions"
+              :value="item.id"
+              :selected="item.id == housework.cycle_unit"
             >
-              {{ item.content }}
+              {{ item.name }}
             </option>
           </select>
           <span> に一度</span>
