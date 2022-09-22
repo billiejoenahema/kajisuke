@@ -4,7 +4,6 @@ import '@vuepic/vue-datepicker/dist/main.css';
 import { computed, onMounted, reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
-import { CYCLE_UNIT } from '../../consts/cycle_unit';
 import { ONE_MONTH } from '../../consts/oneMonthDateList';
 import CharacterCounter from '../CharacterCounter';
 import InvalidFeedback from '../InvalidFeedback';
@@ -15,6 +14,9 @@ const store = useStore();
 const props = defineProps({
   closeModal: Function,
 });
+const cycleUnitFormOptions = computed(
+  () => store.getters['consts/cycleUnitFormOptions']
+);
 const maxLength = computed(() => store.getters['consts/maxLength']);
 const categories = computed(() => store.getters['category/data']);
 const housework = reactive({
@@ -110,8 +112,8 @@ const resetHousework = () => {
             </option>
           </select>
           <select v-model="housework.cycle_unit">
-            <option v-for="item in CYCLE_UNIT" :value="item.cycle_unit_id">
-              {{ item.content }}
+            <option v-for="item in cycleUnitFormOptions" :value="item.id">
+              {{ item.name }}
             </option>
           </select>
           <span> に一度</span>

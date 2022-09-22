@@ -39,6 +39,9 @@ const getters = {
   maxLength: (state) => (key) => {
     return state.data.MAX_LENGTHS[key] ?? 0;
   },
+  cycleUnitFormOptions(state) {
+    return state.data.CYCLE_UNIT ?? [];
+  },
 };
 
 const actions = {
