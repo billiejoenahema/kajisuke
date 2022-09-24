@@ -38,11 +38,9 @@ class CategoryController extends Controller
     public function store(SaveRequest $request): JsonResponse
     {
         $data = $request->all();
+        $data['user_id'] = Auth::user()->id;
         DB::transaction(function () use ($data) {
-            Category::create([
-                'user_id' => Auth::user()->id,
-                'name' => $data['name'],
-            ]);
+            Category::create($data);
         });
 
         return response()->json(['message', ResponseMessage::CATEGORY_CERATED->value], Response::HTTP_CREATED);
@@ -73,8 +71,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category): JsonResponse
     {
-        $hasHousework = $category->houseworks->isNotEmpty();
-        if ($hasHousework) {
+        // カテゴリに紐づく家事が存在する場合は削除しない
+        if ($category->houseworks->isNotEmpty()) {
             return response()->json(['message', ResponseMessage::CATEGORY_HAS_HOUSEWORK->value], Response::HTTP_BAD_REQUEST);
         }
         $category->delete();

@@ -50,9 +50,9 @@ const actions = {
     if (getters.isLogin) return;
     await dispatch('get');
   },
-  async update({ commit }, data) {
+  async update({ commit }, profileId, data) {
     await axios
-      .patch('/api/profiles', data)
+      .patch(`/api/profiles/${profileId}`, data)
       .then((res) => {
         commit('setErrors', {});
         commit(

@@ -22,7 +22,7 @@ class UpdateTest extends TestCase
     {
         /** @var \Illuminate\Contracts\Auth\Authenticatable $user */
         $user = User::factory()->create();
-        Profile::factory()->create(['user_id' => $user->id]);
+        $profile = Profile::factory()->create(['user_id' => $user->id]);
         $data = [
             'user_id' => $user->id,
             'image' => 'updated_image.jpg',
@@ -39,7 +39,7 @@ class UpdateTest extends TestCase
         ];
 
         // 実行
-        $response = $this->actingAs($user)->patchJson('api/profiles', $data);
+        $response = $this->actingAs($user)->patchJson("api/profiles/{$profile->id}", $data);
         $response->assertStatus(Response::HTTP_OK);
         $this->assertDatabaseHas('profiles', $data);
     }

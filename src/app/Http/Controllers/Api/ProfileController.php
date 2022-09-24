@@ -30,15 +30,14 @@ class ProfileController extends Controller
      * 自身のプロフィールを更新する
      *
      * @param  SaveRequest  $request
+     * @param  Profile  $profile
      * @return Response
      */
-    public function update(SaveRequest $request): Response
+    public function update(SaveRequest $request, Profile $profile): Response
     {
         $data = $request->all();
-        DB::transaction(function () use ($data) {
-            $user = Auth::user();
-            $profile = Profile::where('user_id', $user->id)->first();
-            $profile->update($data);
+        DB::transaction(function () use ($profile, $data) {
+            $profile->fill($data)->save();
         });
 
         return response()->json(['message' => ResponseMessage::PROFILE_UPDATED->value], Response::HTTP_OK);
