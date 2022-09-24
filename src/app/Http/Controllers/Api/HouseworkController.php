@@ -22,11 +22,12 @@ class HouseworkController extends Controller
      * @param  IndexRequest  $request
      * @return AnonymousResourceCollection
      */
-    public function index(IndexRequest $request, Housework $housework): AnonymousResourceCollection
+    public function index(IndexRequest $request): AnonymousResourceCollection
     {
         $user = Auth::user();
-        $query = Housework::with(['archives', 'category'])->where('user_id', $user->id);
-        $houseworks = $housework->sortByOrder($query, $request)->get();
+        $query = Housework::query()->with(['archives', 'category']);
+        $query->where('user_id', $user->id);
+        $houseworks = $query->sortByOrder($query, $request)->get();
 
         return HouseworkResource::collection($houseworks);
     }
@@ -71,7 +72,9 @@ class HouseworkController extends Controller
     public function update(SaveRequest $request, Housework $housework): JsonResponse
     {
         $data = $request->all();
-        $housework->fill($data)->save();
+        DB::transaction(function () use ($housework, $data) {
+            $housework->fill($data)->save();
+        });
 
         return response()->json(['message' => ResponseMessage::HOUSEWORK_UPDATED->value], Response::HTTP_OK);
     }

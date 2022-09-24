@@ -25,7 +25,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/auth_user', UserController::class);
     // ユーザー情報
     Route::get('/profiles', [ProfileController::class, 'index']);
-    Route::patch('/profiles', [ProfileController::class, 'update']);
+    Route::patch('/profiles/{profile}', [ProfileController::class, 'update']);
     Route::post('/profile_image', [ProfileController::class, 'updateImage']);
 
     // 定数
