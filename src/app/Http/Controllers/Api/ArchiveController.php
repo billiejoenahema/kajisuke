@@ -41,7 +41,7 @@ class ArchiveController extends Controller
             $houseworkService->updateNextDate($archive);
         });
 
-        return response()->json(['message', ResponseMessage::ARCHIVE_CERATED->value], Response::HTTP_CREATED);
+        return response()->json(['message' => ResponseMessage::ARCHIVE_CERATED->value], Response::HTTP_CREATED);
     }
 
     /**
@@ -58,7 +58,7 @@ class ArchiveController extends Controller
             $archive->fill($data)->save();
         });
 
-        return response()->json(['message', ResponseMessage::ARCHIVE_UPDATED->value], Response::HTTP_OK);
+        return response()->json(['message' => ResponseMessage::ARCHIVE_UPDATED->value], Response::HTTP_OK);
     }
 
     /**
@@ -71,6 +71,6 @@ class ArchiveController extends Controller
     {
         $archive->delete();
 
-        return response()->json(['message', ResponseMessage::ARCHIVE_DELETED->value], Response::HTTP_NO_CONTENT);
+        return response()->json(['message' => ResponseMessage::ARCHIVE_DELETED->value], Response::HTTP_NO_CONTENT);
     }
 }

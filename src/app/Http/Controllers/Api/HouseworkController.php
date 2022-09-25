@@ -25,9 +25,10 @@ class HouseworkController extends Controller
     public function index(IndexRequest $request): AnonymousResourceCollection
     {
         $user = Auth::user();
-        $query = Housework::query()->with(['archives', 'category']);
+        $housework = new Housework;
+        $query = Housework::with(['archives', 'category']);
         $query->where('user_id', $user->id);
-        $houseworks = $query->sortByOrder($query, $request)->get();
+        $houseworks = $housework->sortByOrder($query, $request)->get();
 
         return HouseworkResource::collection($houseworks);
     }
@@ -59,7 +60,7 @@ class HouseworkController extends Controller
             Housework::create($data);
         });
 
-        return response()->json(['message', ResponseMessage::HOUSEWORK_CERATED->value], Response::HTTP_CREATED);
+        return response()->json(['message' => ResponseMessage::HOUSEWORK_CERATED->value], Response::HTTP_CREATED);
     }
 
     /**
