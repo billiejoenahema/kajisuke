@@ -43,7 +43,7 @@ class CategoryController extends Controller
             Category::create($data);
         });
 
-        return response()->json(['message', ResponseMessage::CATEGORY_CERATED->value], Response::HTTP_CREATED);
+        return response()->json(['message' => ResponseMessage::CATEGORY_CERATED->value], Response::HTTP_CREATED);
     }
 
     /**
@@ -60,7 +60,7 @@ class CategoryController extends Controller
             $category->fill($data)->save();
         });
 
-        return response()->json(['message', ResponseMessage::CATEGORY_UPDATED->value], Response::HTTP_OK);
+        return response()->json(['message' => ResponseMessage::CATEGORY_UPDATED->value], Response::HTTP_OK);
     }
 
     /**
@@ -73,10 +73,10 @@ class CategoryController extends Controller
     {
         // カテゴリに紐づく家事が存在する場合は削除しない
         if ($category->houseworks->isNotEmpty()) {
-            return response()->json(['message', ResponseMessage::CATEGORY_HAS_HOUSEWORK->value], Response::HTTP_BAD_REQUEST);
+            return response()->json(['message' => ResponseMessage::CATEGORY_HAS_HOUSEWORK->value], Response::HTTP_BAD_REQUEST);
         }
         $category->delete();
 
-        return response()->json(['message', ResponseMessage::CATEGORY_DELETED->value], Response::HTTP_OK);
+        return response()->json(['message' => ResponseMessage::CATEGORY_DELETED->value], Response::HTTP_OK);
     }
 }
