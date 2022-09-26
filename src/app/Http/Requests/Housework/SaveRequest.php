@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Housework;
 
+use App\Enums\CycleUnit;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -28,8 +29,8 @@ class SaveRequest extends FormRequest
             'category_id' => ['required', 'integer', Rule::notIn(['0']), 'exists:categories,id'],
             'title' => 'required|string|max:30',
             'comment' => 'required|string|max:200',
-            'cycle_num' => 'required|integer',
-            'cycle_unit' => 'required|integer',
+            'cycle_num' => 'required|integer|between:1,31',
+            'cycle_unit' => ['required', 'integer', Rule::in(CycleUnit::values())],
             'next_date' => 'required|string',
         ];
     }

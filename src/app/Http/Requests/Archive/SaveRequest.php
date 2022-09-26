@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests\Archive;
 
-use App\Rules\UniqueDate;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class SaveRequest extends FormRequest
 {
@@ -25,7 +25,7 @@ class SaveRequest extends FormRequest
     public function rules()
     {
         return [
-            'date' => ['required', 'date', new UniqueDate($this->housework_id)],
+            'date' => ['required', 'date', Rule::unique('archives')->ignore($this->housework_id)],
             'content' => 'required|string|max:200',
         ];
     }
