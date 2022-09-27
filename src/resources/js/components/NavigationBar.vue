@@ -43,18 +43,15 @@ const setModalOpen = (prop) => {
 const closeModal = () => {
   modalOpen.value = '';
 };
-const toggleUserMenuDisplay = (prop = null) => {
-  if (prop === null) {
-    isShowUserMenu.value = !isShowUserMenu.value;
-  } else {
-    isShowUserMenu.value = prop;
-  }
+const moveToProfile = () => {
+  isShowUserMenu.value = false;
+  router.push('/profile');
 };
 </script>
 
 <template>
   <Loading :active="isLoading" color="#FFF" opacity="0.1" />
-  <div @mouseleave="toggleUserMenuDisplay(false)">
+  <div>
     <nav class="nav">
       <a href="#" @click.prevent="toHome()">Home</a>
       <a href="#" @click.prevent="setModalOpen('houseworkCreate')">Create HW</a>
@@ -64,16 +61,24 @@ const toggleUserMenuDisplay = (prop = null) => {
       <a
         class="nav-item-user"
         href="#"
-        @click.prevent="toggleUserMenuDisplay()"
+        @click.prevent="isShowUserMenu = true"
         >{{ user.name }}</a
       >
-      <div class="user-menu" v-if="isShowUserMenu">
-        <div class="user-menu-item">Menu</div>
-        <router-link class="user-menu-item" to="/profile">Profile</router-link>
-        <div class="user-menu-item">Settings</div>
-        <div class="user-menu-item">Other</div>
-        <div class="user-menu-item logout" @click="logout()">Logout</div>
-      </div>
+      <teleport to="body">
+        <div
+          class="user-menu-back-drop"
+          v-if="isShowUserMenu"
+          @click.self="isShowUserMenu = false"
+        >
+          <div class="user-menu">
+            <div class="user-menu-item">Menu</div>
+            <div class="user-menu-item" @click="moveToProfile()">Profile</div>
+            <div class="user-menu-item">Settings</div>
+            <div class="user-menu-item">Other</div>
+            <div class="user-menu-item logout" @click="logout()">Logout</div>
+          </div>
+        </div>
+      </teleport>
     </nav>
   </div>
   <HouseworkCreateModal
