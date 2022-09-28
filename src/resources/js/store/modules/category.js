@@ -60,7 +60,12 @@ const actions = {
         );
       })
       .catch((err) => {
-        commit('setErrors', err.response.data.errors);
+        let errors = {};
+        Object.entries(err.response.data.errors).forEach(([k, v]) => {
+          errors[`${k}_${data.index}`] = v;
+        });
+        console.log(errors);
+        commit('setErrors', errors);
       });
   },
   async delete({ commit }, id) {

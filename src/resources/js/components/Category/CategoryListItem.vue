@@ -2,6 +2,7 @@
 import { computed, reactive, ref, watchEffect } from 'vue';
 import { useStore } from 'vuex';
 import { useDebounce } from '../../utilities/useDebounce';
+import InvalidFeedback from '../InvalidFeedback.vue';
 
 const store = useStore();
 
@@ -11,12 +12,21 @@ const props = defineProps({
     name: '',
     houseworks: [],
   },
+  index: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
 });
 const category = reactive({
   id: props.category.id,
   name: props.category.name,
   houseworks: props.category.houseworks,
 });
+const hasErrors = computed(() => store.getters['category/hasErrors']);
+const invalidFeedback = computed(
+  () => store.getters['category/invalidFeedback']
+);
 const maxLength = computed(() => store.getters['consts/maxLength']);
 const isShowTooltip = ref(false);
 const showTrashIcon = ref(false);
@@ -33,7 +43,14 @@ const updateCategoryName = async () => {
     await store.dispatch('category/update', {
       id: category.id,
       name: category.name,
+      index: props.index,
     });
+    if (hasErrors.value) {
+      setTimeout(() => {
+        category.name = props.category.name;
+      }, 3000);
+      return;
+    }
     store.dispatch('category/get');
   } else {
     category.name = props.category.name;
@@ -93,6 +110,9 @@ const deleteCategoryItem = async () => {
       @keyup="onChange()"
       @keyup.enter.prevent="onEnter()"
     />
+    <InvalidFeedback
+      :errors="invalidFeedback('name_' + index)"
+    ></InvalidFeedback>
     <div
       class="trash-icon-wrapper"
       v-if="showTrashIcon"

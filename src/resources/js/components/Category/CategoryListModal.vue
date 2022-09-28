@@ -42,9 +42,10 @@ const storeCategory = async () => {
       <div>カテゴリ</div>
       <ul class="category-list" id="category-list">
         <CategoryListItem
-          v-for="category in categories"
+          v-for="(category, index) in categories"
           :key="category.id"
           :category="category"
+          :index="index"
         ></CategoryListItem>
       </ul>
       <input
