@@ -45,6 +45,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Profile whereZipcode1($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Profile whereZipcode2($value)
  * @mixin \Eloquent
+ * @property string|null $image プロフィール画像
+ * @method static \Illuminate\Database\Eloquent\Builder|Profile whereImage($value)
  */
 class Profile extends Model
 {
