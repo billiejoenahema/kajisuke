@@ -96,7 +96,7 @@ class Housework extends Model
      */
     public function archives()
     {
-        return $this->hasMany(Archive::class);
+        return $this->hasMany(Archive::class)->orderBy('date', 'desc');
     }
 
     /**

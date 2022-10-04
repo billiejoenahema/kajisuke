@@ -26,7 +26,7 @@ class HouseworkResource extends JsonResource
             'cycle_unit' => $this->cycle_unit,
             'cycle_value' => self::getCycleValue($this->cycle_num, $this->cycle_unit),
             'next_date' => $this->next_date,
-            'archives' => ArchiveResource::collection($this->archives)->sortByDesc('date')->values()->all(),
+            'archives' => ArchiveResource::collection($this->whenLoaded('archives')),
             'date_diff' => self::getDateDiff($this->next_date),
         ];
     }
