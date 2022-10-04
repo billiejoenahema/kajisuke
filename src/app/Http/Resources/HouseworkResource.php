@@ -15,6 +15,7 @@ class HouseworkResource extends JsonResource
      */
     public function toArray($request)
     {
+        /** @var \App\Models\Housework $this */
         return [
             'id' => $this->id,
             'title' => $this->title,
@@ -23,10 +24,10 @@ class HouseworkResource extends JsonResource
             'category_id' => $this->category['id'],
             'cycle_num' => $this->cycle_num,
             'cycle_unit' => $this->cycle_unit,
-            'cycle_value' => $this->getCycleValue($this->cycle_num, $this->cycle_unit),
+            'cycle_value' => self::getCycleValue($this->cycle_num, $this->cycle_unit),
             'next_date' => $this->next_date,
             'archives' => ArchiveResource::collection($this->archives)->sortByDesc('date')->values()->all(),
-            'date_diff' => $this->getDateDiff($this->next_date),
+            'date_diff' => self::getDateDiff($this->next_date),
         ];
     }
 
@@ -40,10 +41,10 @@ class HouseworkResource extends JsonResource
     public static function getCycleValue($cycle_num, $cycle_unit): string
     {
         return  match ($cycle_unit) {
-            1 => $cycle_num == 1 ? Housework::DAY['EVERY_DAY'] : $cycle_num.'日に一度',
-            2 => $cycle_num == 1 ? Housework::WEEK['EVERY_WEEK'] : $cycle_num.'週に一度',
-            3 => $cycle_num == 1 ? Housework::MONTH['EVERY_MONTH'] : $cycle_num.'ヶ月に一度',
-            4 => $cycle_num == 1 ? Housework::YEAR['EVERY_YEAR'] : $cycle_num.'年に一度',
+            1 => $cycle_num == 1 ? Housework::DAY['EVERY_DAY'] : $cycle_num . '日に一度',
+            2 => $cycle_num == 1 ? Housework::WEEK['EVERY_WEEK'] : $cycle_num . '週に一度',
+            3 => $cycle_num == 1 ? Housework::MONTH['EVERY_MONTH'] : $cycle_num . 'ヶ月に一度',
+            4 => $cycle_num == 1 ? Housework::YEAR['EVERY_YEAR'] : $cycle_num . '年に一度',
             default => '不明',
         };
     }
