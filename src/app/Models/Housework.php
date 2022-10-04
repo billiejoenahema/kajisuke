@@ -23,7 +23,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read int|null $archives_count
  * @property-read \App\Models\Category|null $category
  * @property-read \App\Models\User|null $user
- *
  * @method static \Database\Factories\HouseworkFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Housework newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Housework newQuery()
