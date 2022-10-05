@@ -71,7 +71,7 @@ class Housework extends Model
     /**
      * 複数代入可能な属性
      *
-     * @var array
+     * @var array<string>
      */
     protected $fillable = [
         'user_id',
@@ -129,7 +129,6 @@ class Housework extends Model
      * 家事の更新日時が新しい順にソートする。
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @param  string|null  $order
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function sortByUpdatedAt($query)
@@ -141,7 +140,6 @@ class Housework extends Model
      * 家事の次回実施日が近い順にソートする。
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @param  string|null  $order
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function sortByNextDate($query)

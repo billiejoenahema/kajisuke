@@ -36,7 +36,7 @@ class Archive extends Model
     /**
      * 複数代入可能な属性
      *
-     * @var array
+     * @var array<string>
      */
     protected $fillable = [
         'housework_id',
