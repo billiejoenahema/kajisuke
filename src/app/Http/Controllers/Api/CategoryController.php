@@ -18,7 +18,7 @@ class CategoryController extends Controller
     /**
      * カテゴリ一覧を取得する。
      *
-     * @return CategoryResource
+     * @return AnonymousResourceCollection
      */
     public function index(): AnonymousResourceCollection
     {

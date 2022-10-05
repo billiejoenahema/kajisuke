@@ -32,9 +32,9 @@ class IndexRequest extends FormRequest
     /**
      * ソートの方向を取得する
      *
-     * @return array
+     * @return string
      */
-    public function toDirection()
+    public function toDirection(): string
     {
         return $this->is_ascending === 'true' ? 'asc' : 'desc';
     }
