@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted, reactive, ref } from 'vue';
+import { computed, onMounted, onUnmounted, reactive, ref } from 'vue';
 import { useStore } from 'vuex';
 import InvalidFeedback from '../components/InvalidFeedback.vue';
 import NavigationBar from '../components/NavigationBar';
@@ -58,8 +58,8 @@ onMounted(async () => {
 const closeModal = () => {
   isShowModal.value = false;
 };
-const inputFileUrl = () => {
-  return URL.createObjectURL(inputFile.value) ?? '';
+const inputFileUrl = (file) => {
+  return URL.createObjectURL(file) ?? '';
 };
 const returnFileSize = (number) => {
   if (number < 1024) {
@@ -71,6 +71,7 @@ const returnFileSize = (number) => {
   }
 };
 const onChangeInputFile = () => {
+  inputFile.value = null;
   inputFile.value = inputRef.value.files[0];
 };
 const updateProfileImage = async () => {
@@ -96,6 +97,11 @@ const submit = async () => {
   await store.dispatch('user/update', user.profile);
   setIsLoading(false);
 };
+onUnmounted(() => {
+  // https://developer.mozilla.org/ja/docs/Web/API/URL/createObjectURL
+  // オブジェクトURLを明示的にメモリから開放する
+  URL.revokeObjectURL(inputFileUrl);
+});
 </script>
 
 <template>
@@ -112,11 +118,12 @@ const submit = async () => {
         type="file"
         name="file"
         ref="inputRef"
-        @change="onChangeInputFile"
+        accept=".jpg, .jpeg, .png, .svg"
+        @change="onChangeInputFile()"
       />
       <template v-if="inputFile">
         <div class="input-file">
-          <img :src="inputFileUrl()" height="80" />
+          <img :src="inputFileUrl(inputFile)" height="80" />
           <p>name: {{ inputFile.name }}</p>
           <p>size: {{ returnFileSize(inputFile.size) }}</p>
         </div>
