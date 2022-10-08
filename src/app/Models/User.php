@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -76,24 +78,30 @@ class User extends Authenticatable
 
     /**
      * 所有するプロフィールを取得する。
+     *
+     * @return HasOne
      */
-    public function profile()
+    public function profile(): HasOne
     {
         return $this->hasOne(Profile::class);
     }
 
     /**
      * 所有する家事を取得する。
+     *
+     * @return HasMany
      */
-    public function houseworks()
+    public function houseworks(): HasMany
     {
         return $this->hasMany(Housework::class);
     }
 
     /**
      * 所有するカテゴリを取得する。
+     *
+     * @return HasMany
      */
-    public function categories()
+    public function categories(): HasMany
     {
         return $this->hasMany(Category::class);
     }
