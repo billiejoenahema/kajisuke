@@ -1,6 +1,7 @@
 <script setup>
 import { computed, onMounted, onUnmounted, reactive, ref } from 'vue';
 import { useStore } from 'vuex';
+import YubinBango from 'yubinbango-core2';
 import InvalidFeedback from '../components/InvalidFeedback.vue';
 import NavigationBar from '../components/NavigationBar';
 import ToastMessage from '../components/ToastMessage';
@@ -96,6 +97,15 @@ const submit = async () => {
   setIsLoading(true);
   await store.dispatch('user/update', user.profile);
   setIsLoading(false);
+};
+// 住所の自動入力
+const setAddress = () => {
+  const zipcode = `${user.profile.zipcode1}${user.profile.zipcode2}`;
+  new YubinBango.Core(zipcode, (address) => {
+    user.profile.prefecture = address.region_id; // Number
+    user.profile.city = address.locality; // String
+    user.profile.street_address = address.street; // String
+  });
 };
 onUnmounted(() => {
   // https://developer.mozilla.org/ja/docs/Web/API/URL/createObjectURL
@@ -259,12 +269,14 @@ onUnmounted(() => {
             class="zipcode1-input"
             v-model="user.profile.zipcode1"
             maxlength="3"
+            @change="setAddress()"
           />
           <span>-</span>
           <input
             class="zipcode2-input"
             v-model="user.profile.zipcode2"
             maxlength="4"
+            @change="setAddress()"
           />
         </div>
       </div>
