@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * App\Models\Archive
@@ -46,8 +47,10 @@ class Archive extends Model
 
     /**
      * 紐づく家事を取得する。
+     *
+     * @return BelongsTo
      */
-    public function housework()
+    public function housework(): BelongsTo
     {
         return $this->belongsTo(Housework::class);
     }
