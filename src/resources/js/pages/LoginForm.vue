@@ -3,6 +3,7 @@ import { computed, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 import InvalidFeedback from '../components/InvalidFeedback';
+import ToastMessage from '../components/ToastMessage';
 
 const router = useRouter();
 const store = useStore();
@@ -23,6 +24,7 @@ const login = async () => {
 </script>
 
 <template>
+  <ToastMessage />
   <form class="column login-form">
     <div class="login-title">Login Form</div>
     <p class="column">
