@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Exception;
 use Illuminate\Contracts\Auth\Factory as Auth;
-use Illuminate\Contracts\Auth\StatefulGuard;
+use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -57,9 +57,9 @@ class CookieAuthenticationController extends Controller
     }
 
     /**
-     * @return StatefulGuard
+     * @return Guard
      */
-    private function getGuard(): StatefulGuard
+    private function getGuard(): Guard
     {
         return $this->auth->guard(config('auth.defaults.guard'));
     }
