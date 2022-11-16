@@ -24,7 +24,7 @@ class IndexTest extends TestCase
         $category = Category::factory()->create([
             'user_id' => $user->id,
         ]);
-        $housework = Housework::factory()->create([
+        $houseworks = Housework::factory(3)->create([
             'user_id' => $user->id,
             'category_id' => $category->id,
         ]);
@@ -32,12 +32,10 @@ class IndexTest extends TestCase
         // 実行
         $response = $this->actingAs($user)->getJson('/api/houseworks');
         $response
-        ->assertOK()
-        ->assertJsonCount(1)
-        ->assertJsonFragment([
-            'title' => $housework->title,
-        ]);
-
-        $this->assertDatabaseCount('houseworks', 1);
+            ->assertOK()
+            ->assertJsonCount(3, 'data')
+            ->assertJsonFragment([
+                'title' => $houseworks[0]->title,
+            ]);
     }
 }
