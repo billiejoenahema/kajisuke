@@ -92,4 +92,18 @@ class HouseworkController extends Controller
 
         return response()->json(['message' => ResponseMessage::HOUSEWORK_DELETED->value], Response::HTTP_OK);
     }
+
+
+    /**
+     * 紐づくユーザーの名前だけを取得する。
+     *
+     * @param  Housework  $housework
+     * @return JsonResponse
+     */
+    public function name(Housework $housework): JsonResponse
+    {
+        $housework->load('user');
+
+        return response()->json(['user_name' => $housework->user->name]);
+    }
 }
