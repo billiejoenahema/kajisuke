@@ -14,18 +14,14 @@ const isLoading = computed(() => store.getters['loading/isLoading']);
 const setIsLoading = (bool) => store.commit('loading/setIsLoading', bool);
 onMounted(async () => {
   await store.dispatch('user/getIfNeeded');
-  if (!isLogin.value) {
-    router.push('/login');
-  } else {
-    setIsLoading(true);
-    await store.dispatch('housework/getIfNeeded');
-    setIsLoading(false);
-    store.dispatch('consts/getIfNeeded');
-    store.dispatch('category/getIfNeeded');
-  }
+
+  setIsLoading(true);
+  await store.dispatch('housework/getIfNeeded');
+  setIsLoading(false);
+  store.dispatch('consts/getIfNeeded');
+  store.dispatch('category/getIfNeeded');
 });
 const modalOpen = ref('');
-const isLogin = computed(() => store.getters['user/isLogin']);
 const isShowUserMenu = ref(false);
 const logout = () => {
   if (confirm('ログアウトしますか？')) {
