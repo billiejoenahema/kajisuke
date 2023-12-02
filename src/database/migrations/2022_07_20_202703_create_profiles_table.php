@@ -28,7 +28,7 @@ return new class extends Migration
             $table->string('city')->comment('市町村')->nullable();
             $table->string('street_address')->comment('町丁目以下')->nullable();
 
-            $table->timestamps();
+            $table->datetimes();
             $table->softDeletes();
         });
     }

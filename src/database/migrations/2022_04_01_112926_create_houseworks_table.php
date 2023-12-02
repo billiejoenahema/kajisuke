@@ -19,11 +19,11 @@ return new class extends Migration
             $table->unsignedBigInteger('category_id')->comment('カテゴリ')->index();
 
             $table->string('title')->comment('タイトル');
-            $table->string('comment')->comment('コメント');
+            $table->string('comment')->comment('コメント')->nullable();
             $table->integer('cycle_num')->comment('実行周期数値');
             $table->integer('cycle_unit')->comment('実行周期単位');
             $table->date('next_date')->comment('次回実施日');
-            $table->timestamps();
+            $table->datetimes();
             $table->softDeletes();
         });
     }

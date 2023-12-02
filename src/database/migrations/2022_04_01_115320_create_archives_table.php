@@ -19,7 +19,7 @@ return new class extends Migration
 
             $table->date('date')->comment('実施日');
             $table->string('content')->comment('実施内容');
-            $table->timestamps();
+            $table->datetimes();
             $table->softDeletes();
         });
     }
