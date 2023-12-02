@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  *
  * @property int $id
  * @property int $user_id ユーザーID
+ * @property string|null $image プロフィール画像
  * @property string|null $last_name 姓
  * @property string|null $first_name 名
  * @property string $gender 性別
@@ -25,7 +26,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $deleted_at
  * @property-read \App\Models\User|null $user
- * @method static \Database\Factories\ProfileFactory factory(...$parameters)
+ * @method static \Database\Factories\ProfileFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Profile newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Profile newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Profile query()
@@ -36,6 +37,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|Profile whereFirstName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Profile whereGender($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Profile whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Profile whereImage($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Profile whereLastName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Profile wherePrefecture($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Profile whereStreetAddress($value)
@@ -45,8 +47,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|Profile whereZipcode1($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Profile whereZipcode2($value)
  * @mixin \Eloquent
- * @property string|null $image プロフィール画像
- * @method static \Illuminate\Database\Eloquent\Builder|Profile whereImage($value)
  */
 class Profile extends Model
 {

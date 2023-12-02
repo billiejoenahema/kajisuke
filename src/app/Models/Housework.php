@@ -21,11 +21,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Archive[] $archives
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Archive> $archives
  * @property-read int|null $archives_count
  * @property-read \App\Models\Category|null $category
  * @property-read \App\Models\User|null $user
- * @method static \Database\Factories\HouseworkFactory factory(...$parameters)
+ * @method static \Database\Factories\HouseworkFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Housework newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Housework newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Housework query()
@@ -40,6 +40,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Housework whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Housework whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Housework whereUserId($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Archive> $archives
  * @mixin \Eloquent
  */
 class Housework extends Model
