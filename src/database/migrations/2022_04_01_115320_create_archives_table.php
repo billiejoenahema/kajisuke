@@ -19,8 +19,9 @@ return new class extends Migration
 
             $table->date('date')->comment('実施日');
             $table->string('content')->comment('実施内容');
-            $table->datetimes();
-            $table->softDeletes();
+            $table->datetime('created_at')->nullable();
+            $table->datetime('updated_at')->nullable();
+            $table->datetime('deleted_at')->nullable();
         });
     }
 

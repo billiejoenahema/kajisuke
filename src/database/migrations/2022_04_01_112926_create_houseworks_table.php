@@ -23,8 +23,9 @@ return new class extends Migration
             $table->integer('cycle_num')->comment('実行周期数値');
             $table->integer('cycle_unit')->comment('実行周期単位');
             $table->date('next_date')->comment('次回実施日');
-            $table->datetimes();
-            $table->softDeletes();
+            $table->datetime('created_at')->nullable();
+            $table->datetime('updated_at')->nullable();
+            $table->datetime('deleted_at')->nullable();
         });
     }
 
