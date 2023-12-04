@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Rules;
 
 use App\Models\Archive;
@@ -22,13 +24,12 @@ class UniqueDate implements Rule
     /**
      * 同日の家事履歴が存在するかどうかを確認する。
      *
-     * @param  string  $attribute
-     * @param  mixed  $value
+     * @param string $attribute
      * @return bool
      */
     public function passes($attribute, $value)
     {
-        $date = substr($value, 0, 10);
+        $date = mb_substr($value, 0, 10);
 
         return Archive::where('housework_id', $this->housework_id)->where('date', $date)->doesntExist();
     }

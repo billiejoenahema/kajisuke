@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
@@ -13,8 +15,6 @@ class CookieAuthenticationController extends Controller
 {
     /**
      * CookieAuthenticationController constructor.
-     *
-     * @param  Auth  $auth
      */
     public function __construct(
         private Auth $auth,
@@ -22,9 +22,6 @@ class CookieAuthenticationController extends Controller
     }
 
     /**
-     * @param  Request  $request
-     * @return JsonResponse
-     *
      * @throws Exception
      */
     public function login(Request $request): JsonResponse
@@ -43,10 +40,6 @@ class CookieAuthenticationController extends Controller
         throw new Exception('ログインに失敗しました。再度お試しください');
     }
 
-    /**
-     * @param  Request  $request
-     * @return JsonResponse
-     */
     public function logout(Request $request): JsonResponse
     {
         $this->getGuard()->logout();
@@ -56,9 +49,6 @@ class CookieAuthenticationController extends Controller
         return new JsonResponse(['message' => 'ログアウトしました']);
     }
 
-    /**
-     * @return Guard
-     */
     private function getGuard(): Guard
     {
         return $this->auth->guard(config('auth.defaults.guard'));

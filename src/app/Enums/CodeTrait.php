@@ -8,8 +8,6 @@ trait CodeTrait
 {
     /**
      * caseのスカラー値とcaseに対応するテキストの配列を返す。
-     *
-     * @return array
      */
     public static function toArray(): array
     {
@@ -23,8 +21,6 @@ trait CodeTrait
 
     /**
      * caseの一覧の配列を返す。
-     *
-     * @return array
      */
     public static function names(): array
     {
@@ -33,8 +29,6 @@ trait CodeTrait
 
     /**
      * caseのスカラー値一覧の配列を返す。
-     *
-     * @return array
      */
     public static function values(): array
     {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services;
 
 use App\Enums\CycleUnit;
@@ -10,9 +12,6 @@ class HouseworkService
 {
     /**
      * 家事の次回実施日を更新する。
-     *
-     * @param  mixed  $archive
-     * @return void
      */
     public function updateNextDate($archive): void
     {
@@ -29,9 +28,8 @@ class HouseworkService
     /**
      * 家事の次回実施日を返します。
      *
-     * @param  string  $archiveDate
-     * @param  array  $cycle
-     * @return object
+     * @param string $archiveDate
+     * @param array $cycle
      */
     public function getNextDate($archiveDate, $cycle): object
     {

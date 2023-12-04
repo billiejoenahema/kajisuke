@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Api;
 
 use App\Enums\ResponseMessage;
@@ -18,14 +20,11 @@ class HouseworkController extends Controller
 {
     /**
      * 家事一覧を取得する。
-     *
-     * @param  IndexRequest  $request
-     * @return AnonymousResourceCollection
      */
     public function index(IndexRequest $request): AnonymousResourceCollection
     {
         $user = Auth::user();
-        $housework = new Housework;
+        $housework = new Housework();
         $query = Housework::with(['archives', 'category']);
         $query->where('user_id', $user->id);
         $houseworks = $housework->sortByOrder($query, $request)->get();
@@ -35,9 +34,6 @@ class HouseworkController extends Controller
 
     /**
      * 指定した家事を取得する。
-     *
-     * @param  Housework  $housework
-     * @return HouseworkResource
      */
     public function show(Housework $housework): HouseworkResource
     {
@@ -48,9 +44,6 @@ class HouseworkController extends Controller
 
     /**
      * 家事を新規登録する。
-     *
-     * @param  SaveRequest  $request
-     * @return JsonResponse
      */
     public function store(SaveRequest $request): JsonResponse
     {
@@ -65,10 +58,6 @@ class HouseworkController extends Controller
 
     /**
      * 家事を更新する。
-     *
-     * @param  SaveRequest  $request
-     * @param  Housework  $housework
-     * @return JsonResponse
      */
     public function update(SaveRequest $request, Housework $housework): JsonResponse
     {
@@ -82,9 +71,6 @@ class HouseworkController extends Controller
 
     /**
      * 家事を削除する。
-     *
-     * @param  Housework  $housework
-     * @return JsonResponse
      */
     public function destroy(Housework $housework): JsonResponse
     {
@@ -93,12 +79,8 @@ class HouseworkController extends Controller
         return response()->json(['message' => ResponseMessage::HOUSEWORK_DELETED->value], Response::HTTP_OK);
     }
 
-
     /**
      * 紐づくユーザーの名前だけを取得する。
-     *
-     * @param  Housework  $housework
-     * @return JsonResponse
      */
     public function name(Housework $housework): JsonResponse
     {

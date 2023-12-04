@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
@@ -10,8 +12,6 @@ class UserController extends Controller
 {
     /**
      * Handle the incoming request.
-     *
-     * @return UserResource
      */
     public function __invoke(): UserResource
     {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Archive;
 
 use App\Models\Archive;
@@ -37,7 +39,7 @@ class UpdateTest extends TestCase
             'content' => '更新されたコンテント',
         ]);
         $response
-        ->assertOK();
+            ->assertOK();
 
         $this->assertDatabaseHas('archives', [
             'content' => '更新されたコンテント',

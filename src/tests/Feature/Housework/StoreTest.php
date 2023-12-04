@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Housework;
 
 use App\Models\Category;
@@ -32,7 +34,7 @@ class StoreTest extends TestCase
             'next_date' => now()->addWeek(),
         ]);
         $response
-        ->assertCreated();
+            ->assertCreated();
 
         $this->assertDatabaseCount('houseworks', 1);
     }

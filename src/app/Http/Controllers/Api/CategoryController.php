@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Api;
 
 use App\Enums\ResponseMessage;
@@ -17,8 +19,6 @@ class CategoryController extends Controller
 {
     /**
      * カテゴリ一覧を取得する。
-     *
-     * @return AnonymousResourceCollection
      */
     public function index(): AnonymousResourceCollection
     {
@@ -31,9 +31,6 @@ class CategoryController extends Controller
 
     /**
      * カテゴリを登録する。
-     *
-     * @param  SaveRequest  $request
-     * @return JsonResponse
      */
     public function store(SaveRequest $request): JsonResponse
     {
@@ -48,10 +45,6 @@ class CategoryController extends Controller
 
     /**
      * カテゴリを更新する。
-     *
-     * @param  SaveRequest  $request
-     * @param  Category  $category
-     * @return JsonResponse
      */
     public function update(SaveRequest $request, Category $category): JsonResponse
     {
@@ -65,9 +58,6 @@ class CategoryController extends Controller
 
     /**
      * カテゴリを削除する。
-     *
-     * @param  Category  $category
-     * @return JsonResponse
      */
     public function destroy(Category $category): JsonResponse
     {

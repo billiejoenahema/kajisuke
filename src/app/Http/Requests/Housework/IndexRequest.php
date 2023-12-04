@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Requests\Housework;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -31,8 +33,6 @@ class IndexRequest extends FormRequest
 
     /**
      * ソートの方向を取得する
-     *
-     * @return string
      */
     public function toDirection(): string
     {

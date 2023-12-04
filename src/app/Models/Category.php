@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -19,6 +21,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Housework> $houseworks
  * @property-read int|null $houseworks_count
  * @property-read \App\Models\User|null $user
+ *
  * @method static \Database\Factories\CategoryFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Category newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Category newQuery()
@@ -29,7 +32,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereUserId($value)
+ *
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Housework> $houseworks
+ *
  * @mixin \Eloquent
  */
 class Category extends Model
@@ -48,8 +53,6 @@ class Category extends Model
 
     /**
      * 紐づくユーザーを取得する。
-     *
-     * @return BelongsTo
      */
     public function user(): BelongsTo
     {
@@ -58,8 +61,6 @@ class Category extends Model
 
     /**
      * 所有する家事を取得する。
-     *
-     * @return HasMany
      */
     public function houseworks(): HasMany
     {

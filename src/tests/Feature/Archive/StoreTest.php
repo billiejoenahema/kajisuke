@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Archive;
 
 use App\Models\Housework;
@@ -29,7 +31,7 @@ class StoreTest extends TestCase
             'content' => 'テストコンテント',
         ]);
         $response
-        ->assertCreated();
+            ->assertCreated();
 
         $this->assertDatabaseCount('archives', 1);
     }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -17,6 +19,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $deleted_at
  * @property-read \App\Models\Housework|null $housework
+ *
  * @method static \Database\Factories\ArchiveFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Archive newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Archive newQuery()
@@ -28,6 +31,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|Archive whereHouseworkId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Archive whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Archive whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class Archive extends Model
@@ -47,8 +51,6 @@ class Archive extends Model
 
     /**
      * 紐づく家事を取得する。
-     *
-     * @return BelongsTo
      */
     public function housework(): BelongsTo
     {

@@ -13,9 +13,6 @@ enum Gender: int
     case FEMALE = 2;
     case NOT_APPLICABLE = 9;
 
-    /**
-     * @return string
-     */
     public function text(): string
     {
         return match ($this) {

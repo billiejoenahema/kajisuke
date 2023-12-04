@@ -13,9 +13,6 @@ enum CycleUnit: int
     case MONTH = 3;
     case YEAR = 4;
 
-    /**
-     * @return string
-     */
     public function text(): string
     {
         return match ($this) {

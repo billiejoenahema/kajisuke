@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Requests\Housework;
 
 use App\Enums\CycleUnit;
@@ -60,7 +62,7 @@ class SaveRequest extends FormRequest
     protected function prepareForValidation()
     {
         $this->merge([
-            'next_date' => substr($this->next_date, 0, 10),
+            'next_date' => mb_substr($this->next_date, 0, 10),
         ]);
     }
 }

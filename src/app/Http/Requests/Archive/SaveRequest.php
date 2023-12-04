@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Requests\Archive;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -51,7 +53,7 @@ class SaveRequest extends FormRequest
     protected function prepareForValidation()
     {
         $this->merge([
-            'date' => substr($this->date, 0, 10),
+            'date' => mb_substr($this->date, 0, 10),
         ]);
     }
 }

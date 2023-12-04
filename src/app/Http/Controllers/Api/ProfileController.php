@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Api;
 
 use App\Enums\ResponseMessage;
@@ -16,8 +18,6 @@ class ProfileController extends Controller
 {
     /**
      * 自身のプロフィールを取得する
-     *
-     * @return ProfileResource
      */
     public function index(): ProfileResource
     {
@@ -28,10 +28,6 @@ class ProfileController extends Controller
 
     /**
      * 自身のプロフィールを更新する
-     *
-     * @param  SaveRequest  $request
-     * @param  Profile  $profile
-     * @return Response
      */
     public function update(SaveRequest $request, Profile $profile): Response
     {
@@ -45,9 +41,6 @@ class ProfileController extends Controller
 
     /**
      * 自身のプロフィール画像を更新する
-     *
-     * @param  SaveRequest  $request
-     * @return Response
      */
     public function updateImage(SaveRequest $request): Response
     {
@@ -55,8 +48,7 @@ class ProfileController extends Controller
         $profile = Profile::where('user_id', $user->id)->first();
         // 画像ファイルが存在しなければ処理を終了する
         if (empty($request->file())) {
-            return
-                response()->json(['message' => ResponseMessage::PROFILE_NO_IMAGE->value], Response::HTTP_UNSUPPORTED_MEDIA_TYPE);
+            return response()->json(['message' => ResponseMessage::PROFILE_NO_IMAGE->value], Response::HTTP_UNSUPPORTED_MEDIA_TYPE);
         }
         $image = $request->file('image');
         if ($profile->image) {

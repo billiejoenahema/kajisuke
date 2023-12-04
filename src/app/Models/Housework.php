@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -25,6 +27,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read int|null $archives_count
  * @property-read \App\Models\Category|null $category
  * @property-read \App\Models\User|null $user
+ *
  * @method static \Database\Factories\HouseworkFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Housework newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Housework newQuery()
@@ -40,7 +43,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Housework whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Housework whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Housework whereUserId($value)
+ *
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Archive> $archives
+ *
  * @mixin \Eloquent
  */
 class Housework extends Model
@@ -88,8 +93,6 @@ class Housework extends Model
 
     /**
      * 紐づくユーザーを取得する。
-     *
-     * @return BelongsTo
      */
     public function user(): BelongsTo
     {
@@ -98,8 +101,6 @@ class Housework extends Model
 
     /**
      * 所有する履歴を取得する。
-     *
-     * @return HasMany
      */
     public function archives(): HasMany
     {
@@ -108,8 +109,6 @@ class Housework extends Model
 
     /**
      * 紐づくカテゴリを取得する。
-     *
-     * @return BelongsTo
      */
     public function category(): BelongsTo
     {
@@ -119,8 +118,7 @@ class Housework extends Model
     /**
      * 家事の表示順に従って家事一覧をソートする。
      *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @param  mixed  $request
+     * @param \Illuminate\Database\Eloquent\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function sortByOrder($query, $request)
@@ -137,7 +135,7 @@ class Housework extends Model
     /**
      * 家事の更新日時が新しい順にソートする。
      *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param \Illuminate\Database\Eloquent\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function sortByUpdatedAt($query)
@@ -148,7 +146,7 @@ class Housework extends Model
     /**
      * 家事の次回実施日が近い順にソートする。
      *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param \Illuminate\Database\Eloquent\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function sortByNextDate($query)
