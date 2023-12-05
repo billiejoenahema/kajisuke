@@ -31,7 +31,7 @@ class GenerateUser extends Command
     public function handle()
     {
         $name = $this->argument('name');
-        $email = $name.'@example.com';
+        $email = $name . '@example.com';
         $password = str()->random(random_int(16, 32));
 
         User::create([
@@ -40,8 +40,8 @@ class GenerateUser extends Command
             'password' => bcrypt($password),
         ]);
 
-        $this->info('user email: '.$email);
-        $this->info('user password: '.$password);
+        $this->info('user email: ' . $email);
+        $this->info('user password: ' . $password);
 
         return 0;
     }

@@ -30,7 +30,7 @@ class DeleteTest extends TestCase
         ]);
 
         // 実行
-        $uri = '/api/houseworks/'.$housework[0]->id;
+        $uri = '/api/houseworks/' . $housework[0]->id;
         $response = $this->actingAs($user)->deleteJson($uri, [
             'id' => $housework[0]->id,
         ]);

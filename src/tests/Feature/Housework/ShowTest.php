@@ -33,7 +33,7 @@ class ShowTest extends TestCase
 
         // 実行
 
-        $response = $this->actingAs($user)->getJson('/api/houseworks/'.$housework->id.'/name');
+        $response = $this->actingAs($user)->getJson('/api/houseworks/' . $housework->id . '/name');
         $response
             ->assertOK()
             ->assertJsonFragment([
@@ -59,7 +59,7 @@ class ShowTest extends TestCase
         ]);
 
         // 実行
-        $response = $this->actingAs($user)->getJson('/api/houseworks/'.$housework->id);
+        $response = $this->actingAs($user)->getJson('/api/houseworks/' . $housework->id);
         $response
             ->assertOK()
             ->assertJsonFragment([

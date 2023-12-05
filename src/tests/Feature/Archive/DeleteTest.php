@@ -31,7 +31,7 @@ class DeleteTest extends TestCase
             'housework_id' => $housework->id,
         ]);
         // 実行
-        $uri = '/api/archives/'.$archive->id;
+        $uri = '/api/archives/' . $archive->id;
         $response = $this->actingAs($user)
             ->deleteJson($uri);
         $response->assertStatus(Response::HTTP_NO_CONTENT);

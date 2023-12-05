@@ -41,7 +41,7 @@ class UpdateTest extends TestCase
         ];
 
         // 実行
-        $uri = '/api/houseworks/'.$housework->id;
+        $uri = '/api/houseworks/' . $housework->id;
         $response = $this->actingAs($user)->patchJson($uri, $data);
         $response->assertOk();
         $this->assertDatabaseHas('houseworks', [

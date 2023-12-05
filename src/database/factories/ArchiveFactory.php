@@ -21,7 +21,7 @@ class ArchiveFactory extends Factory
         return [
             'housework_id' => 1,
             'date' => now(),
-            'content' => '履歴内容'.rand(1, 99),
+            'content' => '履歴内容' . rand(1, 99),
         ];
     }
 }

@@ -3,7 +3,9 @@
   "cache-file": ".pint.cache",
   "exclude": ["database/migrations"],
   "rules": {
-    "concat_space": false,
+    "concat_space": {
+      "spacing": "one"
+    },
     "date_time_immutable": true,
     "declare_parentheses": true,
     "declare_strict_types": true,
