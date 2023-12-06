@@ -37,7 +37,7 @@ class UpdateTest extends TestCase
             'comment' => 'テストコメント',
             'cycle_num' => rand(1, 31),
             'cycle_unit' => rand(1, 4),
-            'next_date' => mb_substr(now()->addWeek(), 0, 10),
+            'next_date' => mb_substr(now()->addWeek()->toDateTimeString(), 0, 10),
         ];
 
         // 実行
