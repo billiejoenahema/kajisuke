@@ -27,7 +27,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read int|null $archives_count
  * @property-read \App\Models\Category|null $category
  * @property-read \App\Models\User|null $user
- *
  * @method static \Database\Factories\HouseworkFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Housework newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Housework newQuery()
@@ -43,9 +42,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Housework whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Housework whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Housework whereUserId($value)
- *
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Archive> $archives
- *
  * @mixin \Eloquent
  */
 class Housework extends Model
