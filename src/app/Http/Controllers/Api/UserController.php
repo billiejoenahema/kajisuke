@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
     /**
-     * Handle the incoming request.
+     * ログインユーザー情報を取得する
      */
     public function __invoke(): UserResource
     {

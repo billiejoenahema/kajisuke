@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $deleted_at
  * @property-read \App\Models\Housework|null $housework
+ *
  * @method static \Database\Factories\ArchiveFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Archive newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Archive newQuery()

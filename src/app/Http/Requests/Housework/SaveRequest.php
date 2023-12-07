@@ -12,20 +12,16 @@ class SaveRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
-     *
-     * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
 
     /**
      * Get the validation rules that apply to the request.
-     *
-     * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'category_id' => ['required', 'integer', Rule::notIn(['0']), 'exists:categories,id'],
@@ -39,10 +35,8 @@ class SaveRequest extends FormRequest
 
     /**
      * バリデーションエラーのカスタム属性の取得
-     *
-     * @return array
      */
-    public function attributes()
+    public function attributes(): array
     {
         return [
             'title' => '家事名',
@@ -56,10 +50,8 @@ class SaveRequest extends FormRequest
 
     /**
      * バリーデーションのためにデータを準備
-     *
-     * @return void
      */
-    protected function prepareForValidation()
+    protected function prepareForValidation(): void
     {
         $this->merge([
             'next_date' => mb_substr($this->next_date, 0, 10),
