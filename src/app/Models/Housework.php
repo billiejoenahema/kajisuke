@@ -45,7 +45,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Housework whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Housework whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Housework whereUserId($value)
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Archive> $archives
  * @mixin \Eloquent
  */
 class Housework extends Model

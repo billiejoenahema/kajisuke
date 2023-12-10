@@ -32,7 +32,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereUserId($value)
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Housework> $houseworks
  * @mixin \Eloquent
  */
 class Category extends Model

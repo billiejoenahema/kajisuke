@@ -75,7 +75,7 @@ sql:
 redis:
 	docker-compose exec redis redis-cli
 ide-helper:
-	docker-compose exec app php artisan ide-helper:models --write
+	docker-compose exec app php artisan ide-helper:models --write --reset
 pint:
 	docker-compose exec app ./vendor/bin/pint -v
 phpstan:
