@@ -33,7 +33,6 @@ class UpdateTest extends TestCase
         // 実行
         $uri = '/api/archives/' . $archive->id;
         $response = $this->actingAs($user)->patchJson($uri, [
-            'id' => $archive->id,
             'housework_id' => $housework->id,
             'date' => now(),
             'content' => '更新されたコンテント',
