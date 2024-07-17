@@ -15,7 +15,7 @@ This application manages the schedule of housework chores that are not done ever
 ### app container
 
 - Base image
-  - [php](https://hub.docker.com/_/php):8.1-fpm-bullseye
+  - [php](https://hub.docker.com/_/php):8.2-fpm-buster
   - [composer](https://hub.docker.com/_/composer):2.2
 
 ### web container
@@ -30,10 +30,11 @@ This application manages the schedule of housework chores that are not done ever
 
 ## architecture
 
-- Laravel 9
+- Laravel 11.16.0
+- PHP 8.2.7
 - Vue 3.2
-- Vuex
-- Vue-router
+- Vuex 4.0
+- Vue-router 4.0
 - Docker
 - nginx 1.2
 - MySQL 8.0
